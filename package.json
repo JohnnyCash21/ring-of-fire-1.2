@@ -1,0 +1,18 @@
+{
+  "name": "ringoffire",
+  "version": "1.0.0",
+  "description": "mmm, Johnny Cash is here",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
+
+  },
+  "author": "Wallace",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "opusscript": "0.0.7",
+    "ytdl-core": "^1.0.6"
+  }
+}
