@@ -13,6 +13,15 @@ Client.on('ready', ()=>{
     console.log("Bot is online.");
 })
 
+Client.on('guildMemberAdd', member =>{
+
+    const channel = member.guild.channels.find(channel => channel.name === "general");
+    if(!channel) return;
+
+    channel.send(`Welcome to the CHEESE server, ${member}, please read the rules in the rules channel!`)
+
+});
+
 Client.on('message', (message)=>{
     if(!message.content.startsWith(prefix)) return;
 
