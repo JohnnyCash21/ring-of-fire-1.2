@@ -9,6 +9,8 @@ var servers = {};
 
 
 
+
+
 Client.on('ready', ()=>{
     console.log("Bot is online.");
 })
@@ -97,22 +99,50 @@ Client.on('message', (message)=>{
              
     }
 
-    switch(args[0]){
-        case 'photoshop':
-            number = 43;
-            imageNumber = Math.floor (Math.random() * (number - 1 + 1)) + 1;
-            const attachment = new Attachment('./images/' + imageNumber + '.PNG');
-            message.channel.send(message.author, attachment)
-        break;
-    }
+
 
     if(message.content.startsWith(prefix + "image")) {
         number = 43;
         imageNumber = Math.floor (Math.random() * (number - 1 + 1)) + 1;
         message.channel.send ( {files: ["./images/" + imageNumber + ".PNG"]} )
     }
-    
 
+
+    const response  = [
+        "It is certain.",
+        "It is decidedly so.",
+        "Without a doubt.",
+        "Yes - definitely.",
+        "You may rely on it.",
+        "As I see it, yes.",
+        "Most likely.",
+        "Outlook good.",
+        "Yes.",
+        "Signs point to yes.",
+        "Reply hazy, try again.",
+        "Ask again later.",
+        "Better not tell you now.",
+        "Cannot predict now.",
+        "Concentrate and ask again.",
+        "Don't count on it.",
+        "My reply is no.",
+        "My sources say no.",
+        "Outlook not so good.",
+        "Very doubtful."
+    ];
+
+    if(message.content.startsWith(prefix + "8ball")){
+        ballMessage = message.content.slice (7);
+        responsenumber = 20;
+
+        const randomIndex = Math.floor(Math.random() * (responsenumber - 1 + 1)) + 1;
+    message.channel.send(response[randomIndex]);
+        
+    }
+
+    
+    
+   
     const command = args.shift().toLowerCase();
 
 
@@ -129,7 +159,7 @@ Client.on('message', (message)=>{
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, **!hello** - you will be able to speak to me! \n **!help** - the reason you came here \n **!ping** - Shows how fast i respond back \n **!play (link)** - Make sure you are in Voice Channel, and insert YouTube link, and here the lovely music!; \n **!skip** - Skip the playing song \n **!stop** - Johnny Cash will leave the Voice Channel \n \n **!image** - Johnny Cash will send you one of Tom's cursed photoshops");
+        message.author.send("Hello, **!hello** - you will be able to speak to me! \n **!help** - the reason you came here \n **!ping** - Shows how fast i respond back \n **!play (link)** - Make sure you are in Voice Channel, and insert YouTube link, and here the lovely music!; \n **!skip** - Skip the playing song \n **!stop** - Johnny Cash will leave the Voice Channel \n \n **!image** - Johnny Cash will send you one of Tom's cursed photoshops \n **!8ball** - ask a yes or no question, and let your fate decide...");
 
         
     }
