@@ -25,6 +25,7 @@ Client.on('guildMemberAdd', member =>{
 Client.on('message', (message)=>{
     if(!message.content.startsWith(prefix)) return;
 
+
     
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -95,6 +96,21 @@ Client.on('message', (message)=>{
 
              
     }
+
+    switch(args[0]){
+        case 'photoshop':
+            number = 43;
+            imageNumber = Math.floor (Math.random() * (number - 1 + 1)) + 1;
+            const attachment = new Attachment('./images/' + imageNumber + '.PNG');
+            message.channel.send(message.author, attachment)
+        break;
+    }
+
+    if(message.content.startsWith(prefix + "image")) {
+        number = 43;
+        imageNumber = Math.floor (Math.random() * (number - 1 + 1)) + 1;
+        message.channel.send ( {files: ["./images/" + imageNumber + ".PNG"]} )
+    }
     
 
     const command = args.shift().toLowerCase();
@@ -113,7 +129,7 @@ Client.on('message', (message)=>{
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, **!hello** - you will be able to speak to me! \n **!help** - the reason you came here \n **!ping** - Shows how fast i respond back \n **!play (link)** - Make sure you are in Voice Channel, and insert YouTube link, and here the lovely music!; \n **!skip** - Skip the playing song \n **!stop** - Johnny Cash will leave the Voice Channel");
+        message.author.send("Hello, **!hello** - you will be able to speak to me! \n **!help** - the reason you came here \n **!ping** - Shows how fast i respond back \n **!play (link)** - Make sure you are in Voice Channel, and insert YouTube link, and here the lovely music!; \n **!skip** - Skip the playing song \n **!stop** - Johnny Cash will leave the Voice Channel \n \n **!image** - Johnny Cash will send you one of Tom's cursed photoshops");
 
         
     }
