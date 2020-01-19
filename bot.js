@@ -107,7 +107,7 @@ if(message.content.startsWith(prefix + "image")){
         photonumber = 43;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
-    message.channel.send ( {files: ["./1.PNG/" "./2.PNG/"]});
+    message.channel.send ( {files: ["./1.PNG/"]});
     }
 
     const response  = [
