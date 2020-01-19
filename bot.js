@@ -104,7 +104,7 @@ Client.on('message', (message)=>{
     if(message.content.startsWith(prefix + "image")) {
         number = 43;
         imageNumber = Math.floor (Math.random() * (number - 1 + 1)) + 1;
-        message.channel.send ( {files: ["./1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43/" + imageNumber + ".PNG"]} )
+        message.channel.send ( {files: ["./1.PNG, 2.PNG, 3.PNG, 4.PNG, 5.PNG, 6.PNG, 7.PNG, 8.PNG, 9.PNG, 10.PNG, 11.PNG, 12.PNG, 13.PNG, 14.PNG, 15.PNG, 16.PNG, 17.PNG, 18.PNG, 19.PNG, 20.PNG, 21.PNG, 22.PNG, 23.PNG, 24.PNG, 25.PNG, 26.PNG, 27.PNG, 28.PNG, 29.PNG, 30.PNG, 31.PNG, 32.PNG, 33.PNG, 34.PNG, 35.PNG, 36.PNG, 37.PNG, 38.PNG, 39.PNG, 40.PNG, 41.PNG, 42.PNG, 43.PNG/" , imageNumber]} )
     }
 
 
