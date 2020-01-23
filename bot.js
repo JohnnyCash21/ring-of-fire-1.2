@@ -13,6 +13,7 @@ var servers = {};
 
 Client.on('ready', ()=>{
     console.log("Bot is online.");
+    Client.user.setActivity('with my guitar | use "!help"');
 })
 
 Client.on('guildMemberAdd', member =>{
@@ -98,16 +99,22 @@ Client.on('message', (message)=>{
 
              
     }
+    
+    const image = [
+        {files: ["./1.PNG/"]} ,
+        {files: ["./2.PNG/"]} ,
+        {files: ["./3.PNG/"]}
+    ];
 
 
 
 
 
 if(message.content.startsWith(prefix + "image")){
-        photonumber = 43;
+        photonumber = 3;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
-    message.channel.send ( {files: ["./1.PNG/"]});
+    message.channel.send (image[randomPhoto]);
     }
 
     const response  = [
@@ -165,7 +172,7 @@ if(message.content.startsWith(prefix + "image")){
         "I was gifted with a species of tarantula named for me. The tarantula, who is all black and can be found in Folsom, CA, is aptly named **Aphonopelma johnnycashi.**",
         "In 1985, I teamed up with the likes of Kristofferson, Willie Nelson, and Waylon Jennings to form a country supergroup called The Highwaymen. We recorded three albums and performed periodically together throughout the latter half of the ‘80s and into the ‘90s.",
         "Highest of honours was awarded to me. There are only two people who have been inducted into to the Songwriter’s Hall of Fame, the Rock and Roll Hall of Fame and the Country Music Hall of Fame: Hank Williams and Johnny Cash.",
-        "I had to have a cyst removed from his face while I was in the Air Force. The story goes that the doctor was drunk during the procedure and somehow messed up, leaving me with a permanent scar.",
+        "I had to have a cyst removed from my face while I was in the Air Force. The story goes that the doctor was drunk during the procedure and somehow messed up, leaving me with a permanent scar.",
         "I was only 12 years old when I started smoking. Although, if I had already gone through puberty at that point and had my trademark deep voice, it would be hard to tell that I was not yet a teen.",
         "Now this is what I call, a Ring of Fire. It took June a really long time before she agreed to marry me. I proposed to her 30 times before she finally gave in, and our marriage lasted from 1968 until her passing in 2003.",
         "Carter’s passing was sudden and it took its toll on me. She had gone in for heart surgery and died from complications relating to the surgery. One of my close friends, Kris Kristofferson, said that I struggled after she passed, and that “his daughter told me he cried every night.” Just four months later, I would also pass. I had been admitted to hospital not long before my death due to complications from diabetes.",
