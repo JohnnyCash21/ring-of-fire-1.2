@@ -103,7 +103,47 @@ Client.on('message', (message)=>{
     const image = [
         {files: ["./1.PNG/"]} ,
         {files: ["./2.PNG/"]} ,
-        {files: ["./3.PNG/"]}
+        {files: ["./3.PNG/"]} ,
+        {files: ["./4.PNG/"]} ,
+        {files: ["./5.PNG/"]} ,
+        {files: ["./6.PNG/"]} ,
+        {files: ["./7.PNG/"]} ,
+        {files: ["./8.PNG/"]} ,
+        {files: ["./9.PNG/"]} ,
+        {files: ["./10.PNG/"]} ,
+        {files: ["./11.PNG/"]} ,
+        {files: ["./12.PNG/"]} ,
+        {files: ["./13.PNG/"]} ,
+        {files: ["./14.PNG/"]} ,
+        {files: ["./15.PNG/"]} ,
+        {files: ["./16.PNG/"]} ,
+        {files: ["./17.PNG/"]} ,
+        {files: ["./18.PNG/"]} ,
+        {files: ["./19.PNG/"]} ,
+        {files: ["./20.PNG/"]} ,
+        {files: ["./21.PNG/"]} ,
+        {files: ["./22.PNG/"]} ,
+        {files: ["./23.PNG/"]} ,
+        {files: ["./24.PNG/"]} ,
+        {files: ["./25.PNG/"]} ,
+        {files: ["./26.PNG/"]} ,
+        {files: ["./27.PNG/"]} ,
+        {files: ["./28.PNG/"]} ,
+        {files: ["./29.PNG/"]} ,
+        {files: ["./30.PNG/"]} ,
+        {files: ["./31.PNG/"]} ,
+        {files: ["./32.PNG/"]} ,
+        {files: ["./33.PNG/"]} ,
+        {files: ["./34.PNG/"]} ,
+        {files: ["./35.PNG/"]} ,
+        {files: ["./36.PNG/"]} ,
+        {files: ["./37.PNG/"]} ,
+        {files: ["./38.PNG/"]} ,
+        {files: ["./39.PNG/"]} ,
+        {files: ["./40.PNG/"]} ,
+        {files: ["./41.PNG/"]} ,
+        {files: ["./42.PNG/"]} ,
+        {files: ["./43.PNG/"]} ,
     ];
 
 
@@ -111,7 +151,7 @@ Client.on('message', (message)=>{
 
 
 if(message.content.startsWith(prefix + "image")){
-        photonumber = 3;
+        photonumber = 43;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
     message.channel.send (image[randomPhoto]);
