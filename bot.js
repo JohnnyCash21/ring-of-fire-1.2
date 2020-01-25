@@ -156,6 +156,10 @@ if(message.content.startsWith(prefix + "image")){
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
     message.channel.send (image[randomPhoto]);
     }
+    
+    if(message.content.startsWith(prefix + "mrtubb")){
+        message.channel.send ({files: ["./mrtubb.jpg/"]});
+    }
 
     const response  = [
         "It is certain.",
