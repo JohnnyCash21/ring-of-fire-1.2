@@ -287,7 +287,7 @@ if(message.content.startsWith(prefix + "image")){
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, \n **!hello** - you will be able to speak to me! \n **!help** - the reason you came here \n **!ping** - Shows how fast i respond back \n **!play (link)** - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n **!skip** - Skip the playing song \n **!stop** - Johnny Cash will leave the Voice Channel \n \n **!image** - Johnny Cash will send you one of Tom's cursed photoshops \n **!8ball** - ask a yes or no question, and let your fate decide... \n **!fact** - Get a random fact about me. \n **!mrtubb** - Get an image of the man himself.");
+        message.author.send("Hello, \n **!hello** - you will be able to speak to me! \n **!help** - the reason you came here \n **!ping** - Shows how fast i respond back \n **!play (link)** - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       **!skip** - Skip the playing song \n       **!stop** - Johnny Cash will leave the Voice Channel \n \n **!image** - Johnny Cash will send you one of Tom's cursed photoshops \n **!8ball** - ask a yes or no question, and let your fate decide... \n **!fact** - Get a random fact about me. \n **!mrtubb** - Get an image of the man himself. \n **!urban (word)** - Searches the term in the urban dictionary. \n **!urban** - Leaving it with just that will urban dictionary search a random search term.");
 
         
     }
