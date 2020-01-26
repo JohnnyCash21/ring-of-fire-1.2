@@ -28,6 +28,13 @@ Client.on('guildMemberAdd', member =>{
 
 });
 
+Client.on('guildMemberRemove', member =>{
+    const channel = member.guild.channels.find(channel => channel.name === "general");
+    if(!channel) return;
+
+    channel.send(`Oh no! ${member} left the server! Their Wallace dignity will stay with us forever.`)
+});
+
 Client.on('message', (message)=>{
     if(!message.content.startsWith(prefix)) return;
 
