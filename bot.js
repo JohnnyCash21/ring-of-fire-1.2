@@ -3,6 +3,9 @@ const Client = new Discord.Client();
 const prefix = "!";
 const ytdl = require("ytdl-core");
 const streamOptions = { seek: 0, volume: 1 };
+const urban = require("urban");
+const { RichEmbed } = require("discord.js");
+const { stripIndents } = require("common-tags");
 var version = '1.2';
 var servers = {};
 
@@ -98,6 +101,40 @@ Client.on('message', (message)=>{
             break;
 
              
+    }
+    
+    switch (args[0]) {
+    case "urban":       
+        if(args <1 && !["random", "search"].includes(args[0])) return message.channel.send("The correct usage is `!urban (query) | random option - !urban`")
+        let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
+        let search = args[1] ? urban(args.slice(1).join(" ")) : urban.random();
+            try {
+                search.first(res => {
+                  if(!res) return message.channel.send(`No results found for this topic, sorry!`)
+                  let { word, definition, example, thumbs_up, thumbs_down, permalink, author} = res
+
+                      let UrBanEmbed = new Discord.RichEmbed()
+                          .setColor("#00FFFF")
+                          .setAuthor(`Urban Dictionary | ${word}`, image2)
+                          .setThumbnail(image2)
+                          .setDescription(stripIndents`**Definition:** ${definition || "No definition"}
+
+                          **Example:** ${example || "No example"}
+                          
+                          **Upvote:** ${thumbs_up || 0}
+
+                          **Downvote:** ${thumbs_down || 0}
+
+                          **Link:** [link to ${word}](${permalink || "https://www.urbandictionary.com/"})`)
+                          .setFooter(`Written by ${author || "unknown"}`, message.guild.iconURL);
+
+                          message.channel.send(UrBanEmbed)
+                })
+            } catch(e) {
+                console.log(e)
+                return message.channel.send("I'm broken, Try again!")
+            }
+      break;
     }
     
     const image = [
