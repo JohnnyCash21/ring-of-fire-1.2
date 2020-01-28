@@ -120,6 +120,7 @@ Client.on('message', (message)=>{
                   if(!res) return message.channel.send(`No results found for this topic, sorry!`)
                   let { word, definition, example, thumbs_up, thumbs_down, permalink, author} = res
 
+                      try {
                       let UrBanEmbed = new Discord.RichEmbed()
                           .setColor("#00FFFF")
                           .setAuthor(`Urban Dictionary | ${word}`, image2)
@@ -127,7 +128,7 @@ Client.on('message', (message)=>{
                           .setDescription(stripIndents`**Definition:** ${definition || "No definition"}
 
                           **Example:** ${example || "No example"}
-                          
+
                           **Upvote:** ${thumbs_up || 0}
 
                           **Downvote:** ${thumbs_down || 0}
@@ -135,7 +136,17 @@ Client.on('message', (message)=>{
                           **Link:** [link to ${word}](${permalink || "https://www.urbandictionary.com/"})`)
                           .setFooter(`Written by ${author || "unknown"}`, message.guild.iconURL);
 
-                          message.channel.send(UrBanEmbed)
+
+
+                          
+                            message.channel.send(UrBanEmbed)
+
+
+
+                        } catch(e) {
+                            console.log(e)
+                            return message.channel.send("That definition exceeds the character limit, sorry!")
+                        }
                 })
             } catch(e) {
                 console.log(e)
