@@ -327,7 +327,7 @@ if(message.content.startsWith(prefix + "image")){
             filter = m => (m.author.id === message.author.id) && m.content >= 1 && m.content <= youtubeResults.length;
             let collected = await message.channel.awaitMessages(filter, { maxMatches: 1});
             let selected = youtubeResults[collected.first().content - 1];
-            message.member.voiceChannel.join()
+            if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){})
 
             embed = new Discord.RichEmbed()
                 .setTitle(`${selected.title}`)
