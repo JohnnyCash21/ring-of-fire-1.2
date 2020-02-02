@@ -2,6 +2,15 @@ const Discord = require("discord.js");
 const Client = new Discord.Client();
 const prefix = "!";
 const ytdl = require("ytdl-core");
+const YOUTUBE_API = (process.env.YOUTUBE_API);
+const search = require('youtube-search');
+const opts = {
+    maxResults: 7,
+    key: YOUTUBE_API,
+    type: 'video'
+};
+
+const YouTube = require("simple-youtube-api");
 const streamOptions = { seek: 0, volume: 1 };
 const urban = require("urban");
 const { RichEmbed } = require("discord.js");
@@ -285,6 +294,57 @@ if(message.content.startsWith(prefix + "image")){
         const randomCash = Math.floor(Math.random() * (cashnum - 1 + 1)) + 1;
     message.channel.send(CashFacts[randomCash]);
     }
+    
+    if(message.content.toLowerCase() === '!search') {
+        let embed = new Discord.RichEmbed()
+            .setColor("#73ffdc")
+            .setDescription("Please enter a search query. This time, don't use the command with your search")
+            .setTitle("Johnny Cash Music Search");
+        let embedMsg = await message.channel.send(embed);
+        let filter = m => m.author.id === message.author.id;
+        let query = await message.channel.awaitMessages(filter, { max: 1});
+        let results = await search(query.first().content, opts).catch(err => console.log(err));
+        if(results) {
+            let youtubeResults = results.results;
+            let i =0;
+            let titles = youtubeResults.map(result => {
+                i++;
+                return i + ") " + result.title;
+            });
+            console.log(titles);
+            message.channel.send({
+                embed: {
+                    title: 'Select which song you want by typing the number',
+                    description: titles.join("\n")
+                }
+            }).catch(err => console.log(err));
+            
+            filter = m => (m.author.id === message.author.id) && m.content >= 1 && m.content <= youtubeResults.length;
+            let collected = await message.channel.awaitMessages(filter, { maxMatches: 1});
+            let selected = youtubeResults[collected.first().content - 1];
+
+            embed = new Discord.RichEmbed()
+                .setTitle(`${selected.title}`)
+                .setURL(`${selected.link}`)
+                .setDescription(`${selected.description}`)
+                .setThumbnail(`${selected.thumbnails.default.url}`)
+            message.channel.send(embed);
+            
+          
+            
+                
+        
+    
+          
+            
+        }
+
+        
+        
+        
+        
+
+    }
 
     
     
@@ -305,7 +365,7 @@ if(message.content.startsWith(prefix + "image")){
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term.");
+        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - By inputting this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and copy the youtube url Johnny Cash gives you, then use the '!play' command! \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term.");
 
         
     }
