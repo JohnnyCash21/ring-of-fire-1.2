@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Client = new Discord.Client();
 const prefix = "!";
 const ytdl = require("ytdl-core");
-const YOUTUBE_API = "AIzaSyArEsDU_MmZH6gWq4VqohfHD2JCD1Uud8A";
+const YOUTUBE_API = (process.env.YOUTUBE_API);
 const search = require('youtube-search');
 const opts = {
     maxResults: 7,
@@ -44,7 +44,7 @@ Client.on('guildMemberRemove', member =>{
     channel.send(`Oh no! ${member} left the server! Their Wallace dignity will stay with us forever.`)
 });
 
-Client.on('message', (message)=>{
+Client.on('message', async (message)=>{
     if(!message.content.startsWith(prefix)) return;
 
 
