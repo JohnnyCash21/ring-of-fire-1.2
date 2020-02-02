@@ -327,10 +327,7 @@ if(message.content.startsWith(prefix + "image")){
             filter = m => (m.author.id === message.author.id) && m.content >= 1 && m.content <= youtubeResults.length;
             let collected = await message.channel.awaitMessages(filter, { maxMatches: 1});
             let selected = youtubeResults[collected.first().content - 1];
-            if(!selected.guild.voiceConnection) selected.member.voiceChannel.join().then(function(connection){
-                play(connection, selected);
-
-            })
+           
 
             embed = new Discord.RichEmbed()
                 .setTitle(`${selected.title}`)
@@ -375,7 +372,7 @@ if(message.content.startsWith(prefix + "image")){
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - By inputting this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and make sure you are in a voice channel! \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term.");
+        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - By inputting this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and make sure you are in a voice channel! Copy the link given, and use the !play command  \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term.");
 
         
     }
