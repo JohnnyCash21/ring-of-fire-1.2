@@ -75,6 +75,11 @@ Client.on('message', async (message)=>{
                 message.channel.send("you need to provide a link");
                 return;
             }
+            
+            if(!message.content.startsWith("!play https://www.youtube.com/watch?v=")){
+                message.channel.send("Please provide a link");
+                return;
+            }
     
             if(!message.member.voiceChannel){
                 message.channel.send("You must be in a voice channel to play the bot!");
