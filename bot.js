@@ -334,7 +334,7 @@ if(message.content.startsWith(prefix + "image")){
                 .setDescription(`${selected.description}`)
                 .setThumbnail(`${selected.thumbnails.default.url}`)
             message.channel.send(embed);
-            message.channel.send(`${selected.link}`);
+            message.channel.send(`!play ${selected.link}`);
             
           
             
