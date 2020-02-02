@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const Client = new Discord.Client();
 const prefix = "!";
 const ytdl = require("ytdl-core");
-const YOUTUBE_API = (process.env.YOUTUBE_API);
+const YOUTUBE_API = "AIzaSyArEsDU_MmZH6gWq4VqohfHD2JCD1Uud8A";
 const search = require('youtube-search');
 const opts = {
     maxResults: 7,
