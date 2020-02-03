@@ -308,6 +308,7 @@ if(message.content.startsWith(prefix + "image")){
         if(!message.member.voiceChannel){
                 message.channel.send("You must be in a voice channel to play the bot!");
                 return;
+        }
         let embedMsg = await message.channel.send(embed);
         let filter = m => m.author.id === message.author.id;
         let query = await message.channel.awaitMessages(filter, { max: 1});
