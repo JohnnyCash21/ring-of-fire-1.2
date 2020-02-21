@@ -28,6 +28,7 @@ Client.on('ready', ()=>{
     Client.user.setActivity('with my guitar | use "!help"');
 })
 
+
 Client.on('guildMemberAdd', member =>{
 
     const channel = member.guild.channels.find(channel => channel.name === "general");
@@ -51,6 +52,65 @@ Client.on('message', async (message)=>{
     
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    
+    switch (args[0]) {
+        case 'kick':
+            if(!message.member.hasPermission(["ADMINISTRATOR", "KICK_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
+
+            const user = message.mentions.users.first();
+
+            if(user){
+                const member = message.guild.member(user);
+
+                if(member){
+                    member.kick('You were kicked.').then(() =>{
+                        message.reply(`Sucessfully kicked ${user.tag}`);
+                    }).catch(err =>{
+                        message.reply('I was unable to kick this member');
+                        console.log(err);
+                    });
+                }else{
+                    message.reply("That user is not in this server");
+                }
+
+                
+            }else{
+                message.reply("You need to specify a person");
+            }
+
+            
+            break;
+    }
+
+
+    switch (args[0]) {
+        case 'ban':
+            if(!message.member.hasPermission(["ADMINISTRATOR", "BAN_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
+
+            const user = message.mentions.users.first();
+
+            if(user){
+                const member = message.guild.member(user);
+
+                if(member){
+                    member.ban('You were banned.').then(() =>{
+                        message.reply(`Sucessfully banned ${user.tag}`);
+                    }).catch(err =>{
+                        message.reply('I was unable to ban this member');
+                        console.log(err);
+                    });
+                }else{
+                    message.reply("That user is not in this server");
+                }
+
+                
+            }else{
+                message.reply("You need to specify a person");
+            }
+
+            
+            break;
+    }
 
     switch (args[0]) {
         case 'play':
