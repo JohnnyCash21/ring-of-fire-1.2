@@ -323,19 +323,20 @@ if(message.content.startsWith(prefix + "image")){
         
     }
     
-    const wishes = [
-        "Your wish has been granted",
-        "Your wish has made me mad, thus you will not have your wish, and, you will receive much worse. Pain, misery, darkness for as long as i decide."
-    ];
-    
     if(message.content.startsWith(prefix + "wish")){
-        wishMessage = message.content.slice (7);
         wishChance = 2;
         
         const randomIndexWish = Math.floor(Math.random() * (wishChance - 1 + 1)) + 1;
-    message.channel.send(wishes[randomIndexWish]);
+        if(randomIndexWish == 1){
+            message.channel.send("Your wish has been granted");
+        }else if(randomIndexWish == 2){
+            message.channel.send("Your wish has made me mad, thus you will not have your wish, and, you will receive much worse. Pain, misery, darkness for as long as i decide.");
+        }
+
     
     }
+    
+    
     
     const CashFacts = [
         "I was much more than a songwriter, i was a writer in the broadest sense. As a child, i wrote poems, and continued to write stories as a teenager, honing my skills.",
