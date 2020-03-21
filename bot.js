@@ -323,6 +323,19 @@ if(message.content.startsWith(prefix + "image")){
         
     }
     
+    const wishes = [
+        "Your wish has been granted",
+        "Your wish has made me mad, thus you will not have your wish, and, you will receive much worse. Pain, misery, darkness for as long as i decide."
+    ];
+    
+    if(message.content.startsWith(prefix + "wish")){
+        wishChance = 2;
+        
+        const randomIndexWish = Math.floor(Math.random() * (wishChance - 1 + 1)) + 1;
+    message.channel.send(wishes[randomIndexWish]);
+    
+    }
+    
     const CashFacts = [
         "I was much more than a songwriter, i was a writer in the broadest sense. As a child, i wrote poems, and continued to write stories as a teenager, honing my skills.",
         "I was a ordained minister. I was deeply religous. I was simultaneously a god-fearing Christian as well as a rebellious outlaw of sorts.",
@@ -493,7 +506,7 @@ if(message.content.startsWith(prefix + "image")){
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!hdtubb` - Get a HD image of Mr Tubb! \n `!tubb2` - Get an image of a new Mr Tubb photo! \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt.");
+        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!hdtubb` - Get a HD image of Mr Tubb! \n `!tubb2` - Get an image of a new Mr Tubb photo! \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt. \n `!wish` - Ask Johnny Cash a wish, and see if you're lucky.");
 
         
     }
