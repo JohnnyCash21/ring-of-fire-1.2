@@ -329,6 +329,7 @@ if(message.content.startsWith(prefix + "image")){
     ];
     
     if(message.content.startsWith(prefix + "wish")){
+        wishMessage = message.content.slice (7);
         wishChance = 2;
         
         const randomIndexWish = Math.floor(Math.random() * (wishChance - 1 + 1)) + 1;
