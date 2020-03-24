@@ -34,7 +34,7 @@ Client.on('guildMemberAdd', member =>{
     const channel = member.guild.channels.find(channel => channel.name === "general");
     if(!channel) return;
 
-    channel.send(`Welcome to the CHEESE server, ${member}, please read the rules in the rules channel!`)
+    channel.send(`Welcome to this server, ${member}, please read the rules in the rules channel!`)
 
 });
 
@@ -42,7 +42,7 @@ Client.on('guildMemberRemove', member =>{
     const channel = member.guild.channels.find(channel => channel.name === "general");
     if(!channel) return;
 
-    channel.send(`Oh no! ${member} left the server! Their Wallace dignity will stay with us forever.`)
+    channel.send(`Oh no! ${member} left the server! Their dignity will stay with us forever.`)
 });
 
 Client.on('message', async (message)=>{
