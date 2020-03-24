@@ -136,7 +136,7 @@ Client.on('message', async (message)=>{
                 return;
             }
             
-            if(!message.content.startsWith("!play https://www.youtube.com/watch?v=")){
+            if(!message.content.startsWith("!play https://www.youtube.com/")){
                 message.channel.send("Please provide a link");
                 return;
             }
