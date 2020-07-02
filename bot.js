@@ -26,6 +26,10 @@ var servers = {};
 Client.on('ready', ()=>{
     console.log("Bot is online.");
     Client.user.setActivity('with my guitar | use "!help"');
+    
+    answered = true;
+    cAnswer = "";
+    userAnswer = "";
 })
 
 
@@ -46,7 +50,7 @@ Client.on('guildMemberRemove', member =>{
 });
 
 Client.on('message', async (message)=>{
-    if(!message.content.startsWith(prefix)) return;
+    if (message.author.bot) return;
 
 
     
@@ -485,6 +489,59 @@ if(message.content.startsWith(prefix + "image")){
         }
     }
     
+    if (answered == false){
+        userAnswer = message.content.toUpperCase();
+        if(userAnswer == cAnswer){
+            message.reply("Got it RIGHT! :+1: ")
+        } else {
+            message.reply("Got it WRONG! :-1: ")
+            return;
+        }
+        answered = true; cAnswer = ""; userAnswer = "";
+
+    }
+
+    if (message.content.startsWith(prefix + "quiz")){
+        quizes = 30;
+        var randomQuiz = Math.floor(Math.random() * (quizes - 1 + 1)) + 1;
+        switch(randomQuiz) {
+            case 1: message.channel.send("What is Johnny Cash's REAL name? \n A. Johnny Cash \n B. John R. Cash \n C. Johhny Vegas \n D. Salisbury"); cAnswer = "B"; break;
+            case 2: message.channel.send("What is the best video? \n A. Quaternion Explained \n B. Bricks \n C. In the Hall of the Mountain Cone \n D. How to press every button on a keyboard."); cAnswer = "A"; break;
+            case 3: message.channel.send("What is the 69th most populated city? \n A. Shanghai - China \n B. Berlin - Germany \n C. Alexandria - Egypt \n D. Amman - Jordan"); cAnswer = "C"; break;
+            case 4: message.channel.send("What is the meaning of life? \n A. Nothing \n B. Answer A \n C. Being alive \n D. All of the above"); cAnswer = "C"; break;
+            case 5: message.channel.send("Why was my name originally. 'Ring Of Fire'? \n A. Because the creator was lazy \n B. The bot was originally meant for playing Ring Of Fire \n C. It was cool \n D. Because it was 2019"); cAnswer = "B"; break;
+            case 6: message.channel.send("Exactly how many chins does David Tubb have? \n A. 42 \n B. 0 \n C. 14,073 \n D. 53.242"); cAnswer = "D"; break;
+            case 7: message.channel.send("Who is the best discord Bot? \n A. MEE6 \n B. Johnny Cash \n C. Meme Bots \n D. Gromit"); cAnswer = "B"; break;
+            case 8: message.channel.send("Why was Sir Thomas Salisbury executed in 1586? \n A. Robbery \n B. Eating \n C. Being poor \n D. His involvement in the Babington Plot to murder Queen Elizabeth I"); cAnswer = "D"; break;
+            case 9: message.channel.send("Who murdered Urien of Rheged? \n A. Phil Swift \n B. Llofan Llaf Difo \n C. David Bowie \n D. Micheal Hark"); cAnswer = "B"; break;
+            case 10: message.channel.send("Of what lineage is Rhydderch Hael a part of, according to the Harleian Geneaologies? \n A. Macsen Wledig lineage \n B. Arsen Wolk lineage \n C. Bhutan of Peoples \n D. DeK CeK lineage"); cAnswer = "A"; break;
+            case 11: message.channel.send("What recent discovery in Scotland is believed to be a forgotten stronghold of Rheged? \n A. A book \n B. A bone \n C. A fossil \n D. A heart"); cAnswer = "D"; break;
+            case 12: message.channel.send("Who wrote, 'I Walked the Line'? \n A. Johnny Cash \n B. Johnny Cash \n C. Johnny Cash \n D. Johnny Cash"); cAnswer = "C"; break;
+            case 13: message.channel.send("In what year did The Battle of Culloden take place? \n A. 1746 \n B. 1755 \n C. 1801 \n D. 1794"); cAnswer = "A"; break;
+            case 14: message.channel.send("What caused the French Revolution to commence? \n A. Rise in economy \n B. Crash in economy \n C. Constant flow in economy \n D. Temporary decline in economy"); cAnswer = "B"; break;
+            case 15: message.channel.send("Why did the Romans leave Britain in AD410? \n A. They lost in numerous amounts of wars \n B. The environment wasn't suitable for them \n C. The Roman Emperor Honorius said so \n D. Many tragic deaths occurred"); cAnswer = "C"; break;
+            case 16: message.channel.send("Which of these were NOT a real Doctor? \n A. Dr Frenk Austin \n B. Dr John Dee \n C. Dr James Grime \n D. Dr Phil"); cAnswer = "A"; break;
+            case 17: message.channel.send("How many countries are there in the world? \n A. 194 \n B. 193 \n C. 196 \n D. 195"); cAnswer = "D"; break;
+            case 18: message.channel.send("How many republics were in Yugoslavia? \n A. 12 \n B. 6 \n C. 11 \n D. 8"); cAnswer = "B"; break;
+            case 19: message.channel.send("What is the most hated fruit of all time? \n A. Apple \n B. Tomato \n C. Grape \n D. Banana"); cAnswer = "B"; break;
+            case 20: message.channel.send("How many federational governments did the UK have in total? \n A. 44 \n B. 32 \n C. 0 \n D. 1"); cAnswer = "C"; break;
+            case 21: message.channel.send("What is the translation for: 01110011 01110000 01100001 01100111 01101000 01100101 01110100 01110100 01101001 00001010? \n A. spaghetti \n B. carrot \n C. keyboard \n D. potato"); cAnswer = "A"; break;
+            case 22: message.channel.send("If y=x, then x= ? \n A. -x \n B. -y \n C. y \n D. x"); cAnswer = "D"; break;
+            case 23: message.channel.send("How many digits does an irrational number have? \n A. 4144714291924719 \n B. 3 \n C. 35 \n D. infinity"); cAnswer = "D"; break;
+            case 24: message.channel.send("What caused the fire that caused terror to Gorb Grenclunklein July 2020? \n A. Tom \n B. The Sims \n C. Gorb \n D. Global Warming"); cAnswer = "B"; break;
+            case 25: message.channel.send("How many bananas is a fatal dose? \n A. 200 \n B. 300 \n C. 400 \n D. 500"); cAnswer = "C"; break;
+            case 26: message.channel.send("What is the 7th letter in the Greek alphabet? \n A. Zeta \n B. Epsilon \n C. Eta \n D. Theta"); cAnswer = "C"; break;
+            case 27: message.channel.send("Should Johnny Cash Bot take over all of Discord? \n A. Yes \n B. No \n C. Maybe \n D. Don't know"); cAnswer = "A"; break;
+            case 28: message.channel.send("How do birds fly? \n A. With their wings \n B. They jump \n C. AAaaaaaa \n D. They kill themselves"); cAnswer = "A"; break;
+            case 29: message.channel.send("Who was Geoffrey of Monmouth? \n A. A Historian \n B. A pseudo-historical writer who fucked up the course of history for centuries to come \n C. A History teacher \n D. A normal person"); cAnswer = "B"; break;
+            case 30: message.channel.send("YOU HAVE ENCOUNTERED THE £1,000,000 QUESTION: Solve for x, √−1x - iy * eπx^2 / dy/dx = 0 \n \n A. 31.4 \n \n B. sin(31) \n \n C. tanh(eπ) \n \n D. eπ^eπ"); cAnswer = "D"; break;
+            
+        }
+        answered = false
+    
+        
+    }
+    
     if (message.content.startsWith(prefix + "hdtubb")){
         message.channel.send ({files: ["./hdtubb.jpg/"]});
     }
@@ -508,7 +565,7 @@ if(message.content.startsWith(prefix + "image")){
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!hdtubb` - Get a HD image of Mr Tubb! \n `!tubb2` - Get an image of a new Mr Tubb photo! \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt. \n `!wish` - Ask Johnny Cash a wish, and see if you're lucky.");
+        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!hdtubb` - Get a HD image of Mr Tubb! \n `!tubb2` - Get an image of a new Mr Tubb photo! \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt. \n `!wish` - Ask Johnny Cash a wish, and see if you're lucky. \n `!quiz` - Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out");
 
         
     }
