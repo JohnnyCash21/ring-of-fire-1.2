@@ -30,6 +30,12 @@ Client.on('ready', ()=>{
     answered = true;
     cAnswer = "";
     userAnswer = "";
+    
+    rpsAnswered = true;
+    rpsAnswer = "";
+    rpsUserAnswer = "";
+    
+    answersCorrect = 0;
 })
 
 
@@ -114,6 +120,35 @@ Client.on('message', async (message)=>{
 
             
             break;
+    }
+    
+    switch (args[0]) {
+        case 'warn':
+            if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
+
+            const user = message.mentions.users.first();
+
+            if(user){
+                const member = message.guild.member(user);
+                if(member){
+                    message.member.send('You were warned. Do not let this happen again.').then(() =>{
+                        message.reply(`Sucessfully warned ${user.tag}`);
+                    }).catch(err =>{
+                        message.reply('I was unable to give this member a warning');
+                        console.log(err);
+                    });
+                }else{
+                    message.reply("That user is not in this server");
+                }
+
+                
+            }else{
+                message.reply("You need to specify a person");
+            }
+
+            
+            break;
+
     }
 
     switch (args[0]) {
@@ -493,6 +528,9 @@ if(message.content.startsWith(prefix + "image")){
         userAnswer = message.content.toUpperCase();
         if(userAnswer == cAnswer){
             message.reply("Got it RIGHT! :+1: ")
+            answersCorrect = answersCorrect + 1
+            message.channel.send(`Total questions answered correctly: **${answersCorrect}**`)
+
         } else {
             message.reply("Got it WRONG! :-1: ")
             return;
@@ -502,7 +540,7 @@ if(message.content.startsWith(prefix + "image")){
     }
 
     if (message.content.startsWith(prefix + "quiz")){
-        quizes = 30;
+        quizes = 40;
         var randomQuiz = Math.floor(Math.random() * (quizes - 1 + 1)) + 1;
         switch(randomQuiz) {
             case 1: message.channel.send("What is Johnny Cash's REAL name? \n A. Johnny Cash \n B. John R. Cash \n C. Johhny Vegas \n D. Salisbury"); cAnswer = "B"; break;
@@ -535,11 +573,63 @@ if(message.content.startsWith(prefix + "image")){
             case 28: message.channel.send("How do birds fly? \n A. With their wings \n B. They jump \n C. AAaaaaaa \n D. They kill themselves"); cAnswer = "A"; break;
             case 29: message.channel.send("Who was Geoffrey of Monmouth? \n A. A Historian \n B. A pseudo-historical writer who fucked up the course of history for centuries to come \n C. A History teacher \n D. A normal person"); cAnswer = "B"; break;
             case 30: message.channel.send("YOU HAVE ENCOUNTERED THE £1,000,000 QUESTION: Solve for x, √−1x - iy * eπx^2 / dy/dx = 0 \n \n A. 31.4 \n \n B. sin(31) \n \n C. tanh(eπ) \n \n D. eπ^eπ"); cAnswer = "D"; break;
+            case 31: message.channel.send("How many months have 28 days? \n A. 1 \n B. 5 \n C. 12 \n D. 0"); cAnswer = "C"; break;
+            case 32: message.channel.send("Are you stupid? \n A. Yes \n B. No \n C. Yes \n D. Yes"); cAnswer = "A"; break;
+            case 33: message.channel.send("When was the last time England had a civil war? \n A. 57 years \n B. 300 years \n C. 532 years \n D. 369 years"); cAnswer = "D"; break;
+            case 34: message.channel.send("Which of these created the moon? \n A. Gravity \n B. Earth \n C. Supernova \n D. Dark Matter"); cAnswer = "B"; break;
+            case 35: message.channel.send("How many minutes in a year? \n A. 525600 \n B. 8760 \n C. 3.154e+7 \n D. 600000"); cAnswer = "A"; break;
+            case 36: message.channel.send("How would it be possible to press all keys on a keyboard? \n A. Buy a computer \n B. Watch Toby's video \n C. Smash it with another keyboard \n D. Divide by zero"); cAnswer = "B"; break;
+            case 37: message.channel.send("Pssst, the answer is 'E', trust me ;) \n A. Im picking 'A' instead \n B. No \n C. Why \n D. Screw you"); cAnswer = "E"; break;
+            case 38: message.channel.send("Am i a good looking man? \n A. Yes \n B. No \n C. Maybe \n D. I like myself more"); cAnswer = "A"; break;
+            case 39: message.channel.send("How old would I be if i were still alive? \n A. 57 \n B. 71 \n C. 88 \n D. 89"); cAnswer = "C"; break;
+            case 40: message.channel.send("Who is the best guitarist of all time? \n A. Brian May \n B. David Gilmour \n C. Jimmy Page \n D. Johnny Cash"); cAnswer = "D"; break;
             
         }
         answered = false
     
         
+    }
+    
+    if(message.content.startsWith(prefix + "rps" + " ")){
+        rpsOptions = 3;
+        var randomChoose = Math.floor(Math.random() * (rpsOptions - 1 + 1)) + 1;
+        rpsUserAnswer = message.content.charAt(5).toUpperCase() + message.content.slice([6])
+        switch(randomChoose){
+            case 1: message.channel.send(`You chose **${rpsUserAnswer}**, I chose **Rock**`); rpsAnswer = "Rock"; break;
+            case 2: message.channel.send(`You chose **${rpsUserAnswer}**, I chose **Paper**`); rpsAnswer = "Paper"; break;
+            case 3: message.channel.send(`You chose **${rpsUserAnswer}**, I chose **Scissors**`); rpsAnswer = "Scissors"; break;
+        }
+        rpsAnswered = false
+
+    } else if(message.content.startsWith(prefix + "rps")){
+        message.reply("Please reply with what you want to use!")
+    }
+
+    if (rpsAnswered == false){
+        if(rpsUserAnswer == rpsAnswer){
+            message.reply("We tied, that ain't fun, so let's play again.");
+        } else if(rpsUserAnswer == "Rock" && rpsAnswer == "Paper"){
+            message.reply("YOU LOST!");
+        } else if(rpsUserAnswer == "Rock" && rpsAnswer == "Scissors"){
+            message.reply("YOU WIN!");
+        } else if(rpsUserAnswer == "Paper" && rpsAnswer == "Rock"){
+            message.reply("YOU WIN!");
+        } else if(rpsUserAnswer == "Paper" && rpsAnswer == "Scissors"){
+            message.reply("YOU LOST!");
+        } else if(rpsUserAnswer == "Scissors" && rpsAnswer == "Rock"){
+            message.reply("YOU LOST!");
+        } else if(rpsUserAnswer == "Scissors" && rpsAnswer == "Paper"){
+            message.reply("YOU WIN!");
+        }
+        else{
+            message.reply("That was not an option, so I still win! HAH, RING OF FIRE!!!!!!")
+        }
+        
+            
+            
+        
+        rpsAnswered = true; rpsAnswer = ""; rpsUserAnswer = "";
+
     }
     
     if (message.content.startsWith(prefix + "hdtubb")){
@@ -565,7 +655,7 @@ if(message.content.startsWith(prefix + "image")){
 
     if(message.content.startsWith(prefix + "help")){
         message.channel.send("Check your Private Messages");
-        message.author.send("Hello, \n `!hello` - you will be able to speak to me! \n `!help` - the reason you came here \n `!ping` - Shows how fast i respond back \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n       `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n      `!skip` - Skip the playing song \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n `!8ball` - ask a yes or no question, and let your fate decide... \n `!fact` - Get a random fact about me. \n `!mrtubb` - Get an image of the man himself. \n `!urban (word)` - Searches the term in the urban dictionary. \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n `!hdtubb` - Get a HD image of Mr Tubb! \n `!tubb2` - Get an image of a new Mr Tubb photo! \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt. \n `!wish` - Ask Johnny Cash a wish, and see if you're lucky. \n `!quiz` - Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out");
+        message.author.send("**Hello there, it is I, Johnny Cash! Here is a list of commands I can do:** \n \n `!hello` - you will be able to speak to me! \n \n `!help` - the reason you came here \n \n `!ping` - Shows how fast i respond back \n \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n \n      `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n \n      `!skip` - Skip the playing song \n \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n \n `!8ball` - ask a yes or no question, and let your fate decide... \n \n `!fact` - Get a random fact about me. \n \n `!mrtubb` - Get an image of the man himself. \n \n `!urban (word)` - Searches the term in the urban dictionary. \n \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n \n `!warn (user)` - Warn a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n \n `!hdtubb` - Get a HD image of Mr Tubb! \n \n `!tubb2` - Get an image of a new Mr Tubb photo! \n \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt. \n \n `!wish` - Ask Johnny Cash a wish, and see if you're lucky. \n \n `!quiz` - Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out \n \n `!rps (item)` - Play a game of Rock, Paper, Scissors with Johnny Cash!");
 
         
     }
