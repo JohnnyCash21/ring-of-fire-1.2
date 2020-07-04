@@ -321,7 +321,7 @@ Client.on('message', async (message)=>{
 
 
 
-if(message.content.startsWith(prefix + "image")){
+if(message.content.startsWith(prefix + "photoshop")){
         photonumber = 43;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
@@ -643,6 +643,89 @@ if(message.content.startsWith(prefix + "image")){
     if (message.content.startsWith(prefix + "tubb2")){
         message.channel.send ({files: ["./tubb2.jpg/"]});
     }
+    
+    let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
+
+    if(message.content.startsWith(prefix + "help")){
+        const commandsEmbed = new Discord.RichEmbed()
+        .setTitle('Help Commands')
+        .addField('`!basichelp`', "A list of basic commands;", true)
+        .addField('`!musichelp`', "A list of music commands;", true)
+        .addField('`!imagehelp`', "A list of image commands;", true)
+        .addField('`!funhelp`', "A list of fun and games commands;", true)
+        .addField('`!adminhelp` \n**[ONLY AVAILABLE FOR ADMINISTRATORS!]**', "A list of administration commands;", true)
+        .setFooter('Bot Made By: Rabil (Quaternion)')
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(commandsEmbed)
+
+        
+    }
+
+    if(message.content.startsWith(prefix + "basichelp")){
+        const basicEmbed = new Discord.RichEmbed()
+        .setTitle('Basic Commands')
+        .addField('`!hello`', "Johnny Cash will say hello to you.")
+        .addField('`!help`', "The reason you came here.")
+        .addField('`!ping`', "Shows how fast i respond back.")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(basicEmbed)
+    }
+
+    if(message.content.startsWith(prefix + "musichelp")){
+        const musicEmbed = new Discord.RichEmbed()
+        .setTitle('Music Commands')
+        .addField('`!play (link)`', "Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!")
+        .addField('`!search`', "Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest.")
+        .addField('`!skip`', "Skip the playing song.")
+        .addField('`!stop`', "Music will stop playing.")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(musicEmbed)
+    }
+
+    if(message.content.startsWith(prefix + "imagehelp")){
+        const imageEmbed = new Discord.RichEmbed()
+        .setTitle('Image Commands')
+        .addField('`!photoshop`', "Johnny Cash will send you one of Tom's cursed photoshops.")
+        .addField('`!mrtubb`', "Get an image of the man himself.")
+        .addField('`!hdtubb`', "Get a HD image of Mr Tubb!")
+        .addField('`!tubb2`', "Get an image of a new Mr Tubb photo!")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(imageEmbed)
+
+    }
+
+    if(message.content.startsWith(prefix + "funhelp")){
+        const funEmbed = new Discord.RichEmbed()
+        .setTitle('Fun and Games Commands')
+        .addField('`!8ball (question)`', "Ask a yes or no question, and let your fate decide...")
+        .addField('`!fact`', "Get a random fact about me.")
+        .addField('`!urban (word)`', "Searches the term in the urban dictionary.")
+        .addField('`!urban`', "Leaving it blank will urban dictionary search a random search term.")
+        .addField('`!gamble`', "Feeling lucky? See if you can win some prizes... or go bankrupt.")
+        .addField('`!wish (statement)`', "Ask Johnny Cash a wish, and see if you're lucky.")
+        .addField('`!quiz`', "Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out.")
+        .addField('`!rps (item)`', "Play a game of Rock, Paper, Scissors with Johnny Cash!")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(funEmbed)
+
+    }
+
+    if(message.content.startsWith(prefix + "adminhelp")){
+        const adminEmbed = new Discord.RichEmbed()
+        .setTitle('Administration Commands')
+        .addField('`!warn (user)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning.")
+        .addField('`!kick (user)`', "Kick a user for their bad behaviour.")
+        .addField('`!ban (user)`', "Ban a user for their bad behaviour.")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(adminEmbed)
+    }
+
         
 
 
@@ -657,12 +740,7 @@ if(message.content.startsWith(prefix + "image")){
 
     }
 
-    if(message.content.startsWith(prefix + "help")){
-        message.channel.send("Check your Private Messages");
-        message.author.send("**Hello there, it is I, Johnny Cash! Here is a list of commands I can do:** \n \n `!hello` - you will be able to speak to me! \n \n `!help` - the reason you came here \n \n `!ping` - Shows how fast i respond back \n \n `!play (link)` - Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!; \n \n      `!search` - Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest. \n \n      `!skip` - Skip the playing song \n \n       `!stop` - Johnny Cash will leave the Voice Channel \n \n \n `!image` - Johnny Cash will send you one of Tom's cursed photoshops \n \n `!8ball` - ask a yes or no question, and let your fate decide... \n \n `!fact` - Get a random fact about me. \n \n `!mrtubb` - Get an image of the man himself. \n \n `!urban (word)` - Searches the term in the urban dictionary. \n \n `!urban` - Leaving it with just that will urban dictionary search a random search term. \n \n `!warn (user)` - Warn a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n \n `!kick (user)` - Kick a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n \n `!ban (user)` - Ban a user [**ONLY AVAILABLE FOR ADMINISTRATORS!**]. \n \n `!hdtubb` - Get a HD image of Mr Tubb! \n \n `!tubb2` - Get an image of a new Mr Tubb photo! \n \n `!gamble` - Feeling lucky? See if you can win some prizes... or go bankrupt. \n \n `!wish` - Ask Johnny Cash a wish, and see if you're lucky. \n \n `!quiz` - Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out \n \n `!rps (item)` - Play a game of Rock, Paper, Scissors with Johnny Cash!");
-
-        
-    }
+    
 
 
     
