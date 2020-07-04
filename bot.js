@@ -657,6 +657,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!imagehelp`', "A list of image commands;", true)
         .addField('`!funhelp`', "A list of fun and games commands;", true)
         .addField('`!adminhelp` \n**[ONLY AVAILABLE FOR ADMINISTRATORS!]**', "A list of administration commands;", true)
+        .addField('`!levelhelp`', "A list of level commands;", true)
         .setFooter('Bot Made By: Rabil (Quaternion)')
         .setThumbnail(image2)
         .setColor(0xF1C40F)
@@ -728,6 +729,17 @@ if(message.content.startsWith(prefix + "photoshop")){
         .setColor(0xF1C40F)
         message.channel.send(adminEmbed)
     }
+    
+    if(message.content.startsWith(prefix + "levelhelp")){
+        const levelEmbed = new Discord.RichEmbed()
+        .setTitle('Level Commands')
+        .addField('`!level`', "This will show you your current level, current XP, and how much XP you need to level up!")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(levelEmbed)
+    }
+    
+    
     
     
     
