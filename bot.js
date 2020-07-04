@@ -530,8 +530,8 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
     
     if (answered == false){
-        botCanAnswer = false;
         userAnswer = message.content.toUpperCase();
+        if(message.author.bot) return;
         if(userAnswer == cAnswer){
             message.reply("Got it RIGHT! :+1: ")
             answersCorrect = answersCorrect + 1
