@@ -36,6 +36,8 @@ Client.on('ready', ()=>{
     rpsUserAnswer = "";
     
     answersCorrect = 0;
+    
+    botCanAnswer = true;
 })
 
 
@@ -56,7 +58,7 @@ Client.on('guildMemberRemove', member =>{
 });
 
 Client.on('message', async (message)=>{
-    if (message.author.bot) return;
+    if (message.author.bot && botCanAnswer == false) return;
 
 
     
@@ -525,6 +527,7 @@ if(message.content.startsWith(prefix + "image")){
     }
     
     if (answered == false){
+        botCanAnswer = false;
         userAnswer = message.content.toUpperCase();
         if(userAnswer == cAnswer){
             message.reply("Got it RIGHT! :+1: ")
@@ -538,6 +541,7 @@ if(message.content.startsWith(prefix + "image")){
         answered = true; cAnswer = ""; userAnswer = "";
 
     }
+    botCanAnswer = true
 
     if (message.content.startsWith(prefix + "quiz")){
         quizes = 40;
