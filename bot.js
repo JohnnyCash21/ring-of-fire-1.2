@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const Client = new Discord.Client();
 const prefix = "!";
 const ytdl = require("ytdl-core");
 const YOUTUBE_API = (process.env.YOUTUBE_API);
@@ -22,8 +21,31 @@ const fs = require("fs");
 const money = require("./money.json");
 const ms = require("parse-ms");
 const cooldowns = require("./cooldowns.json");
-const bot = new Discord.Client({disableEveryone: true});
+const Client = new Discord.Client({ disableEveryone: true });
 
+
+Client.commands = new Discord.Collection();
+Client.aliases = new Discord.Collection();
+
+fs.readdir("./commands/", (err, files) => {
+    if(err) console.log(err);
+
+    let jsfile = files.filter(f => f.split(".").pop() === "js")
+    if(jsfile.length <= 0) {
+        console.log("Couldn't find any commands!");
+        return;
+    }
+
+    jsfile.forEach((f) => {
+        let props = require(`./commands/${f}`);
+        console.log(`${f} loaded!`);
+        Client.commands.set(props.help.name, props);
+
+        props.help.aliases.forEach(alias => {
+            Client.aliases.set(alias, props.help.name);
+        })
+    })
+})
 
 
 
@@ -70,7 +92,24 @@ Client.on('message', async (message)=>{
 
     
 
-    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    if(!message.content.startsWith(prefix)) return;
+    let args = message.content.slice(prefix.length).trim().split(/ +/g);
+    let cmd;
+    cmd = args.shift().toLowerCase();
+    let command;
+    let commandfile = Client.commands.get(cmd.slice(prefix.length));
+    if(commandfile) commandfile.run(Client, message, args);
+
+    if(Client.commands.has(cmd)) {
+        command = Client.commands.get(cmd);
+    } else if(Client.aliases.has(cmd)) {
+        command = Client.commands.get(Client.aliases.get(cmd));
+    }
+    try {
+        command.run(Client, message, args);
+    } catch (e) {
+        return;
+    }
     
     switch (args[0]) {
         case 'kick':
@@ -518,7 +557,6 @@ if(message.content.startsWith(prefix + "photoshop")){
     
     
    
-    const command = args.shift().toLowerCase();
     
     
     if (message.content.startsWith(prefix + "gamble")){
@@ -807,177 +845,15 @@ if(message.content.startsWith(prefix + "photoshop")){
         if(err) console.log(err)
     });
     
-    if(message.content.startsWith(prefix + "balance")){
-        if(!args[0]){
-            var user = message.author;
-        } else {
-            var user = message.mentions.users.first() || Client.users.get(args[0]);
-        }
-        
-        if(!user){
-            message.channel.send("That's not a valid user!");
-        }
-
-        
-
-        
-
-        message.channel.send(`${Client.users.get(user.id).username} has ${money[message.author.id].money} cash!`)
-    }
     
-    let timeout = 86400000;    //86400000
-    let reward = 500;
-    let dailyEmbed = new Discord.RichEmbed();
-
-
-    let daily = Date.now();            
-    
-
-    
-
-    
-    console.log(timeout - (Date.now() - cooldowns[message.author.id].daily))
-
-
-
-
-
-    if(message.content.startsWith(prefix + "daily")){
-        //timeout = 1200000;
-        
-        if(timeout - (Date.now() - cooldowns[message.author.id]) < 0){
-
-            dailyEmbed.setTitle('Daily Reward');
-
-            if(!money[message.author.id]){
-            
-
-                money[message.author.id] = {
-                    name: Client.users.get(message.author.id).tag,
-                    money: reward
-                }
-                money[message.author.id].money = money[message.author.id].money + 500;
-                timeout = 86400000
-                fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                    if(err) console.log(err);
-                });
-
-                if(!cooldowns[message.author.id]){
-                    cooldowns[message.author.id] = {
-                        name: Client.users.get(message.author.id).tag,
-                        daily: Date.now()
-                    }
-                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
-                        if(err) console.log(err);
-                    });
-
-                }else {
-                    cooldowns[message.author.id].daily = Date.now();
-                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
-                        if(err) console.log(err);
-                    });
-
-
-                }
-
-
-
-            }
-            money[message.author.id].money = money[message.author.id].money + 500;
-            timeout = 86400000
-            dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${money[message.author.id].money} cash.`);
-            dailyEmbed.setColor("#27e65a");
-            return message.reply(dailyEmbed);
-            
-
-
-        } else{
-
-        
-
-            if(!cooldowns[message.author.id]){
-                cooldowns[message.author.id] = {
-                    name: Client.users.get(message.author.id).tag,
-                    daily: Date.now()
-                }
-                fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
-                    if(err) console.log(err);
-                });
-    
-                
-    
-                money[message.author.id].money = money[message.author.id].money + 500;
-                fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                    if(err) console.log(err);
-                });
-
-                timeout = 86400000;
-                dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${money[message.author.id].money + 500} cash.`);
-                dailyEmbed.setColor("#27e65a");
-                return message.reply(dailyEmbed);
-            
-    
-    
-            }else {
-                if(message.author.bot) return;
-    
-                if(timeout - (Date.now() - cooldowns[message.author.id].daily) > 0){
-                    console.log("AAAAA")
-    
-                    let time = ms(timeout - (Date.now() - cooldowns[message.author.id].daily));
-    
-                    dailyEmbed.setColor("#e63127");
-                    dailyEmbed.setDescription(`**You already collected your daily reward. Come back later!**`);
-                    dailyEmbed.addField(`Collect again in`, `**${time.hours}h ${time.minutes}m ${time.seconds}s**`);
-                    return message.reply(dailyEmbed);
-                        
-                
-    
-                }else {
-    
-                    money[message.author.id].money = money[message.author.id].money + 500;
-                    fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                        if(err) console.log(err);
-                    });
-    
-                    cooldowns[message.author.id].daily = Date.now();
-                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
-                        if(err) console.log(err);
-                    });
-
-                    timeout = 86400000;
-                    dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${money[message.author.id].money + 500} cash.`);
-                    dailyEmbed.setColor("#27e65a");
-                    return message.reply(dailyEmbed);
-    
-    
-    
-                }
-    
-                
-            }
-            
-        }
-
-        
-
-        
-        
-        
-
-    
-        
-        
-        
-
-    }
+      
 
         
 
 
 
 
-    if (command === "ping") {
+    if (message.content.startsWith(prefix + "ping")) {
         message.channel.send(`Ring Of Fire! my Ping is ` + Math.round(Client.ping) + `ms`);
       }
 
