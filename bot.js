@@ -19,6 +19,10 @@ var version = '1.2';
 var servers = {};
 let xp = require("./xp.json");
 const fs = require("fs");
+const money = require("./money.json");
+const ms = require("parse-ms");
+const cooldowns = require("./cooldowns.json");
+const bot = new Discord.Client({disableEveryone: true});
 
 
 
@@ -658,6 +662,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!funhelp`', "A list of fun and games commands;", true)
         .addField('`!adminhelp` \n**[ONLY AVAILABLE FOR ADMINISTRATORS!]**', "A list of administration commands;", true)
         .addField('`!levelhelp`', "A list of level commands;", true)
+        .addField('`!currencyhelp`', "A list of currency commands;",true)
         .setFooter('Bot Made By: Rabil (Quaternion)')
         .setThumbnail(image2)
         .setColor(0xF1C40F)
@@ -739,6 +744,19 @@ if(message.content.startsWith(prefix + "photoshop")){
         message.channel.send(levelEmbed)
     }
     
+    if(message.content.startsWith(prefix + "currencyhelp")){
+        const currencyEmbed = new Discord.RichEmbed()
+        .setTitle('Currency Commands')
+        .addField('`!balance`', "This will show you your current balance, current cash.")
+        .addField('`!balance (user)`', "This will show you another user's balance and cash.")
+        .addField('`!daily`', "Claim your daily cash!")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(currencyEmbed)
+    }
+    
+    
+    
     
     
     
@@ -788,6 +806,168 @@ if(message.content.startsWith(prefix + "photoshop")){
     fs.writeFile("./xp.json", JSON.stringify(xp), (err) => {
         if(err) console.log(err)
     });
+    
+    if(message.content.startsWith(prefix + "balance")){
+        if(!args[0]){
+            var user = message.author;
+        } else {
+            var user = message.mentions.users.first() || Client.users.get(args[0]);
+        }
+        //let currmoney = money[user.id].money;
+
+        
+
+        
+
+        message.channel.send(`${Client.users.get(user.id).username} has ${money[message.author.id].money} cash!`)
+    }
+    
+    let timeout = 86400000;    //86400000
+    let reward = 500;
+    let dailyEmbed = new Discord.RichEmbed();
+
+
+    let daily = Date.now();            
+    
+
+    
+
+    
+    console.log(timeout - (Date.now() - cooldowns[message.author.id].daily))
+
+
+
+
+
+    if(message.content.startsWith(prefix + "daily")){
+        //timeout = 1200000;
+        
+        if(timeout - (Date.now() - cooldowns[message.author.id]) < 0){
+
+            dailyEmbed.setTitle('Daily Reward');
+
+            if(!money[message.author.id]){
+            
+
+                money[message.author.id] = {
+                    name: Client.users.get(message.author.id).tag,
+                    money: reward
+                }
+                money[message.author.id].money = money[message.author.id].money + 500;
+                timeout = 86400000
+                fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                    if(err) console.log(err);
+                });
+
+                if(!cooldowns[message.author.id]){
+                    cooldowns[message.author.id] = {
+                        name: Client.users.get(message.author.id).tag,
+                        daily: Date.now()
+                    }
+                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
+                        if(err) console.log(err);
+                    });
+
+                }else {
+                    cooldowns[message.author.id].daily = Date.now();
+                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
+                        if(err) console.log(err);
+                    });
+
+
+                }
+
+
+
+            }
+            money[message.author.id].money = money[message.author.id].money + 500;
+            timeout = 86400000
+            dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${money[message.author.id].money} cash.`);
+            dailyEmbed.setColor("#27e65a");
+            return message.reply(dailyEmbed);
+            
+
+
+        } else{
+
+        
+
+            if(!cooldowns[message.author.id]){
+                cooldowns[message.author.id] = {
+                    name: Client.users.get(message.author.id).tag,
+                    daily: Date.now()
+                }
+                fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
+                    if(err) console.log(err);
+                });
+    
+                
+    
+                money[message.author.id].money = money[message.author.id].money + 500;
+                fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                    if(err) console.log(err);
+                });
+
+                timeout = 86400000;
+                dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${money[message.author.id].money + 500} cash.`);
+                dailyEmbed.setColor("#27e65a");
+                return message.reply(dailyEmbed);
+            
+    
+    
+            }else {
+                if(message.author.bot) return;
+    
+                if(timeout - (Date.now() - cooldowns[message.author.id].daily) > 0){
+                    console.log("AAAAA")
+    
+                    let time = ms(timeout - (Date.now() - cooldowns[message.author.id].daily));
+    
+                    dailyEmbed.setColor("#e63127");
+                    dailyEmbed.setDescription(`**You already collected your daily reward. Come back later!**`);
+                    dailyEmbed.addField(`Collect again in`, `**${time.hours}h ${time.minutes}m ${time.seconds}s**`);
+                    return message.reply(dailyEmbed);
+                        
+                
+    
+                }else {
+    
+                    money[message.author.id].money = money[message.author.id].money + 500;
+                    fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                        if(err) console.log(err);
+                    });
+    
+                    cooldowns[message.author.id].daily = Date.now();
+                    fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
+                        if(err) console.log(err);
+                    });
+
+                    timeout = 86400000;
+                    dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${money[message.author.id].money + 500} cash.`);
+                    dailyEmbed.setColor("#27e65a");
+                    return message.reply(dailyEmbed);
+    
+    
+    
+                }
+    
+                
+            }
+            
+        }
+
+        
+
+        
+        
+        
+
+    
+        
+        
+        
+
+    }
 
         
 
