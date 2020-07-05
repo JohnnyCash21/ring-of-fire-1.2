@@ -813,7 +813,10 @@ if(message.content.startsWith(prefix + "photoshop")){
         } else {
             var user = message.mentions.users.first() || Client.users.get(args[0]);
         }
-        //let currmoney = money[user.id].money;
+        
+        if(!user){
+            message.channel.send("That's not a valid user!");
+        }
 
         
 
