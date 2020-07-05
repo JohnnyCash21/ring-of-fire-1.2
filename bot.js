@@ -108,7 +108,7 @@ Client.on('message', async (message)=>{
     try {
         command.run(Client, message, args);
     } catch (e) {
-        return;
+        
     }
     
     switch (args[0]) {
