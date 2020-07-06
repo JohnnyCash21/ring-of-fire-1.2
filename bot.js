@@ -556,21 +556,6 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     
     
-   
-    
-    
-    if (message.content.startsWith(prefix + "gamble")){
-        lottery = 1000;
-
-        const randomLottery = Math.floor(Math.random() * (lottery - 1 + 1)) + 1;
-        if(randomLottery == 420){
-            message.channel.send(`@everyone ${message.author} HAS WON THE LOTTERY!`);
-        }
-        else{
-            message.channel.send("YOU WON NOTHING!");
-        }
-    }
-    
     if (answered == false){
         userAnswer = message.content.toUpperCase();
         if(message.author.bot) return;
@@ -694,13 +679,13 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(message.content.startsWith(prefix + "help")){
         const commandsEmbed = new Discord.RichEmbed()
         .setTitle('Help Commands')
-        .addField('`!basichelp`', "A list of basic commands;", true)
-        .addField('`!musichelp`', "A list of music commands;", true)
-        .addField('`!imagehelp`', "A list of image commands;", true)
-        .addField('`!funhelp`', "A list of fun and games commands;", true)
-        .addField('`!adminhelp` \n**[ONLY AVAILABLE FOR ADMINISTRATORS!]**', "A list of administration commands;", true)
-        .addField('`!levelhelp`', "A list of level commands;", true)
-        .addField('`!currencyhelp`', "A list of currency commands;",true)
+        .addField('`!basichelp`', "A list of basic commands", true)
+        .addField('`!musichelp`', "A list of music commands", true)
+        .addField('`!imagehelp`', "A list of image commands", true)
+        .addField('`!funhelp`', "A list of fun and games commands", true)
+        .addField('`!adminhelp` \n**[ONLY AVAILABLE FOR ADMINISTRATORS!]**', "A list of administration commands", true)
+        .addField('`!levelhelp`', "A list of level commands", true)
+        .addField('`!currencyhelp`', "A list of currency commands",true)
         .setFooter('Bot Made By: Rabil (Quaternion)')
         .setThumbnail(image2)
         .setColor(0xF1C40F)
@@ -752,7 +737,6 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!fact`', "Get a random fact about me.")
         .addField('`!urban (word)`', "Searches the term in the urban dictionary.")
         .addField('`!urban`', "Leaving it blank will urban dictionary search a random search term.")
-        .addField('`!gamble`', "Feeling lucky? See if you can win some prizes... or go bankrupt.")
         .addField('`!wish (statement)`', "Ask Johnny Cash a wish, and see if you're lucky.")
         .addField('`!quiz`', "Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out.")
         .addField('`!rps (item)`', "Play a game of Rock, Paper, Scissors with Johnny Cash!")
@@ -788,6 +772,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!balance`', "This will show you your current balance, current cash.")
         .addField('`!balance (user)`', "This will show you another user's balance and cash.")
         .addField('`!daily`', "Claim your daily cash!")
+        .addField('`!pay (user) (amount)`', "Feeling generous? Donate some cash to your friends, or keep it all to yourself.")
+        .addField('`!gamble (amount)`', "Feeling lucky enough to gamble your money in the chance for some more money? Or possibly lose it all?")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(currencyEmbed)
