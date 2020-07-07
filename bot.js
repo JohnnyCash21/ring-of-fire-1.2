@@ -644,6 +644,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if (rpsAnswered == false){
+        if(message.author.bot) return;
         if(rpsUserAnswer == rpsAnswer){
             message.reply("We tied, that ain't fun, so let's play again.");
         } else if(rpsUserAnswer == "Rock" && rpsAnswer == "Paper"){
