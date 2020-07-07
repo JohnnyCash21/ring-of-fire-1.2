@@ -847,6 +847,14 @@ if(message.content.startsWith(prefix + "photoshop")){
         message.channel.send("Hello, i am Johhny Cash. How are you doing, " + message.author + " ?");
 
     }
+    
+    if(message.content.startsWith(prefix + "test")){
+        message.channel.send("You have utilised a test, " + message.author + " It went through!");
+
+    }
+    
+    
+        
 
     
 
