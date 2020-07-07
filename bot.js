@@ -187,7 +187,7 @@ Client.on('message', async (message)=>{
             if(user){
                 const member = message.guild.member(user);
                 if(member){
-                    message.member.send('You were warned. Do not let this happen again.').then(() =>{
+                    member.send('You were warned. Do not let this happen again.').then(() =>{
                         message.reply(`Sucessfully warned ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to give this member a warning');
