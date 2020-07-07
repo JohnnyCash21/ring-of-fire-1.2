@@ -561,8 +561,13 @@ if(message.content.startsWith(prefix + "photoshop")){
         if(userAnswer == cAnswer){
             message.reply("Got it RIGHT! :+1: ")
             answersCorrect = answersCorrect + 1
+            money[message.author.id].money = money[message.author.id].money + 15;
+            message.reply(`For being smart, you have earned an extra 15 cash! New Balance: **${money[message.author.id].money} cash!**`);
             message.channel.send(`Total questions answered correctly: **${answersCorrect}**`)
 
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if(err) console.log(err);
+            });
         } else {
             message.reply("Got it WRONG! :-1: ")
             return;
@@ -643,16 +648,40 @@ if(message.content.startsWith(prefix + "photoshop")){
             message.reply("We tied, that ain't fun, so let's play again.");
         } else if(rpsUserAnswer == "Rock" && rpsAnswer == "Paper"){
             message.reply("YOU LOST!");
+            
         } else if(rpsUserAnswer == "Rock" && rpsAnswer == "Scissors"){
             message.reply("YOU WIN!");
+            money[message.author.id].money = money[message.author.id].money + 15;
+            message.reply(`For winning, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
+
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if(err) console.log(err);
+            });
+            
         } else if(rpsUserAnswer == "Paper" && rpsAnswer == "Rock"){
             message.reply("YOU WIN!");
+            money[message.author.id].money = money[message.author.id].money + 15;
+            message.reply(`For winning, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
+
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if(err) console.log(err);
+            });
+            
         } else if(rpsUserAnswer == "Paper" && rpsAnswer == "Scissors"){
             message.reply("YOU LOST!");
+            
         } else if(rpsUserAnswer == "Scissors" && rpsAnswer == "Rock"){
             message.reply("YOU LOST!");
+            
         } else if(rpsUserAnswer == "Scissors" && rpsAnswer == "Paper"){
             message.reply("YOU WIN!");
+            money[message.author.id].money = money[message.author.id].money + 15;
+            message.reply(`For winning, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
+
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if(err) console.log(err);
+            });
+            
         }
         else{
             message.reply("That was not an option, so I still win! HAH, RING OF FIRE!!!!!!")
