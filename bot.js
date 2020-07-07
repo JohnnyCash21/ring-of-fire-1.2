@@ -107,11 +107,7 @@ Client.on('message', async (message)=>{
     } else if(Client.aliases.has(cmd)) {
         command = Client.commands.get(Client.aliases.get(cmd));
     }
-    try {
-        command.run(Client, message, args);
-    } catch (e) {
-        
-    }
+    
     
     if(!money[message.author.id]) {
         money[message.author.id] = {
