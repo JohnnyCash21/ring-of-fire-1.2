@@ -124,8 +124,7 @@ Client.on('message', async (message)=>{
         });
     }
     
-    switch (args[0]) {
-        case 'kick':
+    if(message.content.startsWith(prefix + "kick")) {
             if(!message.member.hasPermission(["ADMINISTRATOR", "KICK_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
@@ -150,12 +149,10 @@ Client.on('message', async (message)=>{
             }
 
             
-            break;
     }
 
 
-    switch (args[0]) {
-        case 'ban':
+    if(message.content.startsWith(prefix + "ban")) {
             if(!message.member.hasPermission(["ADMINISTRATOR", "BAN_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
@@ -180,11 +177,9 @@ Client.on('message', async (message)=>{
             }
 
             
-            break;
     }
     
-    switch (args[0]) {
-        case 'warn':
+    if(message.content.startsWith(prefix + "warn")) {
             if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
@@ -208,7 +203,6 @@ Client.on('message', async (message)=>{
             }
 
             
-            break;
 
     }
 
@@ -285,9 +279,8 @@ Client.on('message', async (message)=>{
              
     }
     
-    switch (args[0]) {
-    case "urban":       
-        if(args <1 && !["random", "search"].includes(args[0])) return message.channel.send("The correct usage is `!urban (query) | random option - !urban`")
+    if(message.content.startsWith(prefix + "urban")) {       
+        if(args <1 && !["random", "search"].includes(args[0])) return message.channel.send("The correct usage is `!urban search (query) | random option - !urban random`")
         let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
         let search = args[1] ? urban(args.slice(1).join(" ")) : urban.random();
             try {
@@ -327,7 +320,6 @@ Client.on('message', async (message)=>{
                 console.log(e)
                 return message.channel.send("I'm broken, Try again!")
             }
-      break;
     }
     
     const image = [
@@ -780,8 +772,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         .setTitle('Fun and Games Commands')
         .addField('`!8ball (question)`', "Ask a yes or no question, and let your fate decide...")
         .addField('`!fact`', "Get a random fact about me.")
-        .addField('`!urban (word)`', "Searches the term in the urban dictionary.")
-        .addField('`!urban`', "Leaving it blank will urban dictionary search a random search term.")
+        .addField('`!urban search (word)`', "Searches the term in the urban dictionary.")
+        .addField('`!urban random`', "Urban dictionary search a random search term.")
         .addField('`!wish (statement)`', "Ask Johnny Cash a wish, and see if you're lucky.")
         .addField('`!quiz`', "Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out.")
         .addField('`!rps (item)`', "Play a game of Rock, Paper, Scissors with Johnny Cash!")
