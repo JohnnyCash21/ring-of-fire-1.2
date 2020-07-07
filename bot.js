@@ -20,6 +20,9 @@ let xp = require("./xp.json");
 const fs = require("fs");
 const money = require("./money.json");
 const ms = require("parse-ms");
+const cheerio = require("cheerio");
+const request = require("request");
+
 const cooldowns = require("./cooldowns.json");
 const Client = new Discord.Client({ disableEveryone: true });
 
@@ -763,6 +766,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!mrtubb`', "Get an image of the man himself.")
         .addField('`!hdtubb`', "Get a HD image of Mr Tubb!")
         .addField('`!tubb2`', "Get an image of a new Mr Tubb photo!")
+        .addField('`!meme`', "Get a random meme!")
+        .addField('`!cursed`', "Get a random cursed image!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(imageEmbed)
@@ -870,6 +875,16 @@ if(message.content.startsWith(prefix + "photoshop")){
         if(err) console.log(err)
     });
     
+    if(message.content.startsWith(prefix + "meme")){
+
+        meme(message);
+    }
+
+    if(message.content.startsWith(prefix + "cursed")){
+
+        cursed(message);
+    }
+    
     
       
 
@@ -900,7 +915,76 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     
 
-})
+});
+
+function meme(message){
+
+    var options = {
+        url: "http://results.dogpile.com/serp?qc=images&q=" + "meme",
+        method: "GET",
+        headers: {
+            "Accept": "text/html",
+            "User-Agent": "Chrome"
+        }
+    }
+
+    request(options, function(error, response, responseBody) {
+        if (error) {
+            return;
+        }
+ 
+ 
+        $ = cheerio.load(responseBody);
+ 
+ 
+        var links = $(".image a.link");
+ 
+        var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
+ 
+        if (!urls.length) {
+           
+            return;
+        }
+ 
+        // Send result
+        message.channel.send( urls[Math.floor(Math.random() * urls.length)]);
+    });
+};
+
+
+function cursed(message){
+
+    var options = {
+        url: "http://results.dogpile.com/serp?qc=images&q=" + "cursed image",
+        method: "GET",
+        headers: {
+            "Accept": "text/html",
+            "User-Agent": "Chrome"
+        }
+    }
+
+    request(options, function(error, response, responseBody) {
+        if (error) {
+            return;
+        }
+ 
+ 
+        $ = cheerio.load(responseBody);
+ 
+ 
+        var links = $(".image a.link");
+ 
+        var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
+ 
+        if (!urls.length) {
+           
+            return;
+        }
+ 
+        // Send result
+        message.channel.send( urls[Math.floor(Math.random() * urls.length)]);
+    });
+};
 
     
 
