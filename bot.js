@@ -110,6 +110,16 @@ Client.on('message', async (message)=>{
         
     }
     
+    if(!money[message.author.id]) {
+        money[message.author.id] = {
+            name: Client.users.get(message.author.id).tag,
+            money: 0
+        }
+        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+            if(err) console.log(err)
+        });
+    }
+    
     switch (args[0]) {
         case 'kick':
             if(!message.member.hasPermission(["ADMINISTRATOR", "KICK_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
