@@ -14,6 +14,7 @@ module.exports.run = async (Client, message, args) => {
 
     if(parseInt(args[1]) > money[message.author.id].money) return message.reply("You do not have enough cash!");
     if(parseInt(args[1]) < 1) return message.reply("You cannot pay less than 1 cash!");
+    if(!parseInt(args[1])) return message.reply("You can only pay in integers.");
 
     if(!money[user.id]) {
         
