@@ -576,7 +576,7 @@ if(message.content.startsWith(prefix + "photoshop")){
             });
         } else {
             message.reply("Got it WRONG! :-1: ")
-            return;
+            
         }
         answered = true; cAnswer = ""; userAnswer = "";
 
@@ -584,7 +584,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     botCanAnswer = true
 
     if (message.content.startsWith(prefix + "quiz")){
-        quizes = 40;
+        quizes = 72;
         var randomQuiz = Math.floor(Math.random() * (quizes - 1 + 1)) + 1;
         switch(randomQuiz) {
             case 1: message.channel.send("What is Johnny Cash's REAL name? \n A. Johnny Cash \n B. John R. Cash \n C. Johhny Vegas \n D. Salisbury"); cAnswer = "B"; break;
@@ -603,7 +603,7 @@ if(message.content.startsWith(prefix + "photoshop")){
             case 14: message.channel.send("What caused the French Revolution to commence? \n A. Rise in economy \n B. Crash in economy \n C. Constant flow in economy \n D. Temporary decline in economy"); cAnswer = "B"; break;
             case 15: message.channel.send("Why did the Romans leave Britain in AD410? \n A. They lost in numerous amounts of wars \n B. The environment wasn't suitable for them \n C. The Roman Emperor Honorius said so \n D. Many tragic deaths occurred"); cAnswer = "C"; break;
             case 16: message.channel.send("Which of these were NOT a real Doctor? \n A. Dr Frenk Austin \n B. Dr John Dee \n C. Dr James Grime \n D. Dr Phil"); cAnswer = "A"; break;
-            case 17: message.channel.send("How many countries are there in the world? \n A. 194 \n B. 193 \n C. 196 \n D. 195"); cAnswer = "D"; break;
+            case 17: message.channel.send("How many countries are there in the world? \n A. 194 \n B. 197 \n C. 196 \n D. 195"); cAnswer = "B"; break;
             case 18: message.channel.send("How many republics were in Yugoslavia? \n A. 12 \n B. 6 \n C. 11 \n D. 8"); cAnswer = "B"; break;
             case 19: message.channel.send("What is the most hated fruit of all time? \n A. Apple \n B. Tomato \n C. Grape \n D. Banana"); cAnswer = "B"; break;
             case 20: message.channel.send("How many federational governments did the UK have in total? \n A. 44 \n B. 32 \n C. 0 \n D. 1"); cAnswer = "C"; break;
@@ -627,6 +627,38 @@ if(message.content.startsWith(prefix + "photoshop")){
             case 38: message.channel.send("Am i a good looking man? \n A. Yes \n B. No \n C. Maybe \n D. I like myself more"); cAnswer = "A"; break;
             case 39: message.channel.send("How old would I be if i were still alive? \n A. 57 \n B. 71 \n C. 88 \n D. 89"); cAnswer = "C"; break;
             case 40: message.channel.send("Who is the best guitarist of all time? \n A. Brian May \n B. David Gilmour \n C. Jimmy Page \n D. Johnny Cash"); cAnswer = "D"; break;
+            case 41: message.channel.send("Which of these is NOT a square number? \n A. 64 \n B. 49 \n C. 72 \n D. 81"); cAnswer = "C"; break;
+            case 42: message.channel.send("In a normal game of chess, how many pawns do each person get? \n A. 5 \n B. 8 \n c. 6 \n D. 10"); cAnswer = "B"; break;
+            case 43: message.channel.send("In a normal game of darts, what is the highest score you can achieve? \n A. 180 \n B. 360 \n C. 100 \n D. 150"); cAnswer = "A"; break;
+            case 44: message.channel.send("How many planets are there in the solar system? \n A. 7 \n B. 9 \n C. 10 \n D. 8"); cAnswer = "D"; break;
+            case 45: message.channel.send("Which sport commonly uses the term 'Hole in One'? \n A. Basketball \n B. Golf \n C. Bowling \n D. Badminton"); cAnswer = "B"; break;
+            case 46: message.channel.send("What is the sum of a triangle's interior angles in degrees? \n A. 180° \n B. 360° \n C. 60° \n D. 150°"); cAnswer = "A"; break;
+            case 47: message.channel.send("How many months are there in 3 years? \n A. 39 \n B. 21 \n C. 36 \n D. 40"); cAnswer = "C"; break;
+            case 48: message.channel.send("How many metres in a kilometer? \n A. 1600 \n B. 1000 \n C. 10 \n D. 100"); cAnswer = "B"; break;
+            case 49: message.channel.send("What is the Roman Numeral for the number 3291? \n A. MMMCCXCI \n B. MMCCXII \n C. MMMCXXI \n D. MMMCCCXI"); cAnswer = "A"; break;
+            case 50: message.channel.send("Argentina is a part of which continent? \n A. South America \n B. Asia \n C. North America \n D. Europe"); cAnswer = "A"; break;
+            case 51: message.channel.send("Which Youtuber faced controversy after uploading a video containing a dead man, who had comitted suicide, on the 31st of December 2017? \n A. DanTDM \n B. Deji \n C. stampylonghead \n D. Logan Paul"); cAnswer = "D"; break;
+            case 52: message.channel.send("What is the capital of the USA? \n A. Miami \n B. Washington D.C. \n C. Los Angeles \n D. New York City"); cAnswer = "B"; break;
+            case 53: message.channel.send("What is the term given to the longest and shortest days of the year? \n A. Eclipse \n B. Equinox \n C. Solstice \n D. Occulation"); cAnswer = "C"; break;
+            case 54: message.channel.send("How many strings are there on a standard Bass guitar? \n A. 6 \n B. 7 \n C. 5 \n D. 4"); cAnswer = "D"; break;
+            case 55: message.channel.send("In which year was the Irish Free State established? \n A. 1916 \n B. 1924 \n C. 1922 \n D. 1918"); cAnswer = "C"; break;
+            case 56: message.channel.send("When is Halley's Comet next projected to travel past Earth? \n A. 2061 \n B. 2071 \n C. 2076 \n D. 2066"); cAnswer = "A"; break;
+            case 57: message.channel.send("Which sport did Fanny Chmelar play for Germany? \n A. Swimming \n B. Skiing \n C. Sprinting \n D. Sailing"); cAnswer = "B"; break;
+            case 58: message.channel.send("What is the name of the 1983 arcade game featuring a police mouse as the main character? \n A. Dig Dug \n B. Tapper \n C. Mappy \n D. Food Fight"); cAnswer = "C"; break;
+            case 59: message.channel.send("How many colours are there on the standard LGBT pride flag? \n A. 8 \n B. 6 \n C. 7 \n D. 9"); cAnswer = "B"; break;
+            case 60: message.channel.send("How many lines of symmetry does an Equilateral triangle? \n A. 1 \n B. 0 \n C. 2 \n D. 3"); cAnswer = "D"; break;
+            case 61: message.channel.send("In which sport is a shuttlecock used? \n A. Tennis \n B. Table Tennis \n C. Squash \n D. Badminton"); cAnswer = "D"; break;
+            case 62: message.channel.send("How many inches are in 2 feet? \n A. 24 \n B. 20 \n C. 12 \n D. 50"); cAnswer = "A"; break;
+            case 63: message.channel.send("Which country hosted the 2016 Olympic games? \n A. Brazil \n B. Greece \n C. China \n D. United Kingdom"); cAnswer = "A"; break;
+            case 64: message.channel.send("What name was given to the Jewish god? \n A. Allah \n B. Adam \n C. Jehovah \n D. Jesus"); cAnswer = "C"; break;
+            case 65: message.channel.send("What is the standard unit of power? \n A. Tesla \n B. Watt \n C. Joule \n D. Ohm"); cAnswer = "B"; break;
+            case 66: message.channel.send("What is the standard unit of resistance? \n A. Ohm \n B. Joule \n C. Volt \n D. Amp"); cAnswer = "A"; break;
+            case 67: message.channel.send("How many sides does a quadrilateral shape have? \n A. 4 \n B. 3 \n C. 6 \n D. 5"); cAnswer = "A"; break;
+            case 68: message.channel.send("Which religion has a crescent moon and star as it's symbol? \n A. Judaism \n B. Islam \n C. Sikhism \n D. Christianity"); cAnswer = "B"; break;
+            case 69: message.channel.send("How many stars are present on the flag of the United States of America? \n A. 30 \n B. 40 \n C. 60 \n D. 50"); cAnswer = "D"; break;
+            case 70: message.channel.send("How many edges does a cube have? \n A. 12 \n B. 14 \n C. 6 \n D. 10"); cAnswer = "A"; break;
+            case 71: message.channel.send("What is the capital city of France? \n A. Lyon \n B. Marseille \n C. Paris \n D. Bordeaux"); cAnswer = "C"; break;
+            case 72: message.channel.send("Which of these is NOT a current member of the European Union? \n A. Germany \n B. France \n C. Spain \n D. Switzerland"); cAnswer = "D"; break;
             
         }
         answered = false
