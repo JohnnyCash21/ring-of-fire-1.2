@@ -561,7 +561,7 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     
     
-    if (answered == false){
+    if (answered == false && message.guild.id == quizUser && !message.author.bot){
         userAnswer = message.content.toUpperCase();
         if(message.author.bot) return;
         if(userAnswer == cAnswer){
@@ -662,6 +662,7 @@ if(message.content.startsWith(prefix + "photoshop")){
             
         }
         answered = false
+        quizUser = message.guild.id
     
         
     }
