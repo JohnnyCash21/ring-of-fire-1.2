@@ -580,9 +580,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         }
         answered = true; cAnswer = ""; userAnswer = "";
 
-    } else {
-        return;
-    }
+    } 
     botCanAnswer = true
 
     if (message.content.startsWith(prefix + "quiz")){
