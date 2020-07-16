@@ -366,8 +366,8 @@ Client.on('message', async (message)=>{
         {files: ["./41.PNG/"]} ,
         {files: ["./42.PNG/"]} ,
         {files: ["./43.PNG/"]} ,
-        {files: ["./44.PNG/"]} ,
-        {files: ["./45.PNG/"]} ,
+        {files: ["./44.png/"]} ,
+        {files: ["./45.png/"]} ,
         {files: ["./46.PNG/"]} ,
     ];
 
