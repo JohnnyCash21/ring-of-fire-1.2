@@ -898,7 +898,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!wish (statement)`', "Ask Johnny Cash a wish, and see if you're lucky.")
         .addField('`!quiz`', "Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out.")
         .addField('`!rps (item)`', "Play a game of Rock, Paper, Scissors with Johnny Cash!")
-        .addField('`!ringoffire`', "Host a live Johnny Cash concert, where Johnny Cash himself will sing Ring Of Fire! *(lyrics sent at exact timings as recording*")
+        .addField('`!ringoffire`', "Host a live Johnny Cash concert, where Johnny Cash himself will sing Ring Of Fire! *(lyrics sent at exact timings as recording)*")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
