@@ -37,16 +37,53 @@ module.exports.run = async (Client, message, args) => {
         gambleEmbed.setColor("#e63127");
         return message.reply(gambleEmbed);
     } else {
-        money[message.author.id].money += bet;
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if(err) console.log(err);
-        });
-        gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
-        gambleEmbed.addField("YOU WIN!", `New Balance: ${money[message.author.id].money} cash.`);
-        gambleEmbed.setColor("#27e65a");
-        return message.reply(gambleEmbed);
-    }
+        jackpot = 1000
+        const randomIndexJackpot = Math.floor(Math.random() * (jackpot - 1 + 1)) + 1;
+        console.log(randomIndexJackpot)
+        if(randomIndexJackpot == 439){
+            money[message.author.id].money += 1000000;
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if(err) console.log(err);
+            });
+            let findLotteryRole = message.member.guild.roles.find("name", "Lottery Winner");
+            if(!findLotteryRole){
+                message.member.guild.createRole({
+                    name: "Lottery Winner",
+                    color: "#ffef12",
+                    permissions: [],
+                    mentionable: true,
+                    position: 4,
+                    hoist: true
+                }).then(function(lotteryWinnerRole)
+                {
+                    message.member.addRole(lotteryWinnerRole)
+                });
+            } else{
+                message.member.addRole(findLotteryRole)
+            }
+            
 
+            
+            gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
+            gambleEmbed.addField("JACKPOT!", `New Balance: ${money[message.author.id].money} cash.`);
+            gambleEmbed.addField("YOU WIN 1,000,000 CASH!", 'You have won 1,000,000 cash!');
+            gambleEmbed.addField("NEW ROLE ASSIGNED!", 'Because of your win, you now have a new exclusive role!');
+            gambleEmbed.setColor("#ffef12");
+            return message.reply(gambleEmbed);
+        } else {
+            money[message.author.id].money += bet;
+            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
+                if(err) console.log(err);
+            });
+            gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
+            gambleEmbed.addField("YOU WIN!", `New Balance: ${money[message.author.id].money} cash.`);
+            gambleEmbed.setColor("#27e65a");
+            return message.reply(gambleEmbed);
+
+
+        }
+        
+    }
 
 }
 
