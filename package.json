@@ -16,6 +16,7 @@
     "@discordjs/opus": "^0.3.2",
     "cheerio": "^1.0.0-rc.3",
     "parse-ms": "^2.1.0",
+    "opusscript": "0.0.7",
     "request": "^2.88.2",
     "simple-youtube-api": "^5.2.1",
     "urban": "^0.3.2",
