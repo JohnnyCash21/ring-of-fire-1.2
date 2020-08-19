@@ -106,12 +106,20 @@ Client.on('message', async (message)=>{
 
     
 
+    if(!message.content.startsWith(prefix)) return;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    cmd = args.shift().toLowerCase();
+    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily")){
+        cmd = args.shift().toLowerCase();
+    }
     let command;
-    let commandfile = Client.commands.get(cmd.slice(prefix.length));
-    if(commandfile) commandfile.run(Client, message, args);
+    //let commandfile = Client.commands.get(cmd.slice(prefix.length));
+    //if(commandfile){
+        //commandfile.run(Client, message, args);
+    //}else{
+        //console.log(commandfile)
+        
+    //}
 
     if(Client.commands.has(cmd)) {
         command = Client.commands.get(cmd);
