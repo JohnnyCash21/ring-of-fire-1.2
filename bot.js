@@ -23,6 +23,8 @@ const ms = require("parse-ms");
 const cheerio = require("cheerio");
 const request = require("request");
 
+const inviteNotifications = require('./commands/invite-notifications');
+
 const cooldowns = require("./cooldowns.json");
 const Client = new Discord.Client({ disableEveryone: true });
 
@@ -58,6 +60,8 @@ fs.readdir("./commands/", (err, files) => {
 Client.on('ready', ()=>{
     console.log("Bot is online.");
     Client.user.setActivity('with my guitar | use "!help"');
+    
+    inviteNotifications(Client)
     
     answered = true;
     cAnswer = "";
