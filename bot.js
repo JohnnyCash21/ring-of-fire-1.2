@@ -245,6 +245,9 @@ Client.on('message', async (message)=>{
                 if(dateNow < 10){
                     dateNow = "0" + dateNow
                 }
+                if(month < 10){
+                    month = "0" + month
+                }
 
                 let fannyschmuederRole = member.guild.roles.find("name", "F A N N Y S C H M U E D E R");
                 let cheeseRole = member.guild.roles.find("name", "C H E E S E");
