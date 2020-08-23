@@ -40,6 +40,8 @@ module.exports = Client => {
         console.log('AFTER:', invitesAfter)
 
         for(const inviter in invitesAfter){
+            console.log(inviter)
+            console.log(invitesBefore[inviter])
             if(invitesBefore[inviter] === invitesAfter[inviter] - 1){
                 const channel = guild.channels.find(channel => channel.name === "general");
                 if(!channel) return;
