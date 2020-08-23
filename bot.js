@@ -91,7 +91,6 @@ Client.on('guildMemberAdd', member =>{
     
     verifyChannel.send(`Hello ${member}! Here you must verify yourself stating the following: \n **- Name** \n **-What continent you are from, (e.g. Europe, Africa, Asia, etc.)** \n **-Where you came from (how you got into this server)** \n **-Did you get invited via a Wallace? If not, who did you get invited by?** \n **-How did you find about this server?** \n **-Have you read the rules channel yet? If not, do so now** \n **-Are you capable of following all, if not, most of the rules listed?** \n \n Please answer all questions above by sending one full message in this channel, and wait to be manually accepted by an Admin. \n \n Thank You.`);
 
-    channel.send(`Welcome to this server, ${member}, please read the rules in the rules channel!`)
 
 });
 
