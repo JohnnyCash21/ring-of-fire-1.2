@@ -224,6 +224,80 @@ Client.on('message', async (message)=>{
             
 
     }
+    
+    if(message.content.startsWith(prefix + "fanny")) {
+        if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
+         
+        
+        const user = message.mentions.users.first();
+
+        if(user){
+            const member = message.guild.member(user);
+            if(member){
+
+                var date = new Date();
+                var month = date.getMonth() + 1;
+                var year = date.getFullYear();
+                var dateNow = date.getDate();
+                if(year < 1000){
+                    year += 1900;
+                }
+                if(dateNow < 10){
+                    dateNow = "0" + dateNow
+                }
+
+                let fannyschmuederRole = member.guild.roles.find("name", "F A N N Y S C H M U E D E R");
+                let cheeseRole = member.guild.roles.find("name", "C H E E S E");
+                let fannyLogChannel = Client.channels.find(channel => channel.id === '737291958283665468');
+
+
+                member.addRole(fannyschmuederRole).then(() =>{
+                    member.removeRole(cheeseRole);
+                    fannyLogChannel.send(`**FANNYSCHMUEDER ADDED** ${dateNow}/${month}/${year} - ${user.tag}`)
+                    message.reply(`Sucessfully given Fannyschmueder to ${user.tag}`);
+                }).catch(err =>{
+                    message.reply('I was unable to fanny this user');
+                    console.log(err);
+                });
+            }else{
+                message.reply("That user is not in this server");
+            }
+
+            
+        }else{
+            message.reply("You need to specify a person");
+        }
+    }
+    
+    if(message.content.startsWith(prefix + "peasant")) {
+        if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
+             
+            
+        const user = message.mentions.users.first();
+    
+        if(user){
+            const member = message.guild.member(user);
+            if(member){
+                let peasantRole = member.guild.roles.find("name", "Peasant");
+                let cheeseRole = member.guild.roles.find("name", "C H E E S E");
+                member.addRole(peasantRole).then(() =>{
+                    member.removeRole(cheeseRole);
+                    message.reply(`Sucessfully given Peasant to ${user.tag}`);
+                }).catch(err =>{
+                    message.reply('I was unable to peasant this user');
+                    console.log(err);
+                });
+            }else{
+                message.reply("That user is not in this server");
+            }
+    
+                
+        }else{
+            message.reply("You need to specify a person");
+        }
+    }
+
+        
 
     switch (args[0]) {
         case 'play':
@@ -930,6 +1004,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!warn (user)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning.")
         .addField('`!kick (user)`', "Kick a user for their bad behaviour.")
         .addField('`!ban (user)`', "Ban a user for their bad behaviour.")
+        .addField('`!peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
+        .addField('`!fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(adminEmbed)
