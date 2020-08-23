@@ -40,12 +40,14 @@ module.exports = Client => {
         console.log('AFTER:', invitesAfter)
 
         for(const inviter in invitesAfter){
-            if(invitesBefore[inviter] === invitesAfter[inviter] - 1){
+            if(invitesBefore[inviter] >= invitesAfter[inviter] - 1){
                 const channel = guild.channels.find(channel => channel.name === "general");
-                if(!channel) return;
+                if(!channel){
+                    console.log("No channel found")
+                    return;
+                }
                 const count = invitesAfter[inviter]
                 channel.send(`Please welcome ${member} to the Discord! Please read the rules in the rules channel. \n Invited by **${inviter}** (${count} total invites)`)
-                console.log("EE")
                 return
             }
         }
