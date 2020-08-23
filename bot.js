@@ -1056,6 +1056,8 @@ if(message.content.startsWith(prefix + "photoshop")){
             level: 1
         };
     }
+    
+    if(message.author.bot) return
 
     let curxp = xp[message.author.id].xp;
     let curlevel = xp[message.author.id].level;
