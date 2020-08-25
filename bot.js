@@ -1068,9 +1068,9 @@ if(message.content.startsWith(prefix + "photoshop")){
                 setTimeout(() =>{
                     ranNum = Math.floor(Math.random() * (100 - 1 + 1) + 1);
                     towns = ["Oogally", "Boogally", "Czech slovakia", "BookWorm Adventures Deluxe", "Meatball", "Pasta Lane", "Papa Mama Mia", "dead", "Austria", "UK", "US", "Car dealership", "bedroom", "garlic bread shop", "Tesco", "Sainsburys", "Asda", "Argos", "Cheese and Onion", "West Northen East", "Peppa Pig World", "Discord"];
-                    ranTown = towns[Math.floor(Math.random() * (22 - 1 + 1) + 1)];
+                    ranTown = towns[Math.floor(Math.random() * (towns.length)];
                     countries = ["China", "India", "New Zealand", "North America", "South America", "United Kingdom", "France", "Germany", "Russia", "Austria", "Australia", "Bangladesh", "Spain", "Norway", "Netherlands", "Czech", "Poland", "Romania", "Hungary", "Mongolia", "Antarctica", "Afghanistan", "Barbados", "Madagascar", "Central Africa Republic", "Denmark", "Ghana", "Jamaica", "Khazikstan", "Laos", "Nepal", "Qatar", "Turkey", "Uruaguay", "Vitenam", "Wales", "Yemen", "Ireland"]
-                    ranCountry = countries[Math.floor(Math.random() * (38 - 1 + 1) + 1)]; 
+                    ranCountry = countries[Math.floor(Math.random() * (countries.length)]; 
 
                     
                     sentMessageNew.edit(`Location: ${ranNum} ${ranTown}, ${ranCountry}`).then(
@@ -1090,7 +1090,7 @@ if(message.content.startsWith(prefix + "photoshop")){
                                                         (sentMessageNew6) =>
                                                         setTimeout(() =>{
                                                             killOptions = ["peeing on them", "smacking them with my guitar", "stabbing them with a knife", "talking to them", "eating thier brain", "inviting Brian over to their house", "shooting them in the kneecaps", "setting them on fire", "choking them", "sucking blood out of them", "doing nothing", "forcing them to play Terraria", "eating their Pringles", "rubbing my nose into a can of beans", "whacking them with a mallet", "force feeding them expired garlic bread", "unsubscribing to Tongo on YouTube", "telling them how much Tom's sister hates Johnny Cash", "getting them to decode a Polybius cipher", "killing them", "chopping their toes off", "taking their CHEESE away", "taking a shower in their bathroom", "... Actually, i forgot. Oh well", "making them adicted to opium"]
-                                                            randomKillOption = killOptions[Math.floor(Math.random() * (25 - 1 + 1) + 1)];
+                                                            randomKillOption = killOptions[Math.floor(Math.random() * (killOptions.length)];
                                                             sentMessageNew6.edit(`Successfully killed ${message.author.username} by ${randomKillOption}`)
                                                         }, 3000)
                                                     )
