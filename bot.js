@@ -748,18 +748,21 @@ if(message.content.startsWith(prefix + "photoshop")){
     
     
     if (answered == false && message.author == quizUser && !message.author.bot){
-        userAnswer = message.content.toUpperCase();
+        //userAnswerMan = message.guild
+        //userAnswerMan = message.guild
+        userAnswer = message.content.toUpperCase()
         if(message.author.bot) return;
         if(userAnswer == cAnswer){
             message.reply("Got it RIGHT! :+1: ")
             answersCorrect = answersCorrect + 1
             money[message.author.id].money = money[message.author.id].money + 15;
-            message.reply(`For being smart, you have earned an extra 15 cash! New Balance: **${money[message.author.id].money} cash!**`);
+            message.reply(`For being smart, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
             message.channel.send(`Total questions answered correctly: **${answersCorrect}**`)
 
             fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                 if(err) console.log(err);
             });
+
         } else {
             message.reply("Got it WRONG! :-1: ")
             
@@ -767,7 +770,6 @@ if(message.content.startsWith(prefix + "photoshop")){
         answered = true; cAnswer = ""; userAnswer = "";
 
     }
-   
 
     if (message.content.startsWith(prefix + "quiz")){
         quizes = 72;
@@ -783,7 +785,7 @@ if(message.content.startsWith(prefix + "photoshop")){
             case 8: message.channel.send("Why was Sir Thomas Salisbury executed in 1586? \n A. Robbery \n B. Eating \n C. Being poor \n D. His involvement in the Babington Plot to murder Queen Elizabeth I"); cAnswer = "D"; break;
             case 9: message.channel.send("Who murdered Urien of Rheged? \n A. Phil Swift \n B. Llofan Llaf Difo \n C. David Bowie \n D. Micheal Hark"); cAnswer = "B"; break;
             case 10: message.channel.send("Of what lineage is Rhydderch Hael a part of, according to the Harleian Geneaologies? \n A. Macsen Wledig lineage \n B. Arsen Wolk lineage \n C. Bhutan of Peoples \n D. DeK CeK lineage"); cAnswer = "A"; break;
-            case 11: message.channel.send("What recent discovery in Scotland is believed to be a forgotten stronghold of Rheged? \n A. A book \n B. A bone \n C. A fossil \n D. Trusty's Hill"); cAnswer = "D"; break;
+            case 11: message.channel.send("What recent discovery in Scotland is believed to be a forgotten stronghold of Rheged? \n A. A book \n B. A bone \n C. A fossil \n D. A heart"); cAnswer = "D"; break;
             case 12: message.channel.send("Who wrote, 'I Walked the Line'? \n A. Johnny Cash \n B. Johnny Cash \n C. Johnny Cash \n D. Johnny Cash"); cAnswer = "C"; break;
             case 13: message.channel.send("In what year did The Battle of Culloden take place? \n A. 1746 \n B. 1755 \n C. 1801 \n D. 1794"); cAnswer = "A"; break;
             case 14: message.channel.send("What caused the French Revolution to commence? \n A. Rise in economy \n B. Crash in economy \n C. Constant flow in economy \n D. Temporary decline in economy"); cAnswer = "B"; break;
@@ -846,9 +848,12 @@ if(message.content.startsWith(prefix + "photoshop")){
             case 71: message.channel.send("What is the capital city of France? \n A. Lyon \n B. Marseille \n C. Paris \n D. Bordeaux"); cAnswer = "C"; break;
             case 72: message.channel.send("Which of these is NOT a current member of the European Union? \n A. Germany \n B. France \n C. Spain \n D. Switzerland"); cAnswer = "D"; break;
             
+
+
+            
         }
         answered = false
-        quizUser = message.guild.id
+        quizUser = message.author
     
         
     }
