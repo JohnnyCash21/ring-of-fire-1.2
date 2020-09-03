@@ -767,7 +767,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         answered = true; cAnswer = ""; userAnswer = "";
 
     }
-    botCanAnswer = true
+   
 
     if (message.content.startsWith(prefix + "quiz")){
         quizes = 72;
