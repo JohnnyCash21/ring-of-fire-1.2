@@ -109,7 +109,6 @@ Client.on('message', async (message)=>{
 
     
 
-    if(!message.content.startsWith(prefix)) return;
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
     if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily")){
@@ -767,7 +766,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         }
         answered = true; cAnswer = ""; userAnswer = "";
 
-    } 
+    }
+    botCanAnswer = true
 
     if (message.content.startsWith(prefix + "quiz")){
         quizes = 72;
