@@ -552,6 +552,24 @@ Client.on('message', async (message)=>{
         {files: ["./129.png/"]} ,
         {files: ["./130.png/"]} ,
         {files: ["./131.png/"]} ,
+        {files: ["./132.png/"]} ,
+        {files: ["./133.png/"]} ,
+        {files: ["./134.png/"]} ,
+        {files: ["./135.png/"]} ,
+        {files: ["./136.png/"]} ,
+        {files: ["./137.png/"]} ,
+        {files: ["./138.png/"]} ,
+        {files: ["./139.png/"]} ,
+        {files: ["./140.png/"]} ,
+        {files: ["./141.png/"]} ,
+        {files: ["./142.png/"]} ,
+        {files: ["./143.png/"]} ,
+        {files: ["./144.png/"]} ,
+        {files: ["./145.png/"]} ,
+        {files: ["./146.png/"]} ,
+        {files: ["./147.png/"]} ,
+        {files: ["./148.png/"]} ,
+        {files: ["./149.png/"]} ,
     ];
 
 
@@ -980,7 +998,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(message.content.startsWith(prefix + "imagehelp")){
         const imageEmbed = new Discord.RichEmbed()
         .setTitle('Image Commands')
-        .addField('`!photoshop`', "Johnny Cash will send you one of Tom's cursed photoshops.")
+        .addField('`!photoshop`', "Johnny Cash will send you one of the many made cursed photoshops made by the Wallaces.")
         .addField('`!mrtubb`', "Get an image of the man himself.")
         .addField('`!hdtubb`', "Get a HD image of Mr Tubb!")
         .addField('`!tubb2`', "Get an image of a new Mr Tubb photo!")
