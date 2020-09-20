@@ -3343,8 +3343,8 @@ if(message.content.startsWith(prefix + "photoshop")){
                                                 }
                                                     
                                             }else{
-                                             message.channel.send("You Lose")
-                                             return
+                                             message.channel.send("You Lose! Not a valid word")
+                                             
                                             }
                                         }
                                     }
@@ -3353,11 +3353,14 @@ if(message.content.startsWith(prefix + "photoshop")){
                             }, {max: 1})
                         }
                     }else{
-                        message.channel.send("You Lose!")
-                        return
+                        message.channel.send("You Lose! Not a valid word")
+                        
                     }
                 
                 }
+            }else{
+                message.channel.send("You Lose! Use the letters provided")
+                
             }
         }
         bookwormCounter = 0;
