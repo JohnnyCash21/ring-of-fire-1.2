@@ -3353,7 +3353,7 @@ if(message.content.startsWith(prefix + "photoshop")){
                                     }
                                 }
                                 
-                            }, {max: 1})
+                            }, {max: 2})
                         }
                     }else{
                         message.channel.send("You Lose! Not a valid word")
