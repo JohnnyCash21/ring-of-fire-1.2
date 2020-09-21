@@ -3320,6 +3320,7 @@ if(message.content.startsWith(prefix + "photoshop")){
                             message.channel.send(bookCashEmbed)
 
                             message.channel.awaitMessages(msg => {
+                                if(message.author.bot) return;
                                 console.log(msg)
                                 bookwormCounter = 0;
                                 let newChars = msg.content.split("")
