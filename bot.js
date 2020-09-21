@@ -2533,6 +2533,7 @@ Client.on('ready', ()=>{
         'tie',
         'tin',
         'tip',
+        'tit',
         'tod',
         'toe',
         'tom',
@@ -3359,7 +3360,8 @@ if(message.content.startsWith(prefix + "photoshop")){
                 
                 }
             }else{
-                message.channel.send("You Lose! Use the letters provided")
+                message.channel.send("Use the letters provided. Try another word")
+                return
                 
             }
         }
