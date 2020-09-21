@@ -3360,13 +3360,16 @@ if(message.content.startsWith(prefix + "photoshop")){
                 
                 }
             }else{
-                message.channel.send("Use the letters provided. Try another word")
+                message.channel.send("Use the letters provided")
                 return
                 
             }
         }
         bookwormCounter = 0;
     }
+
+    bookwormAnswer = ""
+    bookwormAnswered = true
 
     bookwormAnswer = ""
     bookwormAnswered = true
