@@ -3371,9 +3371,6 @@ if(message.content.startsWith(prefix + "photoshop")){
     bookwormAnswer = ""
     bookwormAnswered = true
 
-    bookwormAnswer = ""
-    bookwormAnswered = true
-
     if(message.content.startsWith(prefix + "bookcash")){
         bookCashEmbed = new Discord.RichEmbed();
         
@@ -3487,11 +3484,11 @@ if(message.content.startsWith(prefix + "photoshop")){
         bookCashEmbed.setDescription("Letters Available:")
         bookCashEmbed.addField(chosenLetters.join('     '), healthBar)
         bookwormAnswered = false
-        bookwormer = message.author
-
+        
         message.channel.send(bookCashEmbed)
         
     }
+    bookwormer = message.author
 
     
     
