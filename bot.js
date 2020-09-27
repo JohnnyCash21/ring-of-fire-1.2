@@ -2656,7 +2656,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "kick")) {
-            if(!message.member.hasPermission(["ADMINISTRATOR", "KICK_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
+            if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
 
@@ -2684,7 +2684,7 @@ Client.on('message', async (message)=>{
 
 
     if(message.content.startsWith(prefix + "ban")) {
-            if(!message.member.hasPermission(["ADMINISTRATOR", "BAN_MEMBERS"])) return message.channel.send("You do not have permission to run this command");
+            if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
 
@@ -2711,8 +2711,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "warn")) {
-            if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
-
+       
             const user = message.mentions.users.first();
 
             if(user){
@@ -2738,7 +2737,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "fanny")) {
-        if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.has(["737289313191985242"])) return message.channel.send("You do not have permission to run this command");
          
         
         const user = message.mentions.users.first();
@@ -2785,7 +2784,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "peasant")) {
-        if(!message.member.hasPermission(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.has(["737289313191985242"])) return message.channel.send("You do not have permission to run this command");
              
             
         const user = message.mentions.users.first();
