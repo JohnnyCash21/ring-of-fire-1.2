@@ -2737,7 +2737,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "fanny")) {
-        if(!message.member.roles.has(["737289313191985242"])) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.has(["G R O M I T"])) return message.channel.send("You do not have permission to run this command");
          
         
         const user = message.mentions.users.first();
@@ -2784,7 +2784,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "peasant")) {
-        if(!message.member.roles.has(["737289313191985242"])) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.has(["G R O M I T"])) return message.channel.send("You do not have permission to run this command");
              
             
         const user = message.mentions.users.first();
