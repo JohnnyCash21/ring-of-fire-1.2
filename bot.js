@@ -67,6 +67,8 @@ Client.on('ready', ()=>{
     cAnswer = "";
     userAnswer = "";
     
+    fridaycooldown = true;
+    
     rpsAnswered = true;
     rpsAnswer = "";
     rpsUserAnswer = "";
@@ -2708,6 +2710,19 @@ Client.on('message', async (message)=>{
             }
 
             
+    }
+    
+    var friday = new Date();
+    isFriday = friday.getDay()
+    if(isFriday == 5 && fridaycooldown == true && !message.author.bot){
+        fridaycooldown = false
+        const fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
+        fridayChannel.send("Its Friday!").then(setTimeout(() =>{
+            fridaycooldown = true
+
+
+        }, 300000))
+        
     }
     
     if(message.content.startsWith(prefix + "warn")) {
