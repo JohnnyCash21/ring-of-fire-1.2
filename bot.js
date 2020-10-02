@@ -2717,7 +2717,7 @@ Client.on('message', async (message)=>{
     console.log(`Today is ${isFriday}`)
     if(isFriday == 5 && fridaycooldown == true && !message.author.bot){
         fridaycooldown = false
-        const fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
+        fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
         fridayChannel.send("Its Friday! And <@&655873822066606140> is a tomato").then(setTimeout(() =>{
             fridaycooldown = true
 
