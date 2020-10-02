@@ -2715,13 +2715,15 @@ Client.on('message', async (message)=>{
     var friday = new Date();
     isFriday = friday.getDay()
     console.log(`Today is ${isFriday}`)
-    if(isFriday == 5 && fridaycooldown == true && !message.author.bot){
+    if(isFriday == 5 && fridaycooldown == true && !message.author.bot && message.guild.id === "655866649659834369"){
         console.log("Friday was passed")
         fridaycooldown = false;
         fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
-        if(!fridayChannel) return;
-        fridayChannel.send("Its Friday! And <@&655873822066606140> is a tomato");
-        fridaycooldown = true; 
+        fridayChannel.send("Its Friday! And <@&655873822066606140> is a tomato").then(setTimeout(() =>{
+            fridaycooldown = true
+
+
+        }, 300000)) 
     }
     
     if(message.content.startsWith(prefix + "warn")) {
