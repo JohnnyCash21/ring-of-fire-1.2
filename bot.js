@@ -2716,14 +2716,10 @@ Client.on('message', async (message)=>{
     isFriday = friday.getDay()
     console.log(`Today is ${isFriday}`)
     if(isFriday == 5 && fridaycooldown == true && !message.author.bot){
-        fridaycooldown = false
+        fridaycooldown = false;
         fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
-        fridayChannel.send("Its Friday! And <@&655873822066606140> is a tomato").then(setTimeout(() =>{
-            fridaycooldown = true
-
-
-        }, 300000))
-        
+        fridayChannel.send("Its Friday! And <@&655873822066606140> is a tomato");
+        fridaycooldown = true; 
     }
     
     if(message.content.startsWith(prefix + "warn")) {
