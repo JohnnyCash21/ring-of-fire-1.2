@@ -2716,6 +2716,7 @@ Client.on('message', async (message)=>{
     isFriday = friday.getDay()
     console.log(`Today is ${isFriday}`)
     if(isFriday == 5 && fridaycooldown == true && !message.author.bot){
+        console.log("Friday was passed")
         fridaycooldown = false;
         fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
         if(!fridayChannel) return;
