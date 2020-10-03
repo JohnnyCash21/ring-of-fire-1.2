@@ -2833,6 +2833,32 @@ Client.on('message', async (message)=>{
             message.reply("You need to specify a person");
         }
     }
+    
+    switch(args[0]){
+
+        case "poll":
+            const pollEmbed = new RichEmbed()
+            .setColor("#d1900f")
+            .setTitle("Democracy Voting Poll")
+            .setDescription("Use `!poll (question)` to create a simple poll");
+
+            if(!args[1]){
+                message.channel.send(pollEmbed);
+                break;
+            }
+
+            let msgArgs = args.slice(1).join(" ");
+            pollEmbed.setDescription("📋 " + "**" + msgArgs + "**")
+            pollEmbed.setFooter(`Poll created by ${message.author.tag}`)
+
+            message.channel.send(pollEmbed).then(messageReaction => {
+                messageReaction.react("👍");
+                messageReaction.react("👎");
+                message.delete(2000).catch(console.error)
+            })
+
+        break;
+    }
 
         
 
@@ -3773,6 +3799,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!ringoffire`', "Host a live Johnny Cash concert, where Johnny Cash himself will sing Ring Of Fire! *(lyrics sent at exact timings as recording)*")
         .addField('`!iwanttodie`', "Johnny Cash will end your pain and misery.")
         .addField('`!bookcash`', "Play the official BookCash Adventures Deluxe!")
+        .addField('`!poll (question)`', "Set up a simple poll for everyone to vote on!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
