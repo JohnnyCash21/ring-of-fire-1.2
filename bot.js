@@ -2731,6 +2731,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "warn")) {
+        if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
        
             const user = message.mentions.users.first();
 
