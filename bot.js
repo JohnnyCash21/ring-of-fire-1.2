@@ -2666,7 +2666,9 @@ Client.on('message', async (message)=>{
                 const member = message.guild.member(user);
 
                 if(member){
-                    member.kick('You were kicked.').then(() =>{
+                    var reason = args.slice(2).join(" ");
+                    if(!reason) return message.reply("Please give a reason to kick this user.");
+                    member.kick(`You were kicked. Reason: **${reason}**`).then(() =>{
                         message.reply(`Sucessfully kicked ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to kick this member');
@@ -2694,7 +2696,9 @@ Client.on('message', async (message)=>{
                 const member = message.guild.member(user);
 
                 if(member){
-                    member.ban('You were banned.').then(() =>{
+                    var reason = args.slice(2).join(" ");
+                    if(!reason) return message.reply("Please give a reason to ban this user.");
+                    member.ban(`You were banned. Reason: **${reason}**`).then(() =>{
                         message.reply(`Sucessfully banned ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to ban this member');
@@ -2733,7 +2737,9 @@ Client.on('message', async (message)=>{
             if(user){
                 const member = message.guild.member(user);
                 if(member){
-                    member.send('You were warned. Do not let this happen again.').then(() =>{
+                    var reason = args.slice(2).join(" ");
+                    if(!reason) return message.reply("Please give a reason to warn this user.");
+                    member.send(`You were warned. Reason: **${reason}** \nDo not let this happen again.`).then(() =>{
                         message.reply(`Sucessfully warned ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to give this member a warning');
@@ -3775,9 +3781,9 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(message.content.startsWith(prefix + "adminhelp")){
         const adminEmbed = new Discord.RichEmbed()
         .setTitle('Administration Commands')
-        .addField('`!warn (user)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning.")
-        .addField('`!kick (user)`', "Kick a user for their bad behaviour.")
-        .addField('`!ban (user)`', "Ban a user for their bad behaviour.")
+        .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason.")
+        .addField('`!kick (user) (reason)`', "Kick a user for their bad behaviour.")
+        .addField('`!ban (user) (reason)`', "Ban a user for their bad behaviour.")
         .addField('`!peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .addField('`!fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .setThumbnail(image2)
