@@ -69,6 +69,8 @@ Client.on('ready', ()=>{
     
     fridaycooldown = true;
     
+    ringoffirecooldown = true;
+    
     rpsAnswered = true;
     rpsAnswer = "";
     rpsUserAnswer = "";
@@ -3976,8 +3978,9 @@ if(message.content.startsWith(prefix + "photoshop")){
         cursed(message);
     }
     
-    if(message.content.startsWith(prefix + "ringoffire")){
+    if((message.content.startsWith(prefix + "ringoffire"))&&(ringoffirecooldown == true)){
         if(message.author.bot) return
+        ringoffirecooldown = false;
         var firstmsg = setTimeout(function(){verse1_line1(message)}, 4000)
         var secondmsg = setTimeout(function(){verse1_line2(message)}, 10000)
         var thirdmsg = setTimeout(function(){verse1_line3(message)}, 17000)
@@ -4014,7 +4017,7 @@ if(message.content.startsWith(prefix + "photoshop")){
 
 
         message.channel.send(`Im gonna play Ring Of Fire! This was suggested by, ${message.author.username}`).then(firstmsg).then(secondmsg).then(thirdmsg).then(fourthmsg).then(chorusmsg1).then(chorusmsg2).then(chorusmsg3).then(chorusmsg4).then(chorusmsg5).then(chorusmsg1rpt).then(chorusmsg2rpt).then(chorusmsg3rpt).then(chorusmsg4rpt).then(chorusmsg5rpt).then(fifthmsg).then(sixthmsg).then(seventhmsg).then(eigthmsg).then(chorusmsg1rpt2).then(chorusmsg2rpt2).then(chorusmsg3rpt2).then(chorusmsg4rpt2).then(chorusmsg5rpt2).then(chorusmsg1rpt3).then(chorusmsg2rpt3).then(chorusmsg3rpt3).then(chorusmsg4rpt3).then(chorusmsg5rpt3).then(lastbitmsg1).then(lastbitmsg2).then(lastbitmsg3).then(lastbitmsg4);
-        
+        ringoffirecooldown = true;
     }
 
 
