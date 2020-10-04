@@ -3978,46 +3978,50 @@ if(message.content.startsWith(prefix + "photoshop")){
         cursed(message);
     }
     
-    if((message.content.startsWith(prefix + "ringoffire"))&&(ringoffirecooldown == true)){
-        if(message.author.bot) return
-        ringoffirecooldown = false;
-        var firstmsg = setTimeout(function(){verse1_line1(message)}, 4000)
-        var secondmsg = setTimeout(function(){verse1_line2(message)}, 10000)
-        var thirdmsg = setTimeout(function(){verse1_line3(message)}, 17000)
-        var fourthmsg = setTimeout(function(){verse1_line4(message)}, 23000)
-        var chorusmsg1 = setTimeout(function(){chorus1(message)}, 27000)
-        var chorusmsg2 = setTimeout(function(){chorus2(message)}, 31000)
-        var chorusmsg3 = setTimeout(function(){chorus3(message)}, 34000)
-        var chorusmsg4 = setTimeout(function(){chorus4(message)}, 37500)
-        var chorusmsg5 = setTimeout(function(){chorus5(message)}, 41000)
-        var chorusmsg1rpt = setTimeout(function(){chorus1(message)}, 66000)
-        var chorusmsg2rpt = setTimeout(function(){chorus2(message)}, 70000)
-        var chorusmsg3rpt = setTimeout(function(){chorus3(message)}, 73000)
-        var chorusmsg4rpt = setTimeout(function(){chorus4(message)}, 76500)
-        var chorusmsg5rpt = setTimeout(function(){chorus5(message)}, 80000)
-        var fifthmsg = setTimeout(function(){verse2_line1(message)}, 89000)
-        var sixthmsg = setTimeout(function(){verse2_line2(message)}, 95000)
-        var seventhmsg = setTimeout(function(){verse2_line3(message)}, 101500)
-        var eigthmsg = setTimeout(function(){verse2_line4(message)}, 108500)
-        var chorusmsg1rpt2 = setTimeout(function(){chorus1(message)}, 114000)
-        var chorusmsg2rpt2 = setTimeout(function(){chorus2(message)}, 118000)
-        var chorusmsg3rpt2 = setTimeout(function(){chorus3(message)}, 122000)
-        var chorusmsg4rpt2 = setTimeout(function(){chorus4(message)}, 124500)
-        var chorusmsg5rpt2 = setTimeout(function(){chorus5(message)}, 128000)
-        var chorusmsg1rpt3 = setTimeout(function(){chorus1(message)}, 133500)
-        var chorusmsg2rpt3 = setTimeout(function(){chorus2(message)}, 137500)
-        var chorusmsg3rpt3 = setTimeout(function(){chorus3(message)}, 140500)
-        var chorusmsg4rpt3 = setTimeout(function(){chorus4(message)}, 144000)
-        var chorusmsg5rpt3 = setTimeout(function(){chorus5(message)}, 147500)
-        var lastbitmsg1 = setTimeout(function(){lastbit_1(message)}, 156500)
-        var lastbitmsg2 = setTimeout(function(){lastbit_2_and3(message)}, 160500)
-        var lastbitmsg3 = setTimeout(function(){lastbit_2_and3(message)}, 164500)
-        var lastbitmsg4 = setTimeout(function(){last_last(message)}, 168500)
+    if(message.content.startsWith(prefix + "ringoffire")){
+        if(ringoffirecooldown == true){
+            if(message.author.bot) return
+            ringoffirecooldown = false;
+            var firstmsg = setTimeout(function(){verse1_line1(message)}, 4000)
+            var secondmsg = setTimeout(function(){verse1_line2(message)}, 10000)
+            var thirdmsg = setTimeout(function(){verse1_line3(message)}, 17000)
+            var fourthmsg = setTimeout(function(){verse1_line4(message)}, 23000)
+            var chorusmsg1 = setTimeout(function(){chorus1(message)}, 27000)
+            var chorusmsg2 = setTimeout(function(){chorus2(message)}, 31000)
+            var chorusmsg3 = setTimeout(function(){chorus3(message)}, 34000)
+            var chorusmsg4 = setTimeout(function(){chorus4(message)}, 37500)
+            var chorusmsg5 = setTimeout(function(){chorus5(message)}, 41000)
+            var chorusmsg1rpt = setTimeout(function(){chorus1(message)}, 66000)
+            var chorusmsg2rpt = setTimeout(function(){chorus2(message)}, 70000)
+            var chorusmsg3rpt = setTimeout(function(){chorus3(message)}, 73000)
+            var chorusmsg4rpt = setTimeout(function(){chorus4(message)}, 76500)
+            var chorusmsg5rpt = setTimeout(function(){chorus5(message)}, 80000)
+            var fifthmsg = setTimeout(function(){verse2_line1(message)}, 89000)
+            var sixthmsg = setTimeout(function(){verse2_line2(message)}, 95000)
+            var seventhmsg = setTimeout(function(){verse2_line3(message)}, 101500)
+            var eigthmsg = setTimeout(function(){verse2_line4(message)}, 108500)
+            var chorusmsg1rpt2 = setTimeout(function(){chorus1(message)}, 114000)
+            var chorusmsg2rpt2 = setTimeout(function(){chorus2(message)}, 118000)
+            var chorusmsg3rpt2 = setTimeout(function(){chorus3(message)}, 122000)
+            var chorusmsg4rpt2 = setTimeout(function(){chorus4(message)}, 124500)
+            var chorusmsg5rpt2 = setTimeout(function(){chorus5(message)}, 128000)
+            var chorusmsg1rpt3 = setTimeout(function(){chorus1(message)}, 133500)
+            var chorusmsg2rpt3 = setTimeout(function(){chorus2(message)}, 137500)
+            var chorusmsg3rpt3 = setTimeout(function(){chorus3(message)}, 140500)
+            var chorusmsg4rpt3 = setTimeout(function(){chorus4(message)}, 144000)
+            var chorusmsg5rpt3 = setTimeout(function(){chorus5(message)}, 147500)
+            var lastbitmsg1 = setTimeout(function(){lastbit_1(message)}, 156500)
+            var lastbitmsg2 = setTimeout(function(){lastbit_2_and3(message)}, 160500)
+            var lastbitmsg3 = setTimeout(function(){lastbit_2_and3(message)}, 164500)
+            var lastbitmsg4 = setTimeout(function(){last_last(message)}, 168500)
 
 
 
-        message.channel.send(`Im gonna play Ring Of Fire! This was suggested by, ${message.author.username}`).then(firstmsg).then(secondmsg).then(thirdmsg).then(fourthmsg).then(chorusmsg1).then(chorusmsg2).then(chorusmsg3).then(chorusmsg4).then(chorusmsg5).then(chorusmsg1rpt).then(chorusmsg2rpt).then(chorusmsg3rpt).then(chorusmsg4rpt).then(chorusmsg5rpt).then(fifthmsg).then(sixthmsg).then(seventhmsg).then(eigthmsg).then(chorusmsg1rpt2).then(chorusmsg2rpt2).then(chorusmsg3rpt2).then(chorusmsg4rpt2).then(chorusmsg5rpt2).then(chorusmsg1rpt3).then(chorusmsg2rpt3).then(chorusmsg3rpt3).then(chorusmsg4rpt3).then(chorusmsg5rpt3).then(lastbitmsg1).then(lastbitmsg2).then(lastbitmsg3).then(lastbitmsg4);
-        ringoffirecooldown = true;
+            message.channel.send(`Im gonna play Ring Of Fire! This was suggested by, ${message.author.username}`).then(firstmsg).then(secondmsg).then(thirdmsg).then(fourthmsg).then(chorusmsg1).then(chorusmsg2).then(chorusmsg3).then(chorusmsg4).then(chorusmsg5).then(chorusmsg1rpt).then(chorusmsg2rpt).then(chorusmsg3rpt).then(chorusmsg4rpt).then(chorusmsg5rpt).then(fifthmsg).then(sixthmsg).then(seventhmsg).then(eigthmsg).then(chorusmsg1rpt2).then(chorusmsg2rpt2).then(chorusmsg3rpt2).then(chorusmsg4rpt2).then(chorusmsg5rpt2).then(chorusmsg1rpt3).then(chorusmsg2rpt3).then(chorusmsg3rpt3).then(chorusmsg4rpt3).then(chorusmsg5rpt3).then(lastbitmsg1).then(lastbitmsg2).then(lastbitmsg3).then(lastbitmsg4).then(ringoffirecooldown = true);
+            
+        }else{
+            message.reply("A Ring Of Fire song is already playing")
+        }
     }
 
 
