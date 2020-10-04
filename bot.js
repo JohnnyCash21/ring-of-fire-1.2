@@ -4014,10 +4014,11 @@ if(message.content.startsWith(prefix + "photoshop")){
             var lastbitmsg2 = setTimeout(function(){lastbit_2_and3(message)}, 160500)
             var lastbitmsg3 = setTimeout(function(){lastbit_2_and3(message)}, 164500)
             var lastbitmsg4 = setTimeout(function(){last_last(message)}, 168500)
+            var setcooldown = setTimeout(function(){change_cooldown}, 168500)
 
 
 
-            message.channel.send(`Im gonna play Ring Of Fire! This was suggested by, ${message.author.username}`).then(firstmsg).then(secondmsg).then(thirdmsg).then(fourthmsg).then(chorusmsg1).then(chorusmsg2).then(chorusmsg3).then(chorusmsg4).then(chorusmsg5).then(chorusmsg1rpt).then(chorusmsg2rpt).then(chorusmsg3rpt).then(chorusmsg4rpt).then(chorusmsg5rpt).then(fifthmsg).then(sixthmsg).then(seventhmsg).then(eigthmsg).then(chorusmsg1rpt2).then(chorusmsg2rpt2).then(chorusmsg3rpt2).then(chorusmsg4rpt2).then(chorusmsg5rpt2).then(chorusmsg1rpt3).then(chorusmsg2rpt3).then(chorusmsg3rpt3).then(chorusmsg4rpt3).then(chorusmsg5rpt3).then(lastbitmsg1).then(lastbitmsg2).then(lastbitmsg3).then(lastbitmsg4).then(ringoffirecooldown = true);
+            message.channel.send(`Im gonna play Ring Of Fire! This was suggested by, ${message.author.username}`).then(firstmsg).then(secondmsg).then(thirdmsg).then(fourthmsg).then(chorusmsg1).then(chorusmsg2).then(chorusmsg3).then(chorusmsg4).then(chorusmsg5).then(chorusmsg1rpt).then(chorusmsg2rpt).then(chorusmsg3rpt).then(chorusmsg4rpt).then(chorusmsg5rpt).then(fifthmsg).then(sixthmsg).then(seventhmsg).then(eigthmsg).then(chorusmsg1rpt2).then(chorusmsg2rpt2).then(chorusmsg3rpt2).then(chorusmsg4rpt2).then(chorusmsg5rpt2).then(chorusmsg1rpt3).then(chorusmsg2rpt3).then(chorusmsg3rpt3).then(chorusmsg4rpt3).then(chorusmsg5rpt3).then(lastbitmsg1).then(lastbitmsg2).then(lastbitmsg3).then(lastbitmsg4).then(setcooldown);
             
         }else{
             message.reply("A Ring Of Fire song is already playing")
@@ -4087,6 +4088,10 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     function last_last(message){
         message.channel.send("The ring of fire")
+    }
+    
+    function change_cooldown(){
+        ringoffirecooldown = true
     }
 
     
