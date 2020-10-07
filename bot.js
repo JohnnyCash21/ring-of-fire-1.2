@@ -4151,7 +4151,8 @@ function meme(message){
 
     request(options, function(error, response, responseBody) {
         if (error) {
-            return;
+            console.log(error)
+            return message.channel.send("An error occurred, please try again")
         }
  
  
@@ -4186,7 +4187,8 @@ function cursed(message){
 
     request(options, function(error, response, responseBody) {
         if (error) {
-            return;
+            console.log(error)
+            return message.channel.send("An error occurred, please try again")
         }
  
  
@@ -4220,7 +4222,8 @@ function any(message, search){
 
     request(options, function(error, response, responseBody) {
         if (error) {
-            return;
+            console.log(error)
+            return message.channel.send("An error occurred, please try again")
         }
  
  
