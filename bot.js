@@ -3769,6 +3769,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!search`', "Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest.")
         .addField('`!skip`', "Skip the playing song.")
         .addField('`!stop`', "Music will stop playing.")
+        .addField('`!ARGH`', "AAAARRRRGGGHHH!!!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(musicEmbed)
@@ -3783,6 +3784,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!tubb2`', "Get an image of a new Mr Tubb photo!")
         .addField('`!meme`', "Get a random meme!")
         .addField('`!cursed`', "Get a random cursed image!")
+        .addField('`!image (search query)`', "Get an image of your search query!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(imageEmbed)
@@ -3978,6 +3980,11 @@ if(message.content.startsWith(prefix + "photoshop")){
         cursed(message);
     }
     
+    if(message.content.startsWith(prefix + "image")){
+        let searchQuery = args.slice(1).join(" ")
+        any(message, searchQuery)
+    }
+    
     if(message.content.startsWith(prefix + "ringoffire")){
         if(ringoffirecooldown == true){
             if(message.author.bot) return
@@ -4117,6 +4124,10 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
     
+    if(message.content.startsWith(prefix + "argh".toUpperCase())){
+        message.reply("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    }
+    
     
         
 
@@ -4189,6 +4200,40 @@ function cursed(message){
         if (!urls.length) {
            
             return;
+        }
+ 
+        // Send result
+        message.channel.send( urls[Math.floor(Math.random() * urls.length)]);
+    });
+};
+
+function any(message, search){
+
+    var options = {
+        url: "http://results.dogpile.com/serp?qc=images&q=" + search,
+        method: "GET",
+        headers: {
+            "Accept": "text/html",
+            "User-Agent": "Chrome"
+        }
+    }
+
+    request(options, function(error, response, responseBody) {
+        if (error) {
+            return;
+        }
+ 
+ 
+        $ = cheerio.load(responseBody);
+ 
+ 
+        var links = $(".image a.link");
+ 
+        var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
+ 
+        if (!urls.length) {
+           
+            return message.channel.send("No images available for this search query!")
         }
  
         // Send result
