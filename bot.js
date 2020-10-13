@@ -2870,7 +2870,7 @@ Client.on('message', async (message)=>{
             function play(connection, message){
                 var server = servers[message.guild.id];
     
-                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audio'}));
+                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}));
     
                 server.queue.shift();
     
@@ -2888,10 +2888,10 @@ Client.on('message', async (message)=>{
                 return;
             }
             
-            if(!message.content.startsWith("!play https://www.youtube.com/")){
-                message.channel.send("Please provide a link");
-                return;
-            }
+            //if(!message.content.startsWith("!play https://www.youtube.com/")){
+                //message.channel.send("Please provide a link");
+                //return;
+            //}
     
             if(!message.member.voiceChannel){
                 message.channel.send("You must be in a voice channel to play the bot!");
