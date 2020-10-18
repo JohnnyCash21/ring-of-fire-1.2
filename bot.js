@@ -2870,7 +2870,7 @@ Client.on('message', async (message)=>{
             function play(connection, message){
                 var server = servers[message.guild.id];
     
-                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}));
+                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audio'}));
     
                 server.queue.shift();
     
@@ -2910,6 +2910,7 @@ Client.on('message', async (message)=>{
             if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){
                 play(connection, message);
             })
+            
     
         break;
 
