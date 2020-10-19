@@ -2882,6 +2882,66 @@ Client.on('message', async (message)=>{
                     }
                 });
             }
+            
+            if(ytdl.validateURL(args[1]) == false){
+                if(!message.member.voiceChannel){
+                    message.channel.send("You must be in a voice channel to play the bot!");
+                    return;
+                }
+                let music = args.slice(1).join(" ");
+                if(!music){
+                    return message.channel.send("Please send a search query or link")
+                }
+                console.log(music);
+                let filter = m => m.author.id === message.author.id;
+                let results = await search(music, opts).catch(err => console.log(err));
+
+                if(results) {
+                    let youtubeResults = results.results;
+                    let i =0;
+                    let titles = youtubeResults.map(result => {
+                        i++;
+                        return i + ") " + result.title;
+                    });
+                    console.log(titles);
+                    message.channel.send({
+                        embed: {
+                            title: 'Select which song you want by typing the number',
+                            description: titles.join("\n")
+                        }
+                    }).catch(err => console.log(err));
+
+                    filter = m => (m.author.id === message.author.id) && m.content >= 1 && m.content <= youtubeResults.length;
+                    let collected = await message.channel.awaitMessages(filter, { maxMatches: 1});
+                    let selected = youtubeResults[collected.first().content - 1];
+
+                    function play(connection, message){
+                        var server = servers[message.guild.id];
+                        
+                        server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audio'}));
+        
+                        server.queue.shift();
+
+                        server.dispatcher.on("end", function(){
+                            if(server.queue[0]){
+                                play(connection, message);
+                            }else {
+                                connection.disconnect();
+                            }
+                        });
+        
+                       
+                    }
+        
+                    if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){
+                        play(connection, message);
+            
+                        
+                    })
+                    message.channel.send(`!play ${selected.link}`);
+                    return;
+                }
+            }
     
             if(!args[1]){
                 message.channel.send("you need to provide a link");
@@ -3236,94 +3296,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
     
     if(message.content.toLowerCase() === '!search') {
-        let embed = new Discord.RichEmbed()
-            .setColor("#73ffdc")
-            .setDescription("Please enter a search query. This time, don't use the command with your search")
-            .setTitle("Johnny Cash Music Search");
-        if(!message.member.voiceChannel){
-                message.channel.send("You must be in a voice channel to play the bot!");
-                return;
-        }
-        let embedMsg = await message.channel.send(embed);
-        let filter = m => m.author.id === message.author.id;
-        let query = await message.channel.awaitMessages(filter, { max: 1});
-        let results = await search(query.first().content, opts).catch(err => console.log(err));
-        if(results) {
-            let youtubeResults = results.results;
-            let i =0;
-            let titles = youtubeResults.map(result => {
-                i++;
-                return i + ") " + result.title;
-            });
-            console.log(titles);
-            message.channel.send({
-                embed: {
-                    title: 'Select which song you want by typing the number',
-                    description: titles.join("\n")
-                }
-            }).catch(err => console.log(err));
-            
-            filter = m => (m.author.id === message.author.id) && m.content >= 1 && m.content <= youtubeResults.length;
-            let collected = await message.channel.awaitMessages(filter, { maxMatches: 1});
-            let selected = youtubeResults[collected.first().content - 1];
-           
-
-            embed = new Discord.RichEmbed()
-                .setTitle(`${selected.title}`)
-                .setURL(`${selected.link}`)
-                .setDescription(`${selected.description}`)
-                .setThumbnail(`${selected.thumbnails.default.url}`)
-            message.channel.send(embed);
-            
-            function play(connection, message){
-                var server = servers[message.guild.id];
-                
-
-                
-                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}));
-
-              
-    
-                server.queue.shift();
-                 
-
-                
-
-    
-    
-                server.dispatcher.on("end", function(){
-                    if(server.queue[0]){
-                        play(connection, message);
-                    }else {
-                        connection.disconnect();
-                    }
-                });
-
-               
-            }
-
-            if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){
-                play(connection, message);
-    
-                
-            })
-            
-            message.channel.send(`!play ${selected.link}`);
-            
-          
-            
-                
-        
-    
-          
-            
-        }
-
-        
-        
-        
-        
-
+        message.channel.reply("This command no longer exists! Use the `!play` command as well as your search query: `!play (query)`")
     }
     
     if(bookwormAnswered == false){
@@ -3766,8 +3739,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(message.content.startsWith(prefix + "musichelp")){
         const musicEmbed = new Discord.RichEmbed()
         .setTitle('Music Commands')
-        .addField('`!play (link)`', "Make sure you are in Voice Channel, and insert YouTube link, and hear the lovely music!")
-        .addField('`!search`', "Make sure you are in a Voice Channel, then By inputting JUST this command, wait until Johnny Cash has responded back to you, then search any music you like, Johnny Cash will then give you a range of terms from what you inputted. Simply type in the certain number which meets your style, and let Johnny Cash do the rest.")
+        .addField('`!play (link)` or `!play (query)', "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
         .addField('`!skip`', "Skip the playing song.")
         .addField('`!stop`', "Music will stop playing.")
         .addField('`!ARGH`', "AAAARRRRGGGHHH!!!")
