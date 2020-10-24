@@ -2625,7 +2625,7 @@ Client.on('message', async (message)=>{
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily")){
+    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report)){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3730,7 +3730,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!musichelp`', "A list of music commands", true)
         .addField('`!imagehelp`', "A list of image commands", true)
         .addField('`!funhelp`', "A list of fun and games commands", true)
-        .addField('`!adminhelp` \n**[ONLY AVAILABLE FOR ADMINISTRATORS!]**', "A list of administration commands", true)
+        .addField('`!adminhelp`', "A list of administration commands. Some of which can be used by everyone", true)
         .addField('`!levelhelp`', "A list of level commands", true)
         .addField('`!currencyhelp`', "A list of currency commands",true)
         .addField('`!educationhelp`', "A list of educational and learning commands",true)
@@ -3805,10 +3805,11 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(message.content.startsWith(prefix + "adminhelp")){
         const adminEmbed = new Discord.RichEmbed()
         .setTitle('Administration Commands')
-        .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason.")
-        .addField('`!kick (user) (reason)`', "Kick a user for their bad behaviour.")
-        .addField('`!ban (user) (reason)`', "Ban a user for their bad behaviour.")
-        .addField('`!clear (amount)`', "Clear the amount of messages specified")
+        .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason. **(ADMIN ONLY)**")
+        .addField('`!kick (user) (reason)`', "Kick a user for their bad behaviour. **(ADMIN ONLY)**")
+        .addField('`!ban (user) (reason)`', "Ban a user for their bad behaviour. **(ADMIN ONLY)**")
+        .addField('`!clear (amount)`', "Clear the amount of messages specified. **(ADMIN ONLY)**")
+        .addField('`!report (user) (reason)`', "See any foolish behaviour? Help the admins out and report that vile user. You may even be rewarded for using the command **appropriately**")
         .addField('`!peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .addField('`!fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .setThumbnail(image2)
