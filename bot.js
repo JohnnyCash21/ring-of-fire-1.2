@@ -3731,6 +3731,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!hello`', "Johnny Cash will say hello to you.")
         .addField('`!help`', "The reason you came here.")
         .addField('`!ping`', "Shows how fast i respond back.")
+        .addField('`!serverinfo`', "Shows some information about the server")
+        .addField('`!userinfo (user)`', "Shows some information about the certain user")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(basicEmbed)
@@ -4074,7 +4076,53 @@ if(message.content.startsWith(prefix + "photoshop")){
         ringoffirecooldown = true
     }
 
+    if(message.content.startsWith(prefix + "serverinfo")){
+        const { guild } = message
+
+        const { name, region, memberCount, owner, createdAt } = guild
+        const icon = guild.iconURL
+
+        const serverInfoEmbed = new RichEmbed()
+        .setTitle(`${name}'s Server Info`)
+        .setThumbnail(icon)
+        .addField("**Region:** ", region)
+        .addField("**Members:** ", memberCount)
+        .addField("**Owner:** ", owner.user.tag)
+        .addField("**Server Created At:** ", createdAt)
+
+        message.channel.send(serverInfoEmbed)
+
+    }
+
+    if(message.content.startsWith(prefix + "userinfo")){
+        const { guild, channel } = message
+
+        const user = message.mentions.users.first() || message.member.user
+        const member = guild.members.get(user.id)
+
+        rolesHave = []
+
+        for(let role of member.roles.values()){
+            if(role.name != "@everyone"){
+                rolesHave.push(role)
+            }
+            
+        }
+
+        const userInfoEmbed = new RichEmbed()
+        .setAuthor(`User info for ${user.username}`, user.displayAvatarURL)
+        .addField("**User Tag:** ", user.tag)
+        .addField("**Is Bot:** ", user.bot)
+        .addField("**Nickname:** ", member.nickname || 'None')
+        .addField("**Join Date:** ", new Date(member.joinedTimestamp).toLocaleDateString())
+        .addField("**Account Created:** ", new Date(user.createdTimestamp).toLocaleDateString())
+        .addField("**Role Count:** ", member.roles.size - 1)
+        .addField("**Roles:** ", rolesHave)
+
     
+        message.channel.send(userInfoEmbed)
+
+    }
     
       
 
