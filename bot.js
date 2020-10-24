@@ -2761,6 +2761,23 @@ Client.on('message', async (message)=>{
 
     }
     
+    if(message.content.startsWith(prefix + "clear")){
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You don't have permission to use that command!")
+
+        let deleteAmt;
+
+        if(isNaN(args[1]) || parseInt(args[1]) <= 0) { return message.reply("Please input a valid amount/integer!") }
+
+        if(parseInt(args[1]) > 100){
+           return message.reply("You can only delete a maximum of 100 messages at a time!")
+        } else{
+            deleteAmt = parseInt(args[1])
+        }
+
+        message.channel.bulkDelete(deleteAmt + 1, true)
+        message.channel.send(`Successfully deleted **${deleteAmt}** messages!`)
+    }
+    
     if(message.content.startsWith(prefix + "fanny")) {
         if(!message.member.roles.some(role => role.name === 'G R O M I T')) return message.channel.send("You do not have permission to run this command");
          
@@ -3791,6 +3808,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason.")
         .addField('`!kick (user) (reason)`', "Kick a user for their bad behaviour.")
         .addField('`!ban (user) (reason)`', "Ban a user for their bad behaviour.")
+        .addField('`!clear (amount)`', "Clear the amount of messages specified")
         .addField('`!peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .addField('`!fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .setThumbnail(image2)
