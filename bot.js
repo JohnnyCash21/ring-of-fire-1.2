@@ -3797,6 +3797,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!iwanttodie`', "Johnny Cash will end your pain and misery.")
         .addField('`!bookcash`', "Play the official BookCash Adventures Deluxe!")
         .addField('`!poll (question)`', "Set up a simple poll for everyone to vote on!")
+        .addField('`!NNN`', "See who has failed No Nut November!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
@@ -4112,6 +4113,22 @@ if(message.content.startsWith(prefix + "photoshop")){
 
         message.channel.send(serverInfoEmbed)
 
+    }
+    
+    if(message.content.toUpperCase() === prefix + "NNN"){
+
+        const date = new Date()
+        const month = date.getMonth() + 1;
+        
+        if(month != 11) return message.channel.send("**It's not November, you can't use that command!**");
+
+        const server = message.member.guild;
+        const serverMembers = [];
+        server.members.forEach(member => 
+            serverMembers.push(member.nickname || member.user.username));
+
+        const randomMember = serverMembers[Math.floor(Math.random() * serverMembers.length)];
+        return message.channel.send(`**${randomMember} failed No Nut November!**`)
     }
 
     if(message.content.startsWith(prefix + "userinfo")){
