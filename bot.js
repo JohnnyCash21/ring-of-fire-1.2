@@ -2878,6 +2878,24 @@ Client.on('message', async (message)=>{
 
         break;
     }
+    
+    if (message.content.startsWith(prefix + 'simprate')) {
+        const simp = message.mentions.users.first() || message.author;
+        if(simp){
+            const member = message.guild.member(simp);
+
+            if(member){
+                const randomNum = Math.round(Math.random() * (100 - 0) + 0);
+                message.channel.send(`${member.nickname || member.user.username} is ${randomNum}% simp`)
+            }else{
+                message.channel.send("That user is not in the server")
+            }
+
+        }else{
+            const randomNum = Math.round(Math.random() * (100 - 0) + 0);
+            message.channel.send(`${message.member.nickname || message.author.username} is ${randomNum}% simp`)
+        }
+    }
 
         
 
@@ -3798,6 +3816,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!bookcash`', "Play the official BookCash Adventures Deluxe!")
         .addField('`!poll (question)`', "Set up a simple poll for everyone to vote on!")
         .addField('`!NNN`', "See who has failed No Nut November!")
+        .addField('`!simprate (user)`', "See how much simp your friends are")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
