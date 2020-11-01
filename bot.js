@@ -2806,8 +2806,8 @@ Client.on('message', async (message)=>{
                 let cheeseRole = member.guild.roles.find("name", "C H E E S E");
                 let fannyLogChannel = Client.channels.find(channel => channel.id === '737291958283665468');
                 member.removeRole(cheeseRole);
+                fannyLogChannel.send(`**FANNYSCHMUEDER ADDED** ${dateNow}/${month}/${year} - ${user.tag}`)
                 member.addRole(fannyschmuederRole).then(() =>{
-                    fannyLogChannel.send(`**FANNYSCHMUEDER ADDED** ${dateNow}/${month}/${year} - ${user.tag}`)
                     message.reply(`Sucessfully given Fannyschmueder to ${user.tag}`);
                 }).catch(err =>{
                     message.reply('I was unable to fanny this user');
