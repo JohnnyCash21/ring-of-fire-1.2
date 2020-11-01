@@ -2733,7 +2733,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "warn")) {
-        if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You do not have permission to run this command");
        
             const user = message.mentions.users.first();
 
@@ -2932,22 +2932,8 @@ Client.on('message', async (message)=>{
                 let results = await search(music, opts).catch(err => console.log(err));
 
                 if(results) {
-                    let youtubeResults = results.results;
-                    let i =0;
-                    let titles = youtubeResults.map(result => {
-                        i++;
-                        return i + ") " + result.title;
-                    });
-                    console.log(titles);
-                    message.channel.send({
-                        embed: {
-                            title: 'Select which song you want by typing the number',
-                            description: titles.join("\n")
-                        }
-                    }).catch(err => console.log(err));
-
-                    filter = m => (m.author.id === message.author.id) && m.content >= 1 && m.content <= youtubeResults.length;
-                    let collected = await message.channel.awaitMessages(filter, { maxMatches: 1});
+                    
+                    let collected = 1
                     let selected = youtubeResults[collected.first().content - 1];
 
                     function play(connection, message){
