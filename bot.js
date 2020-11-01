@@ -4132,6 +4132,8 @@ if(message.content.startsWith(prefix + "photoshop")){
         const serverMembers = [];
         server.members.forEach(member => 
             serverMembers.push(member.nickname || member.user.username));
+        
+        console.log(serverMembers)
 
         const randomMember = serverMembers[Math.floor(Math.random() * serverMembers.length)];
         return message.channel.send(`**${randomMember} failed No Nut November!**`)
