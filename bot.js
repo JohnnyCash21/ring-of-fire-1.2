@@ -2805,10 +2805,8 @@ Client.on('message', async (message)=>{
                 let fannyschmuederRole = member.guild.roles.find("name", "F A N N Y S C H M U E D E R");
                 let cheeseRole = member.guild.roles.find("name", "C H E E S E");
                 let fannyLogChannel = Client.channels.find(channel => channel.id === '737291958283665468');
-
-
+                member.removeRole(cheeseRole);
                 member.addRole(fannyschmuederRole).then(() =>{
-                    member.removeRole(cheeseRole);
                     fannyLogChannel.send(`**FANNYSCHMUEDER ADDED** ${dateNow}/${month}/${year} - ${user.tag}`)
                     message.reply(`Sucessfully given Fannyschmueder to ${user.tag}`);
                 }).catch(err =>{
@@ -2836,8 +2834,8 @@ Client.on('message', async (message)=>{
             if(member){
                 let peasantRole = member.guild.roles.find("name", "Peasant");
                 let cheeseRole = member.guild.roles.find("name", "C H E E S E");
+                member.removeRole(cheeseRole);
                 member.addRole(peasantRole).then(() =>{
-                    member.removeRole(cheeseRole);
                     message.reply(`Sucessfully given Peasant to ${user.tag}`);
                 }).catch(err =>{
                     message.reply('I was unable to peasant this user');
