@@ -2935,7 +2935,7 @@ Client.on('message', async (message)=>{
                     youtubeResults = results.results;
                     
                     let collected = 1
-                    let selected = youtubeResults[collected.first().content - 1];
+                    let selected = youtubeResults[0];
 
                     function play(connection, message){
                         var server = servers[message.guild.id];
