@@ -2779,7 +2779,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "fanny")) {
-        if(!message.member.roles.some(role => role.name === 'G R O M I T')) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
          
         
         const user = message.mentions.users.first();
@@ -2826,7 +2826,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "peasant")) {
-        if(!message.member.roles.some(role => role.name === 'G R O M I T')) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
              
             
         const user = message.mentions.users.first();
@@ -2905,7 +2905,7 @@ Client.on('message', async (message)=>{
             function play(connection, message){
                 var server = servers[message.guild.id];
     
-                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audio'}));
+                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}));
     
                 server.queue.shift();
     
