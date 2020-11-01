@@ -4129,11 +4129,9 @@ if(message.content.startsWith(prefix + "photoshop")){
         if(month != 11) return message.channel.send("**It's not November, you can't use that command!**");
 
         const server = message.member.guild;
+        console.log(server.members)
         const serverMembers = [];
-        server.members.forEach(member => 
-            serverMembers.push(member.nickname || member.user.username));
-        
-        console.log(serverMembers)
+        server.members.forEach(member => serverMembers.push(member.nickname || member.user.username));
 
         const randomMember = serverMembers[Math.floor(Math.random() * serverMembers.length)];
         return message.channel.send(`**${randomMember} failed No Nut November!**`)
