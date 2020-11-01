@@ -2932,6 +2932,7 @@ Client.on('message', async (message)=>{
                 let results = await search(music, opts).catch(err => console.log(err));
 
                 if(results) {
+                    youtubeResults = results.results;
                     
                     let collected = 1
                     let selected = youtubeResults[collected.first().content - 1];
