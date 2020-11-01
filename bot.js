@@ -2803,16 +2803,16 @@ Client.on('message', async (message)=>{
                 }
 
                 let fannyschmuederRole = member.guild.roles.find("name", "F A N N Y S C H M U E D E R");
+                if(!fannyschmuederRole) return message.channel.send("There is no fanny role, so this is not CHEESE server")
                 let cheeseRole = member.guild.roles.find("name", "C H E E S E");
+                if(!cheeseRole) return message.channel.send("There is no cheese role, so this is not CHEESE server")
                 let fannyLogChannel = Client.channels.find(channel => channel.id === '737291958283665468');
+                if(!fannyLogChannel) return message.channel.send("There is no fanny log channel")
                 member.removeRole(cheeseRole);
                 fannyLogChannel.send(`**FANNYSCHMUEDER ADDED** ${dateNow}/${month}/${year} - ${user.tag}`)
-                member.addRole(fannyschmuederRole).then(() =>{
-                    message.reply(`Sucessfully given Fannyschmueder to ${user.tag}`);
-                }).catch(err =>{
-                    message.reply('I was unable to fanny this user');
-                    console.log(err);
-                });
+                member.addRole(fannyschmuederRole)
+                message.reply(`Sucessfully given Fannyschmueder to ${user.tag}`);
+               
             }else{
                 message.reply("That user is not in this server");
             }
@@ -2833,14 +2833,13 @@ Client.on('message', async (message)=>{
             const member = message.guild.member(user);
             if(member){
                 let peasantRole = member.guild.roles.find("name", "Peasant");
+                if(!peasantRole) return message.channel.send("There is no peasant role, meaning this is CHEESE server")
                 let cheeseRole = member.guild.roles.find("name", "C H E E S E");
+                if(!cheeseRole) return message.channel.send("There is no cheese role, meaning this is CHEESE server")
                 member.removeRole(cheeseRole);
-                member.addRole(peasantRole).then(() =>{
-                    message.reply(`Sucessfully given Peasant to ${user.tag}`);
-                }).catch(err =>{
-                    message.reply('I was unable to peasant this user');
-                    console.log(err);
-                });
+                member.addRole(peasantRole)
+                message.reply(`Sucessfully given Peasant to ${user.tag}`);
+          
             }else{
                 message.reply("That user is not in this server");
             }
