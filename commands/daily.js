@@ -9,7 +9,7 @@ module.exports.run = async (Client, message, args) => {
     let timeout = 86400000;    //86400000
     let reward = 500;
 
-    let dailyEmbed = new Discord.RichEmbed();
+    let dailyEmbed = new Discord.MessageEmbed();
 
     if(message.author.bot) return;
    
@@ -21,7 +21,7 @@ module.exports.run = async (Client, message, args) => {
             
 
         money[message.author.id] = {
-            name: Client.users.get(message.author.id).tag,
+            name: Client.users.cache.get(message.author.id).tag,
             money: reward
         }
                 
@@ -31,7 +31,7 @@ module.exports.run = async (Client, message, args) => {
 
         if(!cooldowns[message.author.id]){
             cooldowns[message.author.id] = {
-                name: Client.users.get(message.author.id).tag,
+                name: Client.users.cache.get(message.author.id).tag,
                 daily: Date.now()
             }
             fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
