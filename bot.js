@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const prefix = "!";
 const ytdl = require("ytdl-core");
-const YOUTUBE_API = (process.env.YOUTUBE_API);
+const YOUTUBE_API = (process.env.YOUTUBE_API)
 const search = require('youtube-search');
 const opts = {
     maxResults: 1,
@@ -12,7 +12,7 @@ const opts = {
 const YouTube = require("simple-youtube-api");
 const streamOptions = { seek: 0, volume: 1 };
 const urban = require("urban");
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
 var version = '1.2';
 var servers = {};
@@ -26,7 +26,7 @@ const request = require("request");
 const inviteNotifications = require('./commands/invite-notifications');
 
 const cooldowns = require("./cooldowns.json");
-const Client = new Discord.Client({ disableEveryone: true });
+const Client = new Discord.Client({ disableMentions: 'everyone' });
 
 
 Client.commands = new Discord.Collection();
@@ -2591,16 +2591,16 @@ Client.on('ready', ()=>{
 })
 
 
-Client.on('guildMemberAdd', member =>{
+Client.on('guildMemberAdd', (member) =>{
 
-    const channel = member.guild.channels.find(channel => channel.name === "general");
+    const channel = member.guild.channels.cache.find(channel => channel.name === "general");
     if(!channel) return;
     
-    let unverifiedRole = member.guild.roles.find("name", "Unverified");
+    let unverifiedRole = member.guild.roles.cache.find(unverify => unverify.name == "Unverified");
     if(!unverifiedRole) return;
-    member.addRole(unverifiedRole);
+    member.roles.add(unverifiedRole);
     
-    const verifyChannel = member.guild.channels.find(verifyChannel => verifyChannel.name === "verify");
+    const verifyChannel = member.guild.channels.cache.find(verifyChannel => verifyChannel.name === "verify");
     if (!verifyChannel) return;
     
     verifyChannel.send(`Hello ${member}! Here you must verify yourself stating the following: \n **- Name** \n **-What continent you are from, (e.g. Europe, Africa, Asia, etc.)** \n **-Have you read the rules channel yet? If not, do so now** \n **-Are you capable of following all, if not, most of the rules listed?** \n \n Please answer all questions above by sending one full message in this channel, and wait to be manually accepted by an Admin. \n \n Thank You.`);
@@ -2608,8 +2608,8 @@ Client.on('guildMemberAdd', member =>{
 
 });
 
-Client.on('guildMemberRemove', member =>{
-    const channel = member.guild.channels.find(channel => channel.name === "general");
+Client.on('GUILD_MEMBER_REMOVE', member =>{
+    const channel = member.guild.channels.cache.find(channel => channel.name === "general");
     if(!channel) return;
     
     
@@ -2660,7 +2660,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "kick")) {
-            if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
+            if(!message.member.permissions.has("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
 
@@ -2690,7 +2690,7 @@ Client.on('message', async (message)=>{
 
 
     if(message.content.startsWith(prefix + "ban")) {
-            if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send("You do not have permission to run this command");
+            if(!message.member.permissions.has("BAN_MEMBERS")) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
 
@@ -2718,22 +2718,10 @@ Client.on('message', async (message)=>{
             
     }
     
-    var friday = new Date();
-    isFriday = friday.getDay()
-    console.log(`Today is ${isFriday}`)
-    if(isFriday == 5 && fridaycooldown == true && !message.author.bot && message.guild.id === "655866649659834369"){
-        console.log("Friday was passed")
-        fridaycooldown = false;
-        fridayChannel = message.member.guild.channels.find(fridayChannel => fridayChannel.name === "friday-related-stuff");
-        fridayChannel.send("Its Friday! And <@&655873822066606140> is a tomato").then(setTimeout(() =>{
-            fridaycooldown = true
-
-
-        }, 300000)) 
-    }
+   
     
     if(message.content.startsWith(prefix + "warn")) {
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.permissions.has("MANAGE_MESSAGES")) return message.channel.send("You do not have permission to run this command");
        
             const user = message.mentions.users.first();
 
@@ -2762,7 +2750,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "clear")){
-        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("You don't have permission to use that command!")
+        if(!message.member.permissions.has("MANAGE_MESSAGES")) return message.reply("You don't have permission to use that command!")
 
         let deleteAmt;
 
@@ -2779,7 +2767,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "fanny")) {
-        if(!message.member.roles.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
          
         
         const user = message.mentions.users.first();
@@ -2802,13 +2790,13 @@ Client.on('message', async (message)=>{
                     month = "0" + month
                 }
 
-                let fannyschmuederRole = member.guild.roles.find("name", "F A N N Y S C H M U E D E R");
-                let cheeseRole = member.guild.roles.find("name", "C H E E S E");
-                let fannyLogChannel = Client.channels.find(channel => channel.id === '737291958283665468');
+                let fannyschmuederRole = member.guild.roles.cache.find(b => b.name === "F A N N Y S C H M U E D E R");
+                let cheeseRole = member.guild.roles.cache.find(c => c.name === "C H E E S E");
+                let fannyLogChannel = Client.channels.cache.find(channel => channel.id === '737291958283665468');
 
 
-                member.addRole(fannyschmuederRole).then(() =>{
-                    member.removeRole(cheeseRole);
+                member.roles.add(fannyschmuederRole).then(() =>{
+                    member.roles.remove(cheeseRole);
                     fannyLogChannel.send(`**FANNYSCHMUEDER ADDED** ${dateNow}/${month}/${year} - ${user.tag}`)
                     message.reply(`Sucessfully given Fannyschmueder to ${user.tag}`);
                 }).catch(err =>{
@@ -2827,7 +2815,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.startsWith(prefix + "peasant")) {
-        if(!message.member.roles.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
              
             
         const user = message.mentions.users.first();
@@ -2835,10 +2823,10 @@ Client.on('message', async (message)=>{
         if(user){
             const member = message.guild.member(user);
             if(member){
-                let peasantRole = member.guild.roles.find("name", "Peasant");
-                let cheeseRole = member.guild.roles.find("name", "C H E E S E");
-                member.addRole(peasantRole).then(() =>{
-                    member.removeRole(cheeseRole);
+                let peasantRole = member.guild.roles.cache.find(r => r.name === "Peasant");
+                let cheeseRole = member.guild.roles.cache.find(a => a.name === "C H E E S E");
+                member.roles.add(peasantRole).then(() =>{
+                    member.roles.remove(cheeseRole);
                     message.reply(`Sucessfully given Peasant to ${user.tag}`);
                 }).catch(err =>{
                     message.reply('I was unable to peasant this user');
@@ -2858,7 +2846,7 @@ Client.on('message', async (message)=>{
     switch(args[0]){
 
         case "poll":
-            const pollEmbed = new RichEmbed()
+            const pollEmbed = new MessageEmbed()
             .setColor("#d1900f")
             .setTitle("Democracy Voting Poll")
             .setDescription("Use `!poll (question)` to create a simple poll");
@@ -2875,7 +2863,7 @@ Client.on('message', async (message)=>{
             message.channel.send(pollEmbed).then(messageReaction => {
                 messageReaction.react("👍");
                 messageReaction.react("👎");
-                message.delete(2000).catch(console.error)
+                message.delete({ timeout: 2000 }).catch(console.error)
             })
 
         break;
@@ -2907,7 +2895,7 @@ Client.on('message', async (message)=>{
             function play(connection, message){
                 var server = servers[message.guild.id];
     
-                server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}));
+                server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
     
                 server.queue.shift();
     
@@ -2921,7 +2909,7 @@ Client.on('message', async (message)=>{
             }
             
             if(ytdl.validateURL(args[1]) == false){
-                if(!message.member.voiceChannel){
+                if(!message.member.voice.channel){
                     message.channel.send("You must be in a voice channel to play the bot!");
                     return;
                 }
@@ -2942,11 +2930,11 @@ Client.on('message', async (message)=>{
                     function play(connection, message){
                         var server = servers[message.guild.id];
                         
-                        server.dispatcher = connection.playStream(ytdl(server.queue[0], {filter: 'audioonly'}));
+                        server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
         
                         server.queue.shift();
 
-                        server.dispatcher.on("end", function(){
+                        server.dispatcher.on("finish", function(){
                             if(server.queue[0]){
                                 play(connection, message);
                             }else {
@@ -2957,7 +2945,7 @@ Client.on('message', async (message)=>{
                        
                     }
         
-                    if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){
+                    if(!message.guild.voice.connection) message.member.voice.channel.join().then(function(connection){
                         play(connection, message);
             
                         
@@ -2977,7 +2965,7 @@ Client.on('message', async (message)=>{
                 //return;
             //}
     
-            if(!message.member.voiceChannel){
+            if(!message.member.voice.channel){
                 message.channel.send("You must be in a voice channel to play the bot!");
                 return;
             }
@@ -2991,7 +2979,7 @@ Client.on('message', async (message)=>{
             server.queue.push(args[1]);
             message.channel.send("Song has been added to the queue!");
     
-            if(!message.guild.voiceConnection) message.member.voiceChannel.join().then(function(connection){
+            if(!message.guild.voice.connection) message.member.voice.channel.join().then(function(connection){
                 play(connection, message);
             })
             
@@ -3000,23 +2988,23 @@ Client.on('message', async (message)=>{
 
         case 'skip':
             var server = servers[message.guild.id];
-            if(server.dispatcher) server.dispatcher.end();
+            if(server.dispatcher) server.dispatcher.destroy();
             message.channel.send("Skipping the song...")
         break;
 
         case 'stop':
             var server = servers[message.guild.id];
-            if(message.guild.voiceConnection){
+            if(message.guild.voice.connection){
                 for(var i = server.queue.length -1; i >=0; i--){
                     server.queue.splice(i, 1);
                 }
 
-                server.dispatcher.end();
+                server.dispatcher.destroy();
                 message.channel.send("Ending the queue, leaving the voice channel")
                 console.log('stopped the queue')
             }
 
-            if(message.guild.connection) message.guild.voiceConnection.disconnect();
+            if(message.guild.connection) message.guild.voice.connection.disconnect();
             break;
 
              
@@ -3032,20 +3020,16 @@ Client.on('message', async (message)=>{
                   let { word, definition, example, thumbs_up, thumbs_down, permalink, author} = res
 
                       try {
-                      let UrBanEmbed = new Discord.RichEmbed()
+                      let UrBanEmbed = new Discord.MessageEmbed()
                           .setColor("#00FFFF")
                           .setAuthor(`Urban Dictionary | ${word}`, image2)
                           .setThumbnail(image2)
                           .setDescription(stripIndents`**Definition:** ${definition || "No definition"}
-
-                          **Example:** ${example || "No example"}
-
-                          **Upvote:** ${thumbs_up || 0}
-
-                          **Downvote:** ${thumbs_down || 0}
-
-                          **Link:** [link to ${word}](${permalink || "https://www.urbandictionary.com/"})`)
-                          .setFooter(`Written by ${author || "unknown"}`, message.guild.iconURL);
+                          \n**Example:** ${example || "No example"}
+                          \n**Upvote:** ${thumbs_up || 0}
+                          \n**Downvote:** ${thumbs_down || 0}
+                          \n**Link:** [link to ${word}](${permalink || "https://www.urbandictionary.com/"})`)
+                          .setFooter(`Written by ${author || "unknown"}`, message.guild.iconURL());
 
 
 
@@ -3422,7 +3406,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     bookwormAnswered = true
 
     if(message.content.startsWith(prefix + "bookcash")){
-        bookCashEmbed = new Discord.RichEmbed();
+        bookCashEmbed = new Discord.MessageEmbed();
         
 
         var Alexander = "https://vignette.wikia.nocookie.net/bookwormadventures/images/d/d9/Alexander.png/revision/latest/scale-to-width-down/180?cb=20100814135015";
@@ -3731,7 +3715,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
 
     if(message.content.startsWith(prefix + "help")){
-        const commandsEmbed = new Discord.RichEmbed()
+        const commandsEmbed = new Discord.MessageEmbed()
         .setTitle('Help Commands')
         .addField('`!basichelp`', "A list of basic commands", true)
         .addField('`!musichelp`', "A list of music commands", true)
@@ -3741,7 +3725,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!levelhelp`', "A list of level commands", true)
         .addField('`!currencyhelp`', "A list of currency commands",true)
         .addField('`!educationhelp`', "A list of educational and learning commands",true)
-        .setAuthor('Click here to invite me to your server', Client.user.displayAvatarURL, 'https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=8&scope=bot')
+        .setAuthor('Click here to invite me to your server', Client.user.displayAvatarURL(), 'https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=8&scope=bot')
         .setFooter('Bot Made By: Quaternion#3351')
         .setThumbnail(image2)
         .setColor(0xF1C40F)
@@ -3751,7 +3735,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if(message.content.startsWith(prefix + "basichelp")){
-        const basicEmbed = new Discord.RichEmbed()
+        const basicEmbed = new Discord.MessageEmbed()
         .setTitle('Basic Commands')
         .addField('`!hello`', "Johnny Cash will say hello to you.")
         .addField('`!help`', "The reason you came here.")
@@ -3764,7 +3748,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if(message.content.startsWith(prefix + "musichelp")){
-        const musicEmbed = new Discord.RichEmbed()
+        const musicEmbed = new Discord.MessageEmbed()
         .setTitle('Music Commands')
         .addField('`!play (link)` or `!play (query)', "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
         .addField('`!skip`', "Skip the playing song.")
@@ -3776,7 +3760,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if(message.content.startsWith(prefix + "imagehelp")){
-        const imageEmbed = new Discord.RichEmbed()
+        const imageEmbed = new Discord.MessageEmbed()
         .setTitle('Image Commands')
         .addField('`!photoshop`', "Johnny Cash will send you one of the many made cursed photoshops made by the Wallaces.")
         .addField('`!mrtubb`', "Get an image of the man himself.")
@@ -3792,7 +3776,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if(message.content.startsWith(prefix + "funhelp")){
-        const funEmbed = new Discord.RichEmbed()
+        const funEmbed = new Discord.MessageEmbed()
         .setTitle('Fun and Games Commands')
         .addField('`!8ball (question)`', "Ask a yes or no question, and let your fate decide...")
         .addField('`!urban (word)`', "Searches the term in the urban dictionary.")
@@ -3813,7 +3797,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if(message.content.startsWith(prefix + "adminhelp")){
-        const adminEmbed = new Discord.RichEmbed()
+        const adminEmbed = new Discord.MessageEmbed()
         .setTitle('Administration Commands')
         .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason. **(ADMIN ONLY)**")
         .addField('`!kick (user) (reason)`', "Kick a user for their bad behaviour. **(ADMIN ONLY)**")
@@ -3828,7 +3812,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
     
     if(message.content.startsWith(prefix + "levelhelp")){
-        const levelEmbed = new Discord.RichEmbed()
+        const levelEmbed = new Discord.MessageEmbed()
         .setTitle('Level Commands')
         .addField('`!level`', "This will show you your current level, current XP, and how much XP you need to level up!")
         .setThumbnail(image2)
@@ -3837,7 +3821,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
     
     if(message.content.startsWith(prefix + "currencyhelp")){
-        const currencyEmbed = new Discord.RichEmbed()
+        const currencyEmbed = new Discord.MessageEmbed()
         .setTitle('Currency Commands')
         .addField('`!balance`', "This will show you your current balance, current cash.")
         .addField('`!balance (user)`', "This will show you another user's balance and cash.")
@@ -3850,7 +3834,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
     
     if(message.content.startsWith(prefix + "educationhelp")){
-        const educationEmbed = new Discord.RichEmbed()
+        const educationEmbed = new Discord.MessageEmbed()
         .setTitle('Educational Commands')
         .addField('`!fact`', "Get a random fact about me.")
         .addField('`!drugs`', "Learn about drugs and its consequences")
@@ -3949,7 +3933,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(nextLevel <= xp[message.author.id].xp){
         xp[message.author.id].level = curlevel + 1;
         
-        let lvlup = new Discord.RichEmbed()
+        let lvlup = new Discord.MessageEmbed()
         .setTitle('Level Up!')
         .setColor('#7a34eb')
         .addField("New Level", curlevel + 1)
@@ -3960,12 +3944,12 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
 
     if(message.content.startsWith(prefix + "level")){
-        let lvlEmbed = new Discord.RichEmbed()
+        let lvlEmbed = new Discord.MessageEmbed()
         .setAuthor(message.author.username)
         .setColor('#3614a6')
         .addField('Level:', curlevel, true)
         .addField('XP:', curxp, true)
-        .setFooter(`${difference} XP till next level!`, message.author.displayAvatarURL);
+        .setFooter(`${difference} XP till next level!`, message.author.displayAvatarURL());
         message.reply(lvlEmbed);
     }
     
@@ -4109,9 +4093,9 @@ if(message.content.startsWith(prefix + "photoshop")){
         const { guild } = message
 
         const { name, region, memberCount, owner, createdAt } = guild
-        const icon = guild.iconURL
+        const icon = guild.iconURL()
 
-        const serverInfoEmbed = new RichEmbed()
+        const serverInfoEmbed = new MessageEmbed()
         .setTitle(`${name}'s Server Info`)
         .setThumbnail(icon)
         .addField("**Region:** ", region)
@@ -4133,7 +4117,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         const server = message.member.guild;
         console.log(server.members)
         const serverMembers = [];
-        server.members.forEach(member => serverMembers.push(member.nickname || member.user.username));
+        server.members.cache.forEach(member => serverMembers.push(member.nickname || member.user.username));
 
         const randomMember = serverMembers[Math.floor(Math.random() * serverMembers.length)];
         return message.channel.send(`**${randomMember} failed No Nut November!**`)
@@ -4143,25 +4127,25 @@ if(message.content.startsWith(prefix + "photoshop")){
         const { guild, channel } = message
 
         const user = message.mentions.users.first() || message.member.user
-        const member = guild.members.get(user.id)
+        const member = guild.members.cache.get(user.id)
 
         rolesHave = []
 
-        for(let role of member.roles.values()){
+        for(let role of member.roles.cache.values()){
             if(role.name != "@everyone"){
                 rolesHave.push(role)
             }
             
         }
 
-        const userInfoEmbed = new RichEmbed()
-        .setAuthor(`User info for ${user.username}`, user.displayAvatarURL)
+        const userInfoEmbed = new MessageEmbed()
+        .setAuthor(`User info for ${user.username}`, user.displayAvatarURL())
         .addField("**User Tag:** ", user.tag)
         .addField("**Is Bot:** ", user.bot)
         .addField("**Nickname:** ", member.nickname || 'None')
         .addField("**Join Date:** ", new Date(member.joinedTimestamp).toLocaleDateString())
         .addField("**Account Created:** ", new Date(user.createdTimestamp).toLocaleDateString())
-        .addField("**Role Count:** ", member.roles.size - 1)
+        .addField("**Role Count:** ", member.roles.cache.size - 1)
         .addField("**Roles:** ", rolesHave)
 
     
@@ -4177,11 +4161,11 @@ if(message.content.startsWith(prefix + "photoshop")){
 
 
     if (message.content.startsWith(prefix + "ping")) {
-        message.channel.send(`Ring Of Fire! my Ping is ` + Math.round(Client.ping) + `ms`);
+        message.channel.send(`Ring Of Fire! my Ping is ` + Math.round(Client.ws.ping) + `ms`);
       }
 
     if(message.content.startsWith(prefix + "hello")){
-        message.channel.send("Hello, i am Johhny Cash. How are you doing, " + message.author + " ?");
+        message.channel.send("Hello, i am Johhny Cash. How are you doing, <@" + message.author.id + "> ?");
 
     }
     
