@@ -25,12 +25,12 @@ module.exports = Client => {
 
     }
 
-    Client.guilds.forEach(async (guild) => {
+    Client.guilds.cache.forEach(async (guild) => {
         invites[guild.id] = await getInviteCounts(guild);
 
     })
 
-    Client.on('guildMemberAdd', async member => {
+    Client.on("guildMemberAdd", async member => {
         const { guild } = member
 
         const invitesBefore = invites[guild.id]
@@ -44,7 +44,7 @@ module.exports = Client => {
                 invitesBefore[inviter] = 0
             }
             if(invitesBefore[inviter] === invitesAfter[inviter] - 1){
-                const channel = guild.channels.find(channel => channel.name === "general");
+                const channel = guild.channels.cache.find(channel => channel.name === "general");
                 if(!channel) return;
                 const count = invitesAfter[inviter]
                 channel.send(`Please welcome ${member} to the **${member.guild.name}** server! Please read the rules in the rules channel. \n Invited by **${inviter}** (${count} total invites)`)
