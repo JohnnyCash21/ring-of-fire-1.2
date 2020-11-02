@@ -2608,7 +2608,7 @@ Client.on('guildMemberAdd', (member) =>{
 
 });
 
-Client.on('GUILD_MEMBER_REMOVE', member =>{
+Client.on('guildMemberRemove', member =>{
     const channel = member.guild.channels.cache.find(channel => channel.name === "general");
     if(!channel) return;
     
@@ -2651,7 +2651,7 @@ Client.on('message', async (message)=>{
     
     if(!money[message.author.id]) {
         money[message.author.id] = {
-            name: Client.users.get(message.author.id).tag,
+            name: Client.users.cache.get(message.author.id).tag,
             money: 0
         }
         fs.writeFile("./money.json", JSON.stringify(money), (err) => {
