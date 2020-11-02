@@ -57,7 +57,7 @@ module.exports.run = async (Client, message, args) => {
 
         if(!cooldowns[message.author.id]){
             cooldowns[message.author.id] = {
-                name: Client.users.get(message.author.id).tag,
+                name: Client.users.cache.get(message.author.id).tag,
                 daily: Date.now()
             }
             fs.writeFile("./cooldowns.json", JSON.stringify(cooldowns), (err) => {
