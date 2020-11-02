@@ -5,11 +5,12 @@ module.exports.run = async (Client, message, args) => {
     
     if(message.author.bot) return;
 
-    let user = message.mentions.members.first() || Client.users.get(args[0]);
+    let user = message.mentions.members.first() || Client.users.cache.get(args[0]);
     if(!user) return message.reply("Sorry, couldn't find that user.");
 
     if(!args[1]) return message.reply("Please specify the amount you want to pay.");
 
+    
     if(!money[message.author.id]) return message.reply("Sorry, you don't have any money.");
 
     if(parseInt(args[1]) > money[message.author.id].money) return message.reply("You do not have enough cash!");
@@ -19,7 +20,7 @@ module.exports.run = async (Client, message, args) => {
     if(!money[user.id]) {
         
         money[user.id] = {
-            name: Client.users.get(user.id).tag,
+            name: Client.users.cache.get(user.id).tag,
             money: parseInt(args[1])
         }
 
@@ -39,7 +40,7 @@ module.exports.run = async (Client, message, args) => {
         });
     }
 
-    return message.channel.send(`${message.author.username} payed ${args[1]} cash to ${Client.users.get(user.id)}!`);
+    return message.channel.send(`${message.author.username} payed ${args[1]} cash to ${Client.users.cache.get(user.id)}!`);
 
 
 
