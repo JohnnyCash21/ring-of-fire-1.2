@@ -2,9 +2,10 @@ const Discord = require("discord.js");
 const money = require("../money.json");
 const fs = require("fs");
 
+
 module.exports.run = async (Client, message, args) => {
 
-    let gambleEmbed = new Discord.RichEmbed()
+    let gambleEmbed = new Discord.MessageEmbed()
 
     if(message.author.bot) return;
 
@@ -45,9 +46,9 @@ module.exports.run = async (Client, message, args) => {
             fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                 if(err) console.log(err);
             });
-            let findLotteryRole = message.member.guild.roles.find("name", "Lottery Winner");
+            let findLotteryRole = message.member.guild.roles.cache.find(d => d.name === "Lottery Winner");
             if(!findLotteryRole){
-                message.member.guild.createRole({
+                message.member.guild.roles.create({
                     name: "Lottery Winner",
                     color: "#ffef12",
                     permissions: [],
@@ -56,17 +57,16 @@ module.exports.run = async (Client, message, args) => {
                     hoist: true
                 }).then(function(lotteryWinnerRole)
                 {
-                    message.member.addRole(lotteryWinnerRole)
+                    message.member.roles.add(lotteryWinnerRole)
                 });
             } else{
-                message.member.addRole(findLotteryRole)
+                message.member.roles.add(findLotteryRole)
             }
             
 
             
             gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
             gambleEmbed.addField("JACKPOT!", `New Balance: ${money[message.author.id].money} cash.`);
-            gambleEmbed.addField("YOU WIN 1,000,000 CASH!", 'You have won 1,000,000 cash!');
             gambleEmbed.addField("NEW ROLE ASSIGNED!", 'Because of your win, you now have a new exclusive role!');
             gambleEmbed.setColor("#ffef12");
             return message.reply(gambleEmbed);
@@ -84,6 +84,7 @@ module.exports.run = async (Client, message, args) => {
         }
         
     }
+
 
 }
 
