@@ -7,7 +7,7 @@ module.exports.run = async (Client, message, args) => {
     if(!args[0]){
         var user = message.author;
     } else {
-        var user = message.mentions.users.first() || Client.users.get(args[0]);
+        var user = message.mentions.users.first() || Client.users.cache.get(args[0]);
     }
 
 
@@ -22,7 +22,7 @@ module.exports.run = async (Client, message, args) => {
     }
 
 
-    return message.channel.send(`${Client.users.get(user.id).username} has ${money[user.id].money} cash!`)
+    return message.channel.send(`${Client.users.cache.get(user.id).username} has ${money[user.id].money} cash!`)
     
 
 }
