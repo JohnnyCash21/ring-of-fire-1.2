@@ -11,6 +11,7 @@ const opts = {
 
 const YouTube = require("simple-youtube-api");
 const streamOptions = { seek: 0, volume: 1 };
+const { getInfo } = require('ytdl-getinfo');
 const urban = require("urban");
 const { MessageEmbed } = require("discord.js");
 const { stripIndents } = require("common-tags");
@@ -2894,12 +2895,21 @@ Client.on('message', async (message)=>{
     
             function play(connection, message){
                 var server = servers[message.guild.id];
-    
-                server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
-    
-                server.queue.shift();
-    
-                server.dispatcher.on("end", function(){
+                if(!server.queue[1]){
+                    server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
+                    getInfo(server.queue[0]).then(info => {
+                        message.channel.send(`:play_pause: Now Playing: **${info.items[0].title}**`)
+                    }).catch(err =>{
+                        message.channel.send(":play_pause: Next song has started playing")
+                    });
+                }
+                    
+                server.dispatcher.on("finish", function(){
+                    if(server.queue[1]){
+                        server.queue.shift();
+                        return;
+                    }
+                    
                     if(server.queue[0]){
                         play(connection, message);
                     }else {
@@ -2917,94 +2927,88 @@ Client.on('message', async (message)=>{
                 if(!music){
                     return message.channel.send("Please send a search query or link")
                 }
-                console.log(music);
-                let filter = m => m.author.id === message.author.id;
                 let results = await search(music, opts).catch(err => console.log(err));
 
                 if(results) {
                     youtubeResults = results.results;
                     
-                    let collected = 1
                     let selected = youtubeResults[0];
 
-                    function play(connection, message){
-                        var server = servers[message.guild.id];
-                        
-                        server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
-        
-                        server.queue.shift();
-
-                        server.dispatcher.on("finish", function(){
-                            if(server.queue[0]){
-                                play(connection, message);
-                            }else {
-                                connection.disconnect();
-                            }
-                        });
-        
-                       
+                    if(!servers[message.guild.id]) servers[message.guild.id] = {
+                        queue: []
                     }
+
+                    var server = servers[message.guild.id];
+
+                    getInfo(selected.link).then(info => {
+                        message.channel.send(`**${info.items[0].title}** has been added to the queue!`)
+                    }).catch(err =>{
+                        message.channel.send("Song has been added to the queue")
+                    });
+
+                    server.queue.push(selected.link);
         
-                    if(!message.guild.voice.connection) message.member.voice.channel.join().then(function(connection){
+                    if(!message.member.voice.connection) message.member.voice.channel.join().then(function(connection){
                         play(connection, message);
-            
-                        
-                    })
-                    message.channel.send(`!play ${selected.link}`);
+                    });
+                }
+            }else{
+    
+                if(!args[1]){
+                    message.channel.send("you need to provide a link");
                     return;
                 }
+        
+                if(!message.member.voice.channel){
+                    message.channel.send("You must be in a voice channel to play the bot!");
+                    return;
+                }
+        
+                if(!servers[message.guild.id]) servers[message.guild.id] = {
+                    queue: []
+                }
+        
+                var server = servers[message.guild.id];
+        
+                server.queue.push(args[1]);
+                getInfo(args[1]).then(info => {
+                    message.channel.send(`**${info.items[0].title}** has been added to the queue!`)
+                }).catch(err =>{
+                    message.channel.send("Song has been added to the queue")
+                });
+        
+                if(!message.member.voice.connection) message.member.voice.channel.join().then(function(connection){
+                    play(connection, message);
+                })
             }
-    
-            if(!args[1]){
-                message.channel.send("you need to provide a link");
-                return;
-            }
-            
-            //if(!message.content.startsWith("!play https://www.youtube.com/")){
-                //message.channel.send("Please provide a link");
-                //return;
-            //}
-    
-            if(!message.member.voice.channel){
-                message.channel.send("You must be in a voice channel to play the bot!");
-                return;
-            }
-    
-            if(!servers[message.guild.id]) servers[message.guild.id] = {
-                queue: []
-            }
-    
-            var server = servers[message.guild.id];
-    
-            server.queue.push(args[1]);
-            message.channel.send("Song has been added to the queue!");
-    
-            if(!message.guild.voice.connection) message.member.voice.channel.join().then(function(connection){
-                play(connection, message);
-            })
+        
             
     
         break;
 
         case 'skip':
             var server = servers[message.guild.id];
-            if(server.dispatcher) server.dispatcher.destroy();
+            if(server.dispatcher) server.dispatcher.end();
             message.channel.send("Skipping the song...")
         break;
 
         case 'stop':
             var server = servers[message.guild.id];
-            if(message.guild.voice.connection){
-                for(var i = server.queue.length -1; i >=0; i--){
-                    server.queue.splice(i, 1);
+            if(message.member.voice.channel){
+                try{
+                    for(var i = server.queue.length -1; i >=0; i--){
+                        server.queue.splice(i, 1);
+                    }
                 }
-
-                server.dispatcher.destroy();
+                catch(err){
+                    return message.channel.send("There is no music playing!")
+                }
+                server.dispatcher.end();
                 message.channel.send("Ending the queue, leaving the voice channel")
                 console.log('stopped the queue')
             }
 
-            if(message.guild.connection) message.guild.voice.connection.disconnect();
+            if(message.member.voice.channel) message.member.voice.channel.leave();
             break;
 
              
