@@ -3726,7 +3726,6 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!imagehelp`', "A list of image commands", true)
         .addField('`!funhelp`', "A list of fun and games commands", true)
         .addField('`!adminhelp`', "A list of administration commands. Some of which can be used by everyone", true)
-        .addField('`!levelhelp`', "A list of level commands", true)
         .addField('`!currencyhelp`', "A list of currency commands",true)
         .addField('`!educationhelp`', "A list of educational and learning commands",true)
         .addField('**Want me on your server?**', '[Click here](https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=8&scope=bot) to invite me to your server', true)
@@ -3816,14 +3815,6 @@ if(message.content.startsWith(prefix + "photoshop")){
         message.channel.send(adminEmbed)
     }
     
-    if(message.content.startsWith(prefix + "levelhelp")){
-        const levelEmbed = new Discord.MessageEmbed()
-        .setTitle('Level Commands')
-        .addField('`!level`', "This will show you your current level, current XP, and how much XP you need to level up!")
-        .setThumbnail(image2)
-        .setColor(0xF1C40F)
-        message.channel.send(levelEmbed)
-    }
     
     if(message.content.startsWith(prefix + "currencyhelp")){
         const currencyEmbed = new Discord.MessageEmbed()
@@ -3909,59 +3900,7 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
     
-    
-    
-    
-    
-    
-    
-    
-    let xpAdd = Math.floor(Math.random() * 7) + 8;
-    
 
-    if(!xp[message.author.id]){
-        xp[message.author.id] = {
-            xp: 0,
-            level: 1
-        };
-    }
-    
-    if(message.author.bot) return
-
-    let curxp = xp[message.author.id].xp;
-    let curlevel = xp[message.author.id].level;
-    let nextLevel = xp[message.author.id].level * 300;
-    let nextLevelxp = curlevel * 300;
-    let difference = nextLevelxp - curxp;
-    xp[message.author.id].xp = curxp + xpAdd;
-
-    if(nextLevel <= xp[message.author.id].xp){
-        xp[message.author.id].level = curlevel + 1;
-        
-        let lvlup = new Discord.MessageEmbed()
-        .setTitle('Level Up!')
-        .setColor('#7a34eb')
-        .addField("New Level", curlevel + 1)
-        .addField(`${message.author.username}`, "has leveled up!")
-        message.channel.send(lvlup)
-        
-
-    }
-
-    if(message.content.startsWith(prefix + "level")){
-        let lvlEmbed = new Discord.MessageEmbed()
-        .setAuthor(message.author.username)
-        .setColor('#3614a6')
-        .addField('Level:', curlevel, true)
-        .addField('XP:', curxp, true)
-        .setFooter(`${difference} XP till next level!`, message.author.displayAvatarURL());
-        message.reply(lvlEmbed);
-    }
-    
-
-    fs.writeFile("./xp.json", JSON.stringify(xp), (err) => {
-        if(err) console.log(err)
-    });
     
     if(message.content.startsWith(prefix + "meme")){
 
