@@ -3754,7 +3754,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     if(message.content.startsWith(prefix + "musichelp")){
         const musicEmbed = new Discord.MessageEmbed()
         .setTitle('Music Commands')
-        .addField('`!play (link)` or `!play (query)', "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
+        .addField('`!play (link)` or `!play (query)`, "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
         .addField('`!skip`', "Skip the playing song.")
         .addField('`!stop`', "Music will stop playing.")
         .addField('`!ARGH`', "AAAARRRRGGGHHH!!!")
