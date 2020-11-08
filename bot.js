@@ -2912,6 +2912,7 @@ Client.on('message', async (message)=>{
                     
                     if(server.queue[0]){
                         play(connection, message);
+                        server.queue.shift();
                     }else {
                         connection.disconnect();
                     }
