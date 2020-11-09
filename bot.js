@@ -3268,6 +3268,21 @@ if(message.content.startsWith(prefix + "photoshop")){
     
     }
     
+    if(message.content.toLowerCase().startsWith("i'm") || message.content.toLowerCase().startsWith("im") || message.content.toLowerCase().startsWith("i’m")){
+        var nameObject = args.slice(1).join(" ");
+        if (nameObject){
+            message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
+        }
+    }
+
+
+    if(message.content.toLowerCase().startsWith("i am")){
+        var nameObject = args.slice(2).join(" ");
+        if (nameObject){
+            message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
+        }
+    }
+    
     
     
     const CashFacts = [
