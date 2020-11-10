@@ -2604,7 +2604,7 @@ Client.on('guildMemberAdd', (member) =>{
     const verifyChannel = member.guild.channels.cache.find(verifyChannel => verifyChannel.name === "verify");
     if (!verifyChannel) return;
     
-    verifyChannel.send(`Hello ${member}! Here you must verify yourself stating the following: \n **-Name** \n **- Age** \n **- What continent you are from, (e.g. Europe, Africa, Asia, etc.)** \n **- Have you read the rules channel yet? If not, do so now** \n **- Are you capable of following all, if not, most of the rules listed?** \n \n Please answer all questions above by sending one full message in this channel, and wait to be manually accepted by an Admin. \n \n Thank You.`);
+    verifyChannel.send(`Hello ${member}! Here you must verify yourself stating the following: \n **- Name** \n **- Age** \n **- What continent you are from, (e.g. Europe, Africa, Asia, etc.)** \n **- Have you read the rules channel yet? If not, do so now** \n **- Are you capable of following all, if not, most of the rules listed?** \n \n Please answer all questions above by sending one full message in this channel, and wait to be manually accepted by an Admin. \n \n Thank You.`);
 
 
 });
