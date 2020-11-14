@@ -76,6 +76,8 @@ Client.on('ready', ()=>{
     rpsAnswer = "";
     rpsUserAnswer = "";
     
+    debounce = true;
+    
     bookwormAnswered = true;
     bookwormAnswer = "";
     bookwormAnswer2 = "";
@@ -2895,7 +2897,7 @@ Client.on('message', async (message)=>{
     
             function play(connection, message){
                 var server = servers[message.guild.id];
-                if(!server.queue[1]){
+                if(server.queue[0] && connection.speaking.bitfield == 0){
                     server.dispatcher = connection.play(ytdl(server.queue[0], {filter: 'audioonly'}));
                     getInfo(server.queue[0]).then(info => {
                         message.channel.send(`:play_pause: Now Playing: **${info.items[0].title}**`)
@@ -2903,19 +2905,28 @@ Client.on('message', async (message)=>{
                         message.channel.send(":play_pause: Next song has started playing")
                     });
                 }
+                
+                function debounceEnd(){
+                    debounce = true
+                }
                     
                 server.dispatcher.on("finish", function(){
-                    if(server.queue[1]){
+                    if(debounce == true){
+                        debounce = false
                         server.queue.shift();
-                        return;
+                    
+                        if(server.queue[0]){
+                            console.log("Playing")
+                            play(connection, message);
+                        }else{
+                            console.log("Goodbye")
+                            connection.disconnect();
+                        }
+
+                        setTimeout(debounceEnd, 5000)
+
                     }
                     
-                    if(server.queue[0]){
-                        play(connection, message);
-                        server.queue.shift();
-                    }else {
-                        connection.disconnect();
-                    }
                 });
             }
             
