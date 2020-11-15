@@ -3859,6 +3859,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!balance (user)`', "This will show you another user's balance and cash.")
         .addField('`!daily`', "Claim your daily cash!")
         .addField('`!pay (user) (amount)`', "Feeling generous? Donate some cash to your friends, or keep it all to yourself.")
+        .addField('`!payall (amount)`', "Pay out some cash to the entire server.")
         .addField('`!gamble (amount)`', "Feeling lucky enough to gamble your money in the chance for some more money? Or possibly lose it all?")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
