@@ -2681,7 +2681,7 @@ Client.on('message', async (message)=>{
                     }catch(err){
                         console.log(err)
                     }
-                    member.kick(`You were kicked. Reason: **${reason}**`).then(() =>{
+                    member.kick(`Kicked. Reason: ${reason}`).then(() =>{
                         message.reply(`Sucessfully kicked ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to kick this member');
@@ -2719,7 +2719,7 @@ Client.on('message', async (message)=>{
                     }catch(err){
                         console.log(err)
                     }
-                    member.ban(`You were banned. Reason: **${reason}**`).then(() =>{
+                    member.ban({reason: `Banned. Reason: ${reason}`}).then(() =>{
                         message.reply(`Sucessfully banned ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to ban this member');
