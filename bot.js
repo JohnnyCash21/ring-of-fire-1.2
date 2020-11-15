@@ -2628,7 +2628,7 @@ Client.on('message', async (message)=>{
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report")){
+    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report") || message.content.startsWith("!rob")){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3858,6 +3858,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!balance`', "This will show you your current balance, current cash.")
         .addField('`!balance (user)`', "This will show you another user's balance and cash.")
         .addField('`!daily`', "Claim your daily cash!")
+        .addField('`!rob (user) (amount)`', "Want some extra cash? Try and rob someone.")
         .addField('`!pay (user) (amount)`', "Feeling generous? Donate some cash to your friends, or keep it all to yourself.")
         .addField('`!payall (amount)`', "Pay out some cash to the entire server.")
         .addField('`!gamble (amount)`', "Feeling lucky enough to gamble your money in the chance for some more money? Or possibly lose it all?")
