@@ -2671,8 +2671,16 @@ Client.on('message', async (message)=>{
                 const member = message.guild.member(user);
 
                 if(member){
+                    const { guild } = message
+
+                    const { name } = guild
                     var reason = args.slice(2).join(" ");
                     if(!reason) return message.reply("Please give a reason to kick this user.");
+                    try{
+                        member.send(`You were kicked from the ${name} server! \n**Reason: ${reason}**`)
+                    }catch(err){
+                        console.log(err)
+                    }
                     member.kick(`You were kicked. Reason: **${reason}**`).then(() =>{
                         message.reply(`Sucessfully kicked ${user.tag}`);
                     }).catch(err =>{
@@ -2701,8 +2709,16 @@ Client.on('message', async (message)=>{
                 const member = message.guild.member(user);
 
                 if(member){
+                    const { guild } = message
+
+                    const { name } = guild
                     var reason = args.slice(2).join(" ");
                     if(!reason) return message.reply("Please give a reason to ban this user.");
+                    try{
+                        member.send(`You were banned from the ${name} server! \n**Reason: ${reason}**`)
+                    }catch(err){
+                        console.log(err)
+                    }
                     member.ban(`You were banned. Reason: **${reason}**`).then(() =>{
                         message.reply(`Sucessfully banned ${user.tag}`);
                     }).catch(err =>{
