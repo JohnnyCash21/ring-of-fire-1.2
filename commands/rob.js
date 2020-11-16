@@ -14,7 +14,6 @@ module.exports.run = async (Client, message, args) => {
     if(!money[message.author.id]) return message.reply("Sorry, you don't have any cash.");
     if(money[message.author.id].money < 750) return message.reply("You need 750 or more cash to rob");
 
-    if(parseInt(args[1]) > money[message.author.id].money) return message.reply("You do not have enough cash!");
     if(parseInt(args[1]) < 1) return message.reply("You cannot rob less than 1 cash!");
     if(parseInt(args[1]) > 7000) return message.reply("You cannot rob more than 7000 cash!");
     if(!parseInt(args[1])) return message.reply("You can only rob in integers.");
