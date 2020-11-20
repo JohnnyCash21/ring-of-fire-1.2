@@ -3232,7 +3232,10 @@ Client.on('message', async (message)=>{
         {files: ["./148.png/"]} ,
         {files: ["./149.png/"]} ,
         {files: ["./150.png/"]} ,
-        {files: ["./151.png/"]}
+        {files: ["./151.png/"]} ,
+        {files: ["./152.png/"]} ,
+        {files: ["./153.png/"]} ,
+        {files: ["./154.png/"]}
     ];
 
 
@@ -3240,7 +3243,7 @@ Client.on('message', async (message)=>{
 
 
 if(message.content.startsWith(prefix + "photoshop")){
-        photonumber = 131;
+        photonumber = 154;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
     message.channel.send (image[randomPhoto]);
