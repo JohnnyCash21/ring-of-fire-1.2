@@ -2624,7 +2624,18 @@ Client.on('message', async (message)=>{
     if (message.author.bot && botCanAnswer == false) return;
 
 
-    
+    let channelID = "779827454730698833";
+    let guildID = "655808506343063552";
+    if(message.channel.type === 'dm'){
+        if(message.author.bot) return;
+        let embed = new Discord.MessageEmbed()
+        .setAuthor(message.author.username, message.author.displayAvatarURL())
+        .setColor('#FAA')
+        .addField('Message:', message.content)
+        .setDescription(`User ID: ${message.author.id}`);
+        Client.channels.cache.get(channelID).send(embed);
+        console.log(`${message.author.username}: ${message.content}`)
+    }
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
