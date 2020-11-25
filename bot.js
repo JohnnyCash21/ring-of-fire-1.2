@@ -2636,6 +2636,10 @@ Client.on('message', async (message)=>{
         Client.channels.cache.get(channelID).send(embed);
         console.log(`${message.author.username}: ${message.content}`)
     }
+    
+    if(message.content.startsWith(prefix) && message.channel.type != 'dm' && !message.guild.me.hasPermission("ADMINISTRATOR")){
+        return message.channel.send("It seems as if the owner is a big fat smelly and removed me `Administrator` permission. Make sure to spam them and tell them how much of a big stinky idiot they are for doing such a cruel thing. \nI will not be able to listen to any commands until I have this. And if you somehow break me because of this, you're gonna get banned from using the Johnny Cash bot forever.")
+    }
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
