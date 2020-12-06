@@ -23,6 +23,8 @@ const money = require("./money.json");
 const ms = require("parse-ms");
 const cheerio = require("cheerio");
 const request = require("request");
+const { Random } = require("something-random-on-discord");
+const random = new Random();
 
 const inviteNotifications = require('./commands/invite-notifications');
 
@@ -3864,6 +3866,10 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!poll (question)`', "Set up a simple poll for everyone to vote on!")
         .addField('`!NNN`', "See who has failed No Nut November!")
         .addField('`!simprate (user)`', "See how much simp your friends are")
+        .addField('`!joke`', "Get a random joke")
+        .addField('`!dadjoke`', "Get a random dad joke")
+        .addField('`!cnjoke`', "Get a random Chuck Norris joke")
+        
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
@@ -3906,9 +3912,40 @@ if(message.content.startsWith(prefix + "photoshop")){
         .setTitle('Educational Commands')
         .addField('`!fact`', "Get a random fact about me.")
         .addField('`!drugs`', "Learn about drugs and its consequences")
+        .addField('`!getadvice`', "Get some advice from Johnny Cash himself")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(educationEmbed)
+    }
+    
+    var customDiscordJokes = require('custom-discord-jokes');
+    
+    if(message.content.toLowerCase().startsWith(prefix + "dadjoke")){
+        customDiscordJokes.getRandomDadJoke(function(joke){
+            message.channel.send(joke);
+        })
+
+    }
+
+    if(message.content.toLowerCase().startsWith(prefix + "cnjoke")){
+        customDiscordJokes.getRandomCNJoke(function(joke){
+            message.channel.send(joke);
+        })
+    }
+    
+    if(message.content.toLowerCase().startsWith(prefix + "meme")){
+        let data = await random.getMeme();
+        message.channel.send(data);
+    }
+
+    if(message.content.toLowerCase().startsWith(prefix + "getadvice")){
+        let data = await random.getAdvice();
+        message.channel.send(data);
+    }
+
+    if(message.content.toLowerCase().startsWith(prefix + "joke")){
+        let data = await random.getJoke();
+        message.channel.send(data);
     }
     
     
@@ -3970,13 +4007,6 @@ if(message.content.startsWith(prefix + "photoshop")){
         }, 3000))
         
 
-    }
-    
-
-    
-    if(message.content.startsWith(prefix + "meme")){
-
-        meme(message);
     }
 
     if(message.content.startsWith(prefix + "cursed")){
@@ -4204,40 +4234,6 @@ if(message.content.startsWith(prefix + "photoshop")){
 
 });
 
-function meme(message){
-
-    var options = {
-        url: "http://results.dogpile.com/serp?qc=images&q=" + "meme",
-        method: "GET",
-        headers: {
-            "Accept": "text/html",
-            "User-Agent": "Chrome"
-        }
-    }
-
-    request(options, function(error, response, responseBody) {
-        if (error) {
-            console.log(error)
-            return message.channel.send("An error occurred, please try again")
-        }
- 
- 
-        $ = cheerio.load(responseBody);
- 
- 
-        var links = $(".image a.link");
- 
-        var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
- 
-        if (!urls.length) {
-           
-            return;
-        }
- 
-        // Send result
-        message.channel.send( urls[Math.floor(Math.random() * urls.length)]);
-    });
-};
 
 
 function cursed(message){
