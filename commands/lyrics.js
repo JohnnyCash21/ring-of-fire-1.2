@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 const axios = require('axios');
 const cheerio = require('cheerio');
-const settings = require('../settings.json');
 
-const baseURL = `https://api.genius.com/search?access_token=${settings.GENIUS}`;
+const GENIUS_CLIENT = process.env.GENIUS_CLIENT
+const baseURL = `https://api.genius.com/search?access_token=${GENIUS_CLIENT}`;
 let playlist;
 
 const scrapeLyrics = path => {
@@ -18,7 +18,7 @@ const scrapeLyrics = path => {
 };
 
 const searchLyrics = url => {
-  return Promise.resolve(axios.get(url, {'Authorization': `Bearer ${settings.GENIUS}`})
+  return Promise.resolve(axios.get(url, {'Authorization': `Bearer ${GENIUS_CLIENT}`})
     .then(response => checkSpotify(response.data.response.hits))
     .then(path => scrapeLyrics(path))
     .catch(err => {
