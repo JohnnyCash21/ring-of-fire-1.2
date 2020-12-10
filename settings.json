@@ -1,4 +1,4 @@
 {
-    "DISCORD": process.env.BOT_TOKEN,
-    "GENIUS": process.env.GENIUS_CLIENT
+    "DISCORD": (process.env.BOT_TOKEN),
+    "GENIUS": (process.env.GENIUS_CLIENT)
 }
