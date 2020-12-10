@@ -2619,7 +2619,7 @@ Client.on('guildMemberRemove', member =>{
     
     
 
-    channel.send(`Oh no! ${member.username} left the server! Their dignity will stay with us forever.`)
+    channel.send(`Oh no! ${member.user.username}#${member.user.discriminator} left the server! Their dignity will stay with us forever.`)
 });
 
 Client.on('message', async (message)=>{
