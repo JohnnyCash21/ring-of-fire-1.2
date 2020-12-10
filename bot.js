@@ -2642,7 +2642,7 @@ Client.on('message', async (message)=>{
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report") || message.content.startsWith("!rob")){
+    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report") || message.content.startsWith("!rob") || message.content.startsWith("!lyrics")){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3815,6 +3815,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!ping`', "Shows how fast i respond back.")
         .addField('`!serverinfo`', "Shows some information about the server")
         .addField('`!userinfo (user)`', "Shows some information about the certain user")
+        .addField('`!ARGH`', "AAAARRRRGGGHHH!!!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(basicEmbed)
@@ -3826,7 +3827,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!play (link)` or `!play (query)`', "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
         .addField('`!skip`', "Skip the playing song.")
         .addField('`!stop`', "Music will stop playing.")
-        .addField('`!ARGH`', "AAAARRRRGGGHHH!!!")
+        .addField('`!lyrics (search)`', "Get the lyrics for a song.")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(musicEmbed)
@@ -3866,7 +3867,6 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!joke`', "Get a random joke")
         .addField('`!dadjoke`', "Get a random dad joke")
         .addField('`!cnjoke`', "Get a random Chuck Norris joke")
-        
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
