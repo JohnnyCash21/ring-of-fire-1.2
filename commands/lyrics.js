@@ -36,25 +36,47 @@ module.exports.run = async (Client, message, args) => {
   playlist = Client.playlist;
 
   if (!args[0]) return message.reply("Please specify a search query");
-  message.channel.send("Fetching results. This may take a few seconds...");
+  message.channel.send("Fetching results. This may take a few seconds...")
 
   const query = args.slice(0).join(' ');
-  searchLyrics(`${baseURL}&q=${encodeURIComponent(query)}`)
+  function getLyrics(search_query){
+    searchLyrics(`${baseURL}&q=${encodeURIComponent(search_query)}`)
     .then(songData => {
+      if(!songData[0]){
+        getLyrics(search_query)
+      }
       const embed = new Discord.MessageEmbed()
         .setColor(0x00AE86)
+        //console.log(songData[0])
         if(songData[0] && songData[1]){
-          embed.setTitle(`Lyrics for: ${songData[0]}`)
-          embed.setDescription(songData[1]);
-        }else{
-          return message.channel.send("`Error while fetching results. Please try again`")
+          if(songData[1].length > 2048){
+            let part1 = songData[1].slice(0, 2048)
+            let part2 = songData[1].slice(2048, songData[1].length)
+            embed.setTitle(`Lyrics for: ${songData[0]}`)
+            embed.setDescription(part1)
+            message.channel.send({embed})
+            embed.setDescription(part2)
+            return message.channel.send({embed})
+
+          }else{
+            embed.setTitle(`Lyrics for: ${songData[0]}`)
+            embed.setDescription(songData[1]);
+            return message.channel.send({embed});
+          }
+          
         }
-      return message.channel.send({embed});
+        
+      
     })
     .catch(err => {
       message.channel.send(`No lyrics found for: ${query} 🙁`, {code:'asciidoc'});
       console.warn(err);
     });
+    
+  }
+
+  getLyrics(query);
+  
 };
 
 module.exports.help = {
