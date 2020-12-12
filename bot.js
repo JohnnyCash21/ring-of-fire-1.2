@@ -4180,14 +4180,15 @@ if(message.content.startsWith(prefix + "photoshop")){
             }
             
         }
-
+        
+        var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         const userInfoEmbed = new MessageEmbed()
         .setAuthor(`User info for ${user.username}`, user.displayAvatarURL())
         .addField("**User Tag:** ", user.tag)
         .addField("**Is Bot:** ", user.bot)
         .addField("**Nickname:** ", member.nickname || 'None')
-        .addField("**Join Date:** ", new Date(member.joinedTimestamp).toLocaleDateString())
-        .addField("**Account Created:** ", new Date(user.createdTimestamp).toLocaleDateString())
+        .addField("**Join Date:** ", new Date(member.joinedTimestamp).toLocaleDateString("en-US", options))
+        .addField("**Account Created:** ", new Date(user.createdTimestamp).toLocaleDateString("en-US", options))
         .addField("**Role Count:** ", member.roles.cache.size - 1)
         .addField("**Roles:** ", rolesHave)
 
