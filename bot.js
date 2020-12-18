@@ -2642,7 +2642,7 @@ Client.on('message', async (message)=>{
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report") || message.content.startsWith("!rob") || message.content.startsWith("!lyrics") || message.content.startsWith("!snake")){
+    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report") || message.content.startsWith("!rob") || message.content.startsWith("!lyrics") || message.content.startsWith("!snake") || message.content.startsWith("!connect4")){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3868,6 +3868,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!dadjoke`', "Get a random dad joke")
         .addField('`!cnjoke`', "Get a random Chuck Norris joke")
         .addField('`!snake`', "Play the classic game, Snake!")
+        .addField('`!connect4`', "Play Connect 4 with a friend!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(funEmbed)
