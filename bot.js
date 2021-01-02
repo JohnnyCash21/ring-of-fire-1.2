@@ -2614,7 +2614,7 @@ Client.on('guildMemberAdd', (member) =>{
 });
 
 Client.on('guildMemberRemove', member =>{
-    const channel = member.guild.channels.cache.find(channel => channel.name === "general");
+    const channel = member.guild.
     if(!channel) return;
     
     
@@ -2676,7 +2676,7 @@ Client.on('message', async (message)=>{
         });
     }
     
-    if(message.content.startsWith(prefix + "kick")) {
+    if(message.content.toLowerCase().startsWith(prefix + "kick")) {
             if(!message.member.permissions.has("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
@@ -2714,7 +2714,7 @@ Client.on('message', async (message)=>{
     }
 
 
-    if(message.content.startsWith(prefix + "ban")) {
+    if(message.content.toLowerCase().startsWith(prefix + "ban")) {
             if(!message.member.permissions.has("BAN_MEMBERS")) return message.channel.send("You do not have permission to run this command");
 
             const user = message.mentions.users.first();
@@ -2753,7 +2753,7 @@ Client.on('message', async (message)=>{
     
    
     
-    if(message.content.startsWith(prefix + "warn")) {
+    if(message.content.toLowerCase().startsWith(prefix + "warn")) {
         if(!message.member.permissions.has("MANAGE_MESSAGES")) return message.channel.send("You do not have permission to run this command");
        
             const user = message.mentions.users.first();
@@ -2782,7 +2782,7 @@ Client.on('message', async (message)=>{
 
     }
     
-    if(message.content.startsWith(prefix + "clear")){
+    if(message.content.toLowerCase().startsWith(prefix + "clear")){
         if(!message.member.permissions.has("MANAGE_MESSAGES")) return message.reply("You don't have permission to use that command!")
 
         let deleteAmt;
@@ -2799,7 +2799,7 @@ Client.on('message', async (message)=>{
         message.channel.send(`Successfully deleted **${deleteAmt}** messages!`)
     }
     
-    if(message.content.startsWith(prefix + "fanny")) {
+    if(message.content.toLowerCase().startsWith(prefix + "fanny")) {
         if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
          
         
@@ -2847,7 +2847,7 @@ Client.on('message', async (message)=>{
         }
     }
     
-    if(message.content.startsWith(prefix + "peasant")) {
+    if(message.content.toLowerCase().startsWith(prefix + "peasant")) {
         if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
              
             
@@ -2902,7 +2902,7 @@ Client.on('message', async (message)=>{
         break;
     }
     
-    if (message.content.startsWith(prefix + 'simprate')) {
+    if (message.content.toLowerCase().startsWith(prefix + 'simprate')) {
         const simp = message.mentions.users.first() || message.author;
         if(simp){
             const member = message.guild.member(simp);
@@ -3056,7 +3056,7 @@ Client.on('message', async (message)=>{
              
     }
     
-    if(message.content.startsWith(prefix + "urban")) {       
+    if(message.content.toLowerCase().startsWith(prefix + "urban")) {       
         if(args <1 && !["random", "search"].includes(args[0])) return message.channel.send("The correct usage is `!urban search (query) | random option - !urban random`")
         let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
         let search = args[1] ? urban(args.slice(1).join(" ")) : urban.random();
@@ -3256,14 +3256,14 @@ Client.on('message', async (message)=>{
 
 
 
-if(message.content.startsWith(prefix + "photoshop")){
+if(message.content.toLowerCase() === prefix + "photoshop"){
         photonumber = 154;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
     message.channel.send (image[randomPhoto]);
     }
     
-    if(message.content.startsWith(prefix + "mrtubb")){
+    if(message.content.toLowerCase().startsWith(prefix + "mrtubb")){
         message.channel.send ({files: ["./mrtubb.jpg/"]});
     }
 
@@ -3290,7 +3290,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         "Very doubtful."
     ];
 
-    if(message.content.startsWith(prefix + "8ball")){
+    if(message.content.toLowerCase().startsWith(prefix + "8ball")){
         ballMessage = message.content.slice (7);
         responsenumber = 20;
 
@@ -3299,7 +3299,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         
     }
     
-    if(message.content.startsWith(prefix + "wish")){
+    if(message.content.toLowerCase().startsWith(prefix + "wish")){
         wishChance = 2;
         
         const randomIndexWish = Math.floor(Math.random() * (wishChance - 1 + 1)) + 1;
@@ -3369,14 +3369,14 @@ if(message.content.startsWith(prefix + "photoshop")){
         "One of my biggest hits, “Ring of Fire,” wasn’t original to me. June Carter initially wrote the song as “(Love’s) Ring of Fire” for her sister, Anita. However, the song was actually written about me. Both me and Carter were married to other people at the time but the song was her way of expressing her feelings for me. Anita’s version didn’t catch, but when I heard it, he tweaked it to make it his own and it became an immediate hit—not just on country charts, but on pop charts as well."
     ];
 
-    if(message.content.startsWith(prefix + "fact")){
+    if(message.content.toLowerCase() === prefix + "fact"){
         cashnum = 28;
 
         const randomCash = Math.floor(Math.random() * (cashnum - 1 + 1)) + 1;
     message.channel.send(CashFacts[randomCash]);
     }
     
-    if(message.content.toLowerCase() === '!search') {
+    if(message.content.startsWith('!search')) {
         message.channel.reply("This command no longer exists! Use the `!play` command as well as your search query: `!play (query)`")
     }
     
@@ -3478,7 +3478,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     bookwormAnswer = ""
     bookwormAnswered = true
 
-    if(message.content.startsWith(prefix + "bookcash")){
+    if(message.content.toLowerCase() === prefix + "bookcash"){
         bookCashEmbed = new Discord.MessageEmbed();
         
 
@@ -3623,7 +3623,7 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
 
-    if (message.content.startsWith(prefix + "quiz")){
+    if (message.content.toLowerCase() === prefix + "quiz"){
         quizes = 72;
         var randomQuiz = Math.floor(Math.random() * (quizes - 1 + 1)) + 1;
         switch(randomQuiz) {
@@ -3777,17 +3777,17 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
     
-    if (message.content.startsWith(prefix + "hdtubb")){
+    if (message.content.toLowerCase() === prefix + "hdtubb"){
         message.channel.send ({files: ["./hdtubb.jpg/"]});
     }
     
-    if (message.content.startsWith(prefix + "tubb2")){
+    if (message.content.toLowerCase() === prefix + "tubb2"){
         message.channel.send ({files: ["./tubb2.jpg/"]});
     }
     
     let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
 
-    if(message.content.startsWith(prefix + "help")){
+    if(message.content.toLowerCase() === prefix + "help"){
         const commandsEmbed = new Discord.MessageEmbed()
         .setTitle('Help Commands')
         .addField('`!basichelp`', "A list of basic commands", true)
@@ -3799,7 +3799,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         .addField('`!educationhelp`', "A list of educational and learning commands",true)
         .addField('**Want me on your server?**', '[Click here](https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=8&scope=bot) to invite me to your server', true)
         .addField('**Join the CHEESE server**', '[Click here](https://discord.gg/Esuapxj) to join the CHEESE server today!', true)
-        .setFooter('Bot Made By: Quaternion#3351')
+        .setFooter('Bot Made By: Quaternion#0001')
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(commandsEmbed)
@@ -3807,7 +3807,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         
     }
 
-    if(message.content.startsWith(prefix + "basichelp")){
+    if(message.content.toLowerCase() === prefix + "basichelp"){
         const basicEmbed = new Discord.MessageEmbed()
         .setTitle('Basic Commands')
         .addField('`!hello`', "Johnny Cash will say hello to you.")
@@ -3821,7 +3821,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         message.channel.send(basicEmbed)
     }
 
-    if(message.content.startsWith(prefix + "musichelp")){
+    if(message.content.toLowerCase() === prefix + "musichelp"){
         const musicEmbed = new Discord.MessageEmbed()
         .setTitle('Music Commands')
         .addField('`!play (link)` or `!play (query)`', "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
@@ -3833,7 +3833,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         message.channel.send(musicEmbed)
     }
 
-    if(message.content.startsWith(prefix + "imagehelp")){
+    if(message.content.toLowerCase() === prefix + "imagehelp"){
         const imageEmbed = new Discord.MessageEmbed()
         .setTitle('Image Commands')
         .addField('`!photoshop`', "Johnny Cash will send you one of the many made cursed photoshops made by the Wallaces.")
@@ -3849,7 +3849,7 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
 
-    if(message.content.startsWith(prefix + "funhelp")){
+    if(message.content.toLowerCase() === prefix + "funhelp"){
         const funEmbed = new Discord.MessageEmbed()
         .setTitle('Fun and Games Commands')
         .addField('`!8ball (question)`', "Ask a yes or no question, and let your fate decide...")
@@ -3876,14 +3876,14 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
 
-    if(message.content.startsWith(prefix + "adminhelp")){
+    if(message.content.toLowerCase() === prefix + "adminhelp"){
         const adminEmbed = new Discord.MessageEmbed()
         .setTitle('Administration Commands')
         .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason. **(ADMIN ONLY)**")
         .addField('`!kick (user) (reason)`', "Kick a user for their bad behaviour. **(ADMIN ONLY)**")
         .addField('`!ban (user) (reason)`', "Ban a user for their bad behaviour. **(ADMIN ONLY)**")
         .addField('`!clear (amount)`', "Clear the amount of messages specified. **(ADMIN ONLY)**")
-        .addField('`!report (user) (reason)`', "See any foolish behaviour? Help the admins out and report that vile user. You may even be rewarded for using the command **appropriately**")
+        .addField('`!report (user) (reason)`', "See any foolish behaviour? Help the admins out and report that vile user.")
         .addField('`!peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .addField('`!fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .setThumbnail(image2)
@@ -3892,7 +3892,7 @@ if(message.content.startsWith(prefix + "photoshop")){
     }
     
     
-    if(message.content.startsWith(prefix + "currencyhelp")){
+    if(message.content.toLowerCase() === prefix + "currencyhelp"){
         const currencyEmbed = new Discord.MessageEmbed()
         .setTitle('Currency Commands')
         .addField('`!balance`', "This will show you your current balance, current cash.")
@@ -3907,7 +3907,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         message.channel.send(currencyEmbed)
     }
     
-    if(message.content.startsWith(prefix + "educationhelp")){
+    if(message.content.toLowerCase() === prefix + "educationhelp"){
         const educationEmbed = new Discord.MessageEmbed()
         .setTitle('Educational Commands')
         .addField('`!fact`', "Get a random fact about me.")
@@ -3953,12 +3953,12 @@ if(message.content.startsWith(prefix + "photoshop")){
     
     
     
-    if(message.content.startsWith(prefix + "drugs")){
+    if(message.content.toLowerCase().startsWith(prefix + "drugs")){
         message.channel.send("Drugs r bad. Except if ur dokter gave em to u for ur helth. \nDrygs cAn makE u fEEl uNeaSy anD noT normAl. \nadVice froM me, Johnny Cash, doNt tAke dRugs unleSs yoU arE undEr 13.")
     }
     
     
-    if(message.content.startsWith(prefix + "iwanttodie")){
+    if(message.content.toLowerCase().startsWith(prefix + "iwanttodie")){
         message.channel.send(`Tracking ${message.author.username}'s location...`).then((sentMessage) => 
         setTimeout(() =>{
             sentMessage.edit("Location Found...").then(
@@ -4009,17 +4009,17 @@ if(message.content.startsWith(prefix + "photoshop")){
 
     }
 
-    if(message.content.startsWith(prefix + "cursed")){
+    if(message.content.toLowerCase().startsWith(prefix + "cursed")){
 
         cursed(message);
     }
     
-    if(message.content.startsWith(prefix + "image")){
+    if(message.content.toLowerCase().startsWith(prefix + "image")){
         let searchQuery = args.slice(1).join(" ")
         any(message, searchQuery)
     }
     
-    if(message.content.startsWith(prefix + "ringoffire")){
+    if(message.content.toLowerCase().startsWith(prefix + "ringoffire")){
         if(ringoffirecooldown == true){
             if(message.author.bot) return
             ringoffirecooldown = false;
@@ -4135,7 +4135,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         ringoffirecooldown = true
     }
 
-    if(message.content.startsWith(prefix + "serverinfo")){
+    if(message.content.toLowerCase().startsWith(prefix + "serverinfo")){
         const { guild } = message
 
         const { name, region, memberCount, owner, createdAt } = guild
@@ -4169,7 +4169,7 @@ if(message.content.startsWith(prefix + "photoshop")){
         return message.channel.send(`**${randomMember} failed No Nut November!**`)
     }
 
-    if(message.content.startsWith(prefix + "userinfo")){
+    if(message.content.toLowerCase().startsWith(prefix + "userinfo")){
         const { guild, channel } = message
 
         const user = message.mentions.users.first() || message.member.user
@@ -4207,21 +4207,21 @@ if(message.content.startsWith(prefix + "photoshop")){
 
 
 
-    if (message.content.startsWith(prefix + "ping")) {
+    if (message.content.toLowerCase().startsWith(prefix + "ping")) {
         message.channel.send(`Ring Of Fire! my Ping is ` + Math.round(Client.ws.ping) + `ms`);
       }
 
-    if(message.content.startsWith(prefix + "hello")){
+    if(message.content.toLowerCase().startsWith(prefix + "hello")){
         message.channel.send("Hello, i am Johhny Cash. How are you doing, <@" + message.author.id + "> ?");
 
     }
     
-    if(message.content.startsWith(prefix + "test")){
+    if(message.content.toLowerCase().startsWith(prefix + "test")){
         message.channel.send("You have utilised a test, " + message.author + " It went through!");
 
     }
     
-    if(message.content.startsWith(prefix + "argh".toUpperCase())){
+    if(message.content.toUpperCase().startsWithh(prefix + "argh")){
         message.reply("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     }
     
