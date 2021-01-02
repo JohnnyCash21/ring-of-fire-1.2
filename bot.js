@@ -2614,7 +2614,7 @@ Client.on('guildMemberAdd', (member) =>{
 });
 
 Client.on('guildMemberRemove', member =>{
-    const channel = member.guild.
+    const channel = member.guild.systemChannel
     if(!channel) return;
     
     
