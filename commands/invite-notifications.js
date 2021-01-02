@@ -44,7 +44,7 @@ module.exports = Client => {
                 invitesBefore[inviter] = 0
             }
             if(invitesBefore[inviter] === invitesAfter[inviter] - 1){
-                const channel = guild.channels.cache.find(channel => channel.name === "general");
+                const channel = guild.systemChannel
                 if(!channel) return;
                 const count = invitesAfter[inviter]
                 channel.send(`Please welcome ${member} to the **${member.guild.name}** server! Please read the rules in the rules channel. \n Invited by **${inviter}** (${count} total invites)`)
