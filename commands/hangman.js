@@ -119,6 +119,7 @@ class HangmanGame {
 }
 
 module.exports.run = async (Client, message, args) => {
+    if(!message.guild.me.permissions.has("EMBED_LINKS") || !message.guild.me.permissions.has("ADD_REACTIONS")) return message.channel.send("I do not have permissions to embedded messages and/or add reactions. Please enable the `EMBED_LINKS` and `ADD_REACTIONS` options on me.");
     let hangman = new HangmanGame
     hangman.newGame(message)
 
