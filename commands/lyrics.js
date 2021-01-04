@@ -33,6 +33,7 @@ const checkSpotify = hits => {
 
 
 module.exports.run = async (Client, message, args) => {
+  if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to send embedded messages. Please enable the `EMBED_LINKS` option on me.");
   playlist = Client.playlist;
 
   if (!args[0]) return message.reply("Please specify a search query");
