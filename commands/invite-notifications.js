@@ -31,6 +31,7 @@ module.exports = Client => {
     })
 
     Client.on("guildMemberAdd", async member => {
+        if(!member.guild.me.permissions.has("MANAGE_SERVER")) return
         const { guild } = member
 
         const invitesBefore = invites[guild.id]
