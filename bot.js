@@ -3817,7 +3817,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField('`!adminhelp`', "A list of administration commands. Some of which can be used by everyone", true)
         .addField('`!currencyhelp`', "A list of currency commands",true)
         .addField('`!educationhelp`', "A list of educational and learning commands",true)
-        .addField('**Want me on your server?**', '[Click here](https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=8&scope=bot) to invite me to your server', true)
+        .addField('**Want me on your server?**', '[Click here](https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=821165686&scope=bot) to invite me to your server', true)
         .addField('**Join the CHEESE server**', '[Click here](https://discord.gg/Esuapxj) to join the CHEESE server today!', true)
         .setFooter('Bot Made By: Quaternion#0001')
         .setThumbnail(image2)
