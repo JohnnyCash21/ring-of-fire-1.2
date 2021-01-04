@@ -4,6 +4,7 @@ const fs = require("fs");
 
 
 module.exports.run = async (Client, message, args) => {
+    if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permission to send embedded messages. Please enable the `EMBED_LINKS` option for me.")
 
     let gambleEmbed = new Discord.MessageEmbed()
 
@@ -46,22 +47,27 @@ module.exports.run = async (Client, message, args) => {
             fs.writeFile("./money.json", JSON.stringify(money), (err) => {
                 if(err) console.log(err);
             });
-            let findLotteryRole = message.member.guild.roles.cache.find(d => d.name === "Lottery Winner");
-            if(!findLotteryRole){
-                message.member.guild.roles.create({
-                    name: "Lottery Winner",
-                    color: "#ffef12",
-                    permissions: [],
-                    mentionable: true,
-                    position: 4,
-                    hoist: true
-                }).then(function(lotteryWinnerRole)
-                {
-                    message.member.roles.add(lotteryWinnerRole)
-                });
+            if(message.guild.me.permissions.has("MANAGE_ROLES")){
+                //return message.channel.send("I do not have permissions to manage roles. If you would like a jackpot role to be added when a winner wins the jackpot, enable the `MANAGE_ROLES` to me");
+                let findLotteryRole = message.member.guild.roles.cache.find(d => d.name === "Lottery Winner");
+                if(!findLotteryRole){
+                    message.member.guild.roles.create({
+                        name: "Lottery Winner",
+                        color: "#ffef12",
+                        permissions: [],
+                        mentionable: true,
+                        position: 4,
+                        hoist: true
+                    }).then(function(lotteryWinnerRole)
+                    {
+                        message.member.roles.add(lotteryWinnerRole)
+                    });
+                } else{
+                    message.member.roles.add(findLotteryRole)
+                }
             } else{
-                message.member.roles.add(findLotteryRole)
-            }
+                message.channel.send("I do not have permissions to manage roles. If you would like a jackpot role to be added when a winner wins the jackpot, enable the `MANAGE_ROLES` to me");
+            }    
             
 
             
