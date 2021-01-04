@@ -2678,6 +2678,7 @@ Client.on('message', async (message)=>{
     
     if(message.content.toLowerCase().startsWith(prefix + "kick")) {
             if(!message.member.permissions.has("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
+            if(!message.guild.me.permissions.has("KICK_MEMBERS")) return message.channel.send("I do not have permissions to kick users. Please enable the `KICK_MEMBERS` option on me.");
 
             const user = message.mentions.users.first();
 
@@ -2716,6 +2717,7 @@ Client.on('message', async (message)=>{
 
     if(message.content.toLowerCase().startsWith(prefix + "ban")) {
             if(!message.member.permissions.has("BAN_MEMBERS")) return message.channel.send("You do not have permission to run this command");
+            if(!message.guild.me.permissions.has("BAN_MEMBERS")) return message.channel.send("I do not have permissions to ban users. Please enable the `BAN_MEMBERS` option on me.");
 
             const user = message.mentions.users.first();
 
@@ -2784,6 +2786,7 @@ Client.on('message', async (message)=>{
     
     if(message.content.toLowerCase().startsWith(prefix + "clear")){
         if(!message.member.permissions.has("MANAGE_MESSAGES")) return message.reply("You don't have permission to use that command!")
+        if(!message.guild.me.permissions.has("MANAGE_MESSAGES")) return message.channel.send("I do not have permissions to manage messages. Please enable the `MANAGE_MESSAGES` option on me.");
 
         let deleteAmt;
 
@@ -2800,6 +2803,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.toLowerCase().startsWith(prefix + "fanny")) {
+        if(message.guild.id !== "737268386861678675") return message.channel.send("This command is not available on this server!");
         if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
          
         
@@ -2848,6 +2852,7 @@ Client.on('message', async (message)=>{
     }
     
     if(message.content.toLowerCase().startsWith(prefix + "peasant")) {
+        if(message.guild.id !== "737268386861678675") return message.channel.send("This command is not available on this server!");
         if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
              
             
@@ -2879,6 +2884,10 @@ Client.on('message', async (message)=>{
     switch(args[0]){
 
         case "poll":
+            if(!message.guild.me.permissions.has("EMBED_LINKS")  || !message.guild.me.permissions.has("ADD_REACTIONS")){
+                message.channel.send("I do not have permissions to send embedded messages and/or add reactions to messages. Please enable the `EMBED_LINKS` and `ADD_REACTIONS` options on me.");
+                break;
+            }
             const pollEmbed = new MessageEmbed()
             .setColor("#d1900f")
             .setTitle("Democracy Voting Poll")
@@ -2924,6 +2933,10 @@ Client.on('message', async (message)=>{
 
     switch (args[0]) {
         case 'play':
+            if(!message.guild.me.permissions.has("CONNECT")  || !message.guild.me.permissions.has("SPEAK")){
+                message.channel.send("I do not have permissions to connect to voice channels and/or add speak in voice channels. Please enable the `CONNECT` and `SPEAK` options on me.");
+                break;
+            }
     
             function play(connection, message){
                 var server = servers[message.guild.id];
@@ -3056,7 +3069,8 @@ Client.on('message', async (message)=>{
              
     }
     
-    if(message.content.toLowerCase().startsWith(prefix + "urban")) {       
+    if(message.content.toLowerCase().startsWith(prefix + "urban")) {
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to send embedded links. Please enable the `EMBED_LINKS` option on me.");
         if(args <1 && !["random", "search"].includes(args[0])) return message.channel.send("The correct usage is `!urban search (query) | random option - !urban random`")
         let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
         let search = args[1] ? urban(args.slice(1).join(" ")) : urban.random();
@@ -3257,6 +3271,7 @@ Client.on('message', async (message)=>{
 
 
 if(message.content.toLowerCase() === prefix + "photoshop"){
+    if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to send images. Please enable the `ATTACH_FILES` option on me.");
         photonumber = 154;
 
         const randomPhoto = Math.floor(Math.random() * (photonumber - 1 + 1)) + 1;
@@ -3264,6 +3279,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
     
     if(message.content.toLowerCase().startsWith(prefix + "mrtubb")){
+        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to send images. Please enable the `ATTACH_FILES` option on me.");
         message.channel.send ({files: ["./mrtubb.jpg/"]});
     }
 
@@ -3479,6 +3495,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     bookwormAnswered = true
 
     if(message.content.toLowerCase() === prefix + "bookcash"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         bookCashEmbed = new Discord.MessageEmbed();
         
 
@@ -3778,16 +3795,19 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
     
     if (message.content.toLowerCase() === prefix + "hdtubb"){
+        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to send images. Please enable the `ATTACH_FILES` option on me.");
         message.channel.send ({files: ["./hdtubb.jpg/"]});
     }
     
     if (message.content.toLowerCase() === prefix + "tubb2"){
+        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to send images. Please enable the `ATTACH_FILES` option on me.");
         message.channel.send ({files: ["./tubb2.jpg/"]});
     }
     
     let image2 = "https://retrorambling.files.wordpress.com/2013/12/312_johnny-cash.jpg"
 
     if(message.content.toLowerCase() === prefix + "help"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const commandsEmbed = new Discord.MessageEmbed()
         .setTitle('Help Commands')
         .addField('`!basichelp`', "A list of basic commands", true)
@@ -3808,6 +3828,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase() === prefix + "basichelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const basicEmbed = new Discord.MessageEmbed()
         .setTitle('Basic Commands')
         .addField('`!hello`', "Johnny Cash will say hello to you.")
@@ -3822,6 +3843,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase() === prefix + "musichelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const musicEmbed = new Discord.MessageEmbed()
         .setTitle('Music Commands')
         .addField('`!play (link)` or `!play (query)`', "Make sure you are in Voice Channel, and insert YouTube link, or search query, and let Johnny Cash do the rest!")
@@ -3834,6 +3856,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase() === prefix + "imagehelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const imageEmbed = new Discord.MessageEmbed()
         .setTitle('Image Commands')
         .addField('`!photoshop`', "Johnny Cash will send you one of the many made cursed photoshops made by the Wallaces.")
@@ -3850,6 +3873,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase() === prefix + "funhelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const funEmbed = new Discord.MessageEmbed()
         .setTitle('Fun and Games Commands')
         .addField('`!8ball (question)`', "Ask a yes or no question, and let your fate decide...")
@@ -3865,7 +3889,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField('`!simprate (user)`', "See how much simp your friends are")
         .addField('`!joke`', "Get a random joke")
         .addField('`!dadjoke`', "Get a random dad joke")
-        .addField('`!cnjoke`', "Get a random Chuck Norris joke")
         .addField('`!snake`', "Play the classic game, Snake!")
         .addField('`!connect4`', "Play Connect 4 with a friend!")
         .addField('`!hangman`', "Play Hangman!")
@@ -3876,6 +3899,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase() === prefix + "adminhelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const adminEmbed = new Discord.MessageEmbed()
         .setTitle('Administration Commands')
         .addField('`!warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason. **(ADMIN ONLY)**")
@@ -3892,6 +3916,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     
     
     if(message.content.toLowerCase() === prefix + "currencyhelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const currencyEmbed = new Discord.MessageEmbed()
         .setTitle('Currency Commands')
         .addField('`!balance`', "This will show you your current balance, current cash.")
@@ -3907,6 +3932,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
     
     if(message.content.toLowerCase() === prefix + "educationhelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const educationEmbed = new Discord.MessageEmbed()
         .setTitle('Educational Commands')
         .addField('`!fact`', "Get a random fact about me.")
@@ -3924,24 +3950,21 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         })
 
     }
-
-    if(message.content.toLowerCase().startsWith(prefix + "cnjoke")){
-        customDiscordJokes.getRandomCNJoke(function(joke){
-            message.channel.send(joke);
-        })
-    }
     
     if(message.content.toLowerCase().startsWith(prefix + "meme")){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         let data = await random.getMeme();
         message.channel.send(data);
     }
 
     if(message.content.toLowerCase().startsWith(prefix + "getadvice")){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         let data = await random.getAdvice();
         message.channel.send(data);
     }
 
     if(message.content.toLowerCase().startsWith(prefix + "joke")){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         let data = await random.getJoke();
         message.channel.send(data);
     }
@@ -3950,11 +3973,13 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     
 
     if(message.content.toLowerCase().startsWith(prefix + "cursed")){
+        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `ATTACH_FILES` option on me.");
 
         cursed(message);
     }
     
     if(message.content.toLowerCase().startsWith(prefix + "image")){
+        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `ATTACH_FILES` option on me.");
         let searchQuery = args.slice(1).join(" ")
         any(message, searchQuery)
     }
@@ -4076,6 +4101,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase().startsWith(prefix + "serverinfo")){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const { guild } = message
 
         const { name, region, memberCount, owner, createdAt } = guild
@@ -4110,6 +4136,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     }
 
     if(message.content.toLowerCase().startsWith(prefix + "userinfo")){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const { guild, channel } = message
 
         const user = message.mentions.users.first() || message.member.user
