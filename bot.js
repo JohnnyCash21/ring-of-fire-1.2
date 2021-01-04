@@ -3859,7 +3859,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField('`!quiz`', "Do you have the brains to answer correctly to Johnny Cash's questions? Let's find out.")
         .addField('`!rps (item)`', "Play a game of Rock, Paper, Scissors with Johnny Cash!")
         .addField('`!ringoffire`', "Host a live Johnny Cash concert, where Johnny Cash himself will sing Ring Of Fire! *(lyrics sent at exact timings as recording)*")
-        .addField('`!iwanttodie`', "Johnny Cash will end your pain and misery.")
         .addField('`!bookcash`', "Play the official BookCash Adventures Deluxe!")
         .addField('`!poll (question)`', "Set up a simple poll for everyone to vote on!")
         .addField('`!NNN`', "See who has failed No Nut November!")
@@ -3911,7 +3910,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         const educationEmbed = new Discord.MessageEmbed()
         .setTitle('Educational Commands')
         .addField('`!fact`', "Get a random fact about me.")
-        .addField('`!drugs`', "Learn about drugs and its consequences")
         .addField('`!getadvice`', "Get some advice from Johnny Cash himself")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
@@ -3947,67 +3945,9 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         let data = await random.getJoke();
         message.channel.send(data);
     }
+   
     
     
-    
-    
-    
-    
-    if(message.content.toLowerCase().startsWith(prefix + "drugs")){
-        message.channel.send("Drugs r bad. Except if ur dokter gave em to u for ur helth. \nDrygs cAn makE u fEEl uNeaSy anD noT normAl. \nadVice froM me, Johnny Cash, doNt tAke dRugs unleSs yoU arE undEr 13.")
-    }
-    
-    
-    if(message.content.toLowerCase().startsWith(prefix + "iwanttodie")){
-        message.channel.send(`Tracking ${message.author.username}'s location...`).then((sentMessage) => 
-        setTimeout(() =>{
-            sentMessage.edit("Location Found...").then(
-                (sentMessageNew) =>
-                setTimeout(() =>{
-                    ranNum = Math.floor(Math.random() * (100 - 1 + 1) + 1);
-                    towns = ["Oogally", "Boogally", "Czech slovakia", "BookWorm Adventures Deluxe", "Meatball", "Pasta Lane", "Papa Mama Mia", "dead", "Austria", "UK", "US", "Car dealership", "bedroom", "garlic bread shop", "Tesco", "Sainsburys", "Asda", "Argos", "Cheese and Onion", "West Northen East", "Peppa Pig World", "Discord"];
-                    ranTown = towns[Math.floor(Math.random() * towns.length)];
-                    countries = ["China", "India", "New Zealand", "North America", "South America", "United Kingdom", "France", "Germany", "Russia", "Austria", "Australia", "Bangladesh", "Spain", "Norway", "Netherlands", "Czech", "Poland", "Romania", "Hungary", "Mongolia", "Antarctica", "Afghanistan", "Barbados", "Madagascar", "Central Africa Republic", "Denmark", "Ghana", "Jamaica", "Khazikstan", "Laos", "Nepal", "Qatar", "Turkey", "Uruaguay", "Vitenam", "Wales", "Yemen", "Ireland"]
-                    ranCountry = countries[Math.floor(Math.random() * countries.length)]; 
-
-                    
-                    sentMessageNew.edit(`Location: ${ranNum} ${ranTown}, ${ranCountry}`).then(
-                        (sentMessageNew2) =>
-                        setTimeout(() =>{
-                            ranMiles = Math.floor(Math.random() * (999 - 1 + 1) + 1);
-                            sentMessageNew2.edit(`Heading to location: ${ranMiles} miles away...`).then(
-                                (sentMessageNew3) =>
-                                setTimeout(() =>{
-                                    sentMessageNew3.edit('Heading to location: 0 miles away...').then(
-                                        (sentMessageNew4) =>
-                                        setTimeout(() =>{
-                                            sentMessageNew4.edit(`Breaking into ${message.author.username}'s house...`).then(
-                                                (sentMessageNew5) =>
-                                                setTimeout(() =>{
-                                                    sentMessageNew5.edit(`Killing ${message.author.username}...`).then(
-                                                        (sentMessageNew6) =>
-                                                        setTimeout(() =>{
-                                                            killOptions = ["peeing on them", "smacking them with my guitar", "stabbing them with a knife", "talking to them", "eating thier brain", "inviting Brian over to their house", "shooting them in the kneecaps", "setting them on fire", "choking them", "sucking blood out of them", "doing nothing", "forcing them to play Terraria", "eating their Pringles", "rubbing my nose into a can of beans", "whacking them with a mallet", "force feeding them expired garlic bread", "unsubscribing to Tongo on YouTube", "telling them how much Tom's sister hates Johnny Cash", "getting them to decode a Polybius cipher", "killing them", "chopping their toes off", "taking their CHEESE away", "taking a shower in their bathroom", "... Actually, i forgot. Oh well", "making them adicted to opium"]
-                                                            randomKillOption = killOptions[Math.floor(Math.random() * killOptions.length)];
-                                                            sentMessageNew6.edit(`Successfully killed ${message.author.username} by ${randomKillOption}`)
-                                                        }, 3000)
-                                                    )
-                                                }, 3000)
-                                            )
-                                        }, 3000)
-                                    )
-                                }, 3000)
-                            )
-
-                        }, 3000)
-                    )
-        
-                }, 3000))
-
-        }, 3000))
-        
-
-    }
 
     if(message.content.toLowerCase().startsWith(prefix + "cursed")){
 
