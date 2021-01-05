@@ -4257,7 +4257,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
 
     }
     
-    if(message.content.toUpperCase().startsWithh(prefix + "argh")){
+    if(message.content.toUpperCase().startsWith(prefix + "argh")){
         message.reply("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     }
     
