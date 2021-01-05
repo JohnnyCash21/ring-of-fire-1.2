@@ -25,6 +25,7 @@ const cheerio = require("cheerio");
 const request = require("request");
 const { Random } = require("something-random-on-discord");
 const random = new Random();
+const mongo = require('./commands/mongo')
 
 const inviteNotifications = require('./commands/invite-notifications');
 
@@ -3328,29 +3329,86 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     
     }
     
+    const cache = {}
+
+    if(message.content.toLowerCase().startsWith(prefix + "set_im_joke")){
+        if(!message.member.permissions.has('ADMINISTRATOR')){
+            channel.send('You do not have permission to run this command.')
+            return
+        }
+        let text = args[1]
+        if(!text) return message.channel.send("Please specify a valid arguement, `true` or `false`.")
+        if(text !== "true" && text !== "false") return message.channel.send("Please specify a valid arguement, `true` or `false`.")
+        
+        cache[message.guild.id] = [message.channel.id, text]
+
+        await mongo().then(async (mongoose) => {
+            try {
+                await imjokeSchema.findOneAndUpdate(
+                {
+                    _id: message.guild.id,
+                }, 
+                {
+                    _id: message.guild.id,
+                    channelId: message.channel.id,
+                    text,
+                }, 
+                {
+                    upsert: true
+                }
+            )
+    
+            } finally {
+                mongoose.connection.close()
+    
+            }
+        })
+        message.channel.send(`:white_check_mark: Successfully set i'm joke messages to: ${text}`)
+
+    }
+    
     if(message.content.toLowerCase().startsWith("i'm") || message.content.toLowerCase().startsWith("im") || message.content.toLowerCase().startsWith("i’m")){
+        let data = cache[message.guild.id]
+        if(!data){
+            console.log('FETCHING FROM THE DATABASE')
+            await mongo().then(async mongoose =>{
+                try {
+                    const result = await imjokeSchema.findOne({_id: message.guild.id})
+
+                    cache[message.guild.id] = data = [result.channelId, result.text]
+
+                } finally {
+                    mongoose.connection.close()
+                }
+            })
+        }
+
+        const _channelid = data[0]
+        const text = data[1]
+
+        const _channel = message.guild.channels.cache.get(_channelid)
+
+        console.log(text)
+
+        if(text == "false"){
+            return
+        }
         var exactIm = args[0]
         if(exactIm == "'m" || exactIm == "m" || exactIm == "’m"){
             var nameObject = args.slice(1).join(" ");
             if (nameObject){
-                message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
+                let randomNum1 = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+                if(randomNum1 == 5){
+                    message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash. \n\nIf you do not want these types of messages, type the following command: '!set_im_joke false'`)
+                }else{
+                    message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
+                }
+                
             }
         }
         
     }
 
-
-    if(message.content.toLowerCase().startsWith("i am")){
-        var exactIm = args[0]
-        if(exactIm == "am"){
-            var nameObject = args.slice(1).join(" ");
-            if (nameObject){
-                message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
-            }
-
-        }
-        
-    }
     
     
     
@@ -3817,6 +3875,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField('`!adminhelp`', "A list of administration commands. Some of which can be used by everyone", true)
         .addField('`!currencyhelp`', "A list of currency commands",true)
         .addField('`!educationhelp`', "A list of educational and learning commands",true)
+        .addField('`!confighelp`', "A list of configuration commands that only the Administrator can toggle.",true)
         .addField('**Want me on your server?**', '[Click here](https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=821165686&scope=bot) to invite me to your server', true)
         .addField('**Join the CHEESE server**', '[Click here](https://discord.gg/Esuapxj) to join the CHEESE server today!', true)
         .setFooter('Bot Made By: Quaternion#0001')
@@ -3937,6 +3996,16 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .setTitle('Educational Commands')
         .addField('`!fact`', "Get a random fact about me.")
         .addField('`!getadvice`', "Get some advice from Johnny Cash himself")
+        .setThumbnail(image2)
+        .setColor(0xF1C40F)
+        message.channel.send(educationEmbed)
+    }
+    
+    if(message.content.toLowerCase() === prefix + "confighelp"){
+        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
+        const configEmbed = new Discord.MessageEmbed()
+        .setTitle('Configuration Commands')
+        .addField("`!set_im_joke ('true' or 'false')`", "Toggle if I should reply with the classic dad joke whenever a message starts with 'I'm'")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(educationEmbed)
