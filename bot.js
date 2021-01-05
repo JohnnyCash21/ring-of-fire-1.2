@@ -61,7 +61,7 @@ fs.readdir("./commands/", (err, files) => {
 
 
 
-Client.on('ready', ()=>{
+Client.on('ready', async ()=>{
     console.log("Bot is online.");
     Client.user.setActivity('with my guitar | use "!help"');
     
