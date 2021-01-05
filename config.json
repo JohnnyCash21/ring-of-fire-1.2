@@ -1,4 +1,4 @@
 {
-    "mongoPath": process.env.MONGO_URL
+    "mongoPath": (process.env.MONGO_URL)
 
 }
