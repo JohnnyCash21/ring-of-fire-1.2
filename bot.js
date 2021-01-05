@@ -4008,7 +4008,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField("`!set_im_joke ('true' or 'false')`", "Toggle if I should reply with the classic dad joke whenever a message starts with 'I'm'")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
-        message.channel.send(educationEmbed)
+        message.channel.send(configEmbed)
     }
     
     var customDiscordJokes = require('custom-discord-jokes');
