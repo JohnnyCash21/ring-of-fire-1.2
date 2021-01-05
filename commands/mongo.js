@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { mongoPath } = require('../config.json')
+const mongoPath = process.env.MONGO_URL || "mongodb://localhost/discordBot_db"
 
 module.exports = async () => {
     await mongoose.connect(mongoPath, {
