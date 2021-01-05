@@ -3334,7 +3334,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
 
     if(message.content.toLowerCase().startsWith(prefix + "set_im_joke")){
         if(!message.member.permissions.has('ADMINISTRATOR')){
-            channel.send('You do not have permission to run this command.')
+            message.channel.send('You do not have permission to run this command.')
             return
         }
         let text = args[1]
