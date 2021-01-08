@@ -15,12 +15,12 @@ module.exports.run = async (Client, message, args) => {
         try {
             await Data.findOne({
                 userId: message.author.id
-            }, (err, authorData) => {
+            }, async(err, authorData) => {
                 if(err) console.log(err);
                 if(!authorData){
                     message.reply("You have no cash to pay with!")
                 } else {
-                   Data.findOne({
+                   await Data.findOne({
                         userId: user.id
                     }, (err, userData) => {
                         if(err) console.log(err);
@@ -54,7 +54,7 @@ module.exports.run = async (Client, message, args) => {
             })
 
         } finally {
-            mongoose.connection.close()
+            //mongoose.connection.close()
         }
     })
 
