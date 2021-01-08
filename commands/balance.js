@@ -1,6 +1,7 @@
-const fs = require("fs");
 const money = require("../money.json");
+const mongo = require("./mongo")
 
+const Data = require("../schemas/data")
 
 module.exports.run = async (Client, message, args) => {
 
@@ -10,19 +11,31 @@ module.exports.run = async (Client, message, args) => {
         var user = message.mentions.users.first() || Client.users.cache.get(args[0]);
     }
 
+    await mongo().then(async (mongoose) => {
+        try {
+            await Data.findOne({
+                userId: user.id
+            }, (err, data) => {
+                if(err) console.log(err);
+                if(!data){
+                    const newData = new Data({
+                        name: Client.users.cache.get(user.id).username,
+                        userId: user.id,
+                        lb: "all",
+                        money: 0,
+                        daily: 0,
+                    })
+                    newData.save().catch(err => console.log(err));
+                    message.channel.send(`${Client.users.cache.get(user.id).username} has 0 cash.`)
+                } else {
+                    message.channel.send(`${Client.users.cache.get(user.id).username} has ${data.money} cash.`)
+                }
+            })
 
-    if(!money[user.id]) {
-        money[user.id] = {
-            name: Client.users.get(user.id).tag,
-            money: 0
+        } finally {
+            mongoose.connection.close()
         }
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if(err) console.log(err)
-        });
-    }
-
-
-    return message.channel.send(`${Client.users.cache.get(user.id).username} has ${money[user.id].money} cash!`)
+    })
     
 
 }
