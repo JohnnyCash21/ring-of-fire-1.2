@@ -2668,15 +2668,30 @@ Client.on('message', async (message)=>{
     }
     
     
-    if(!money[message.author.id]) {
-        money[message.author.id] = {
-            name: Client.users.cache.get(message.author.id).tag,
-            money: 0
-        }
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if(err) console.log(err)
-        });
-    }
+    await mongo().then(async (mongoose) => {
+        try {
+            await Data.findOne({
+                userId: message.author.id
+            }, (err, data) => {
+                if(err) console.log(err);
+                if(!data){
+                    const newData = new Data({
+                        name: message.author.username,
+                        userId: message.author.id,
+                        lb: "all",
+                        money: 0,
+                        daily: 0,
+                    })
+                    newData.save().catch(err => console.log(err));
+                    
+                }
+
+            })
+            } finally{
+                mongoose.connection.close()
+
+            }
+    })
     
     if(message.content.toLowerCase().startsWith(prefix + "kick")) {
             if(!message.member.permissions.has("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
@@ -3476,11 +3491,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
                         
                         if(health <= 0){
                             message.channel.send("You Win")
-                            money[message.author.id].money = money[message.author.id].money + 100;
-                            message.reply(`For winning, you have earned 100 cash! New Balance: ${money[message.author.id].money} cash!`);
-                            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                                if(err) console.log(err);
-                            });
+                  
                             return
                         }else{
                             var i;
@@ -3517,11 +3528,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
                                                 console.log(health)
                                                 if(health <= 0){
                                                     message.channel.send("You Win!")
-                                                    money[message.author.id].money = money[message.author.id].money + 100;
-                                                    message.reply(`For winning, you have earned 100 cash! New Balance: ${money[message.author.id].money} cash!`);
-                                                    fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                                                        if(err) console.log(err);
-                                                    });
+                                                    
                                                     return
                                                 }
                                                     
@@ -3682,15 +3689,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         if(message.author.bot) return;
         if(userAnswer == cAnswer){
             message.reply("Got it RIGHT! :+1: ")
-            answersCorrect = answersCorrect + 1
-            money[message.author.id].money = money[message.author.id].money + 15;
-            message.reply(`For being smart, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
-            message.channel.send(`Total questions answered correctly: **${answersCorrect}**`)
-
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if(err) console.log(err);
-            });
-
+            
         } else {
             message.reply("Got it WRONG! :-1: ")
             
@@ -3810,21 +3809,9 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
             
         } else if(rpsUserAnswer == "Rock" && rpsAnswer == "Scissors"){
             message.reply("YOU WIN!");
-            money[message.author.id].money = money[message.author.id].money + 15;
-            message.reply(`For winning, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
-
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if(err) console.log(err);
-            });
             
         } else if(rpsUserAnswer == "Paper" && rpsAnswer == "Rock"){
             message.reply("YOU WIN!");
-            money[message.author.id].money = money[message.author.id].money + 15;
-            message.reply(`For winning, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
-
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if(err) console.log(err);
-            });
             
         } else if(rpsUserAnswer == "Paper" && rpsAnswer == "Scissors"){
             message.reply("YOU LOST!");
@@ -3834,12 +3821,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
             
         } else if(rpsUserAnswer == "Scissors" && rpsAnswer == "Paper"){
             message.reply("YOU WIN!");
-            money[message.author.id].money = money[message.author.id].money + 15;
-            message.reply(`For winning, you have earned an extra 15 cash! New Balance: ${money[message.author.id].money} cash!`);
-
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if(err) console.log(err);
-            });
             
         }
         else{
@@ -3984,7 +3965,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField('`!daily`', "Claim your daily cash!")
         .addField('`!rob (user) (amount)`', "Want some extra cash? Try and rob someone.")
         .addField('`!pay (user) (amount)`', "Feeling generous? Donate some cash to your friends, or keep it all to yourself.")
-        .addField('`!payall (amount)`', "Pay out some cash to the entire server.")
         .addField('`!gamble (amount)`', "Feeling lucky enough to gamble your money in the chance for some more money? Or possibly lose it all?")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
