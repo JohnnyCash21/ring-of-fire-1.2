@@ -1,100 +1,67 @@
 const Discord = require("discord.js");
-const money = require("../money.json");
-const fs = require("fs");
+const ms = require("parse-ms");
+const mongo = require("./mongo")
 
+const Data = require("../schemas/data")
 
 module.exports.run = async (Client, message, args) => {
-    if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permission to send embedded messages. Please enable the `EMBED_LINKS` option for me.")
 
-    let gambleEmbed = new Discord.MessageEmbed()
+    let timeout = 86400000;    //86400000
+    let reward = 500;
+
+    let dailyEmbed = new Discord.MessageEmbed();
 
     if(message.author.bot) return;
-
-    if(!money[message.author.id] || money[message.author.id].money <= 0) return message.reply("You don't have any cash!");
-
-    if(!args[0]) return message.reply("Please specify the amount of cash you want to gamble.");
-
-    try {
-        var bet = parseFloat(args[0]);
-    } catch {
-        return message.reply("You can only enter whole integers.");
-    }
-
-    if(parseFloat(args[0]) < 1) return message.reply("You cannot gamble less than 1 cash!");
-
-    if(bet != Math.floor(bet)) return message.reply("You can only enter whole integers.");
-
-    if(money[message.author.id].money < bet) return message.reply("You don't have that much cash to gamble with!");
-
-    let chances = ["Win", "Lose"];
-    let pick = chances[Math.floor(Math.random() * chances.length)];
-
-    if(pick == "Lose") {
-        money[message.author.id].money -= bet;
-        fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-            if(err) console.log(err);
-        });
-        gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
-        gambleEmbed.addField("YOU LOST!", `New Balance: ${money[message.author.id].money} cash.`);
-        gambleEmbed.setColor("#e63127");
-        return message.reply(gambleEmbed);
-    } else {
-        jackpot = 1000
-        const randomIndexJackpot = Math.floor(Math.random() * (jackpot - 1 + 1)) + 1;
-        console.log(randomIndexJackpot)
-        if(randomIndexJackpot == 439){
-            money[message.author.id].money += 1000000;
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if(err) console.log(err);
-            });
-            if(message.guild.me.permissions.has("MANAGE_ROLES")){
-                //return message.channel.send("I do not have permissions to manage roles. If you would like a jackpot role to be added when a winner wins the jackpot, enable the `MANAGE_ROLES` to me");
-                let findLotteryRole = message.member.guild.roles.cache.find(d => d.name === "Lottery Winner");
-                if(!findLotteryRole){
-                    message.member.guild.roles.create({
-                        name: "Lottery Winner",
-                        color: "#ffef12",
-                        permissions: [],
-                        mentionable: true,
-                        position: 4,
-                        hoist: true
-                    }).then(function(lotteryWinnerRole)
-                    {
-                        message.member.roles.add(lotteryWinnerRole)
-                    });
-                } else{
-                    message.member.roles.add(findLotteryRole)
-                }
-            } else{
-                message.channel.send("I do not have permissions to manage roles. If you would like a jackpot role to be added when a winner wins the jackpot, enable the `MANAGE_ROLES` to me");
-            }    
-            
-
-            
-            gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
-            gambleEmbed.addField("JACKPOT!", `New Balance: ${money[message.author.id].money} cash.`);
-            gambleEmbed.addField("NEW ROLE ASSIGNED!", 'Because of your win, you now have a new exclusive role!');
-            gambleEmbed.setColor("#ffef12");
-            return message.reply(gambleEmbed);
-        } else {
-            money[message.author.id].money += bet;
-            fs.writeFile("./money.json", JSON.stringify(money), (err) => {
-                if(err) console.log(err);
-            });
-            gambleEmbed.setTitle(`${message.author.username}'s Gambling Game`);
-            gambleEmbed.addField("YOU WIN!", `New Balance: ${money[message.author.id].money} cash.`);
-            gambleEmbed.setColor("#27e65a");
-            return message.reply(gambleEmbed);
-
-
-        }
         
-    }
+    dailyEmbed.setTitle('Daily Reward');
 
+    await mongo().then(async (mongoose) => {
+        try {
+            await Data.findOne({
+                userId: message.author.id
+            }, (err, data) => {
+                if(err) console.log(err);
+                if(!data){
+                    const newData = new Data({
+                        name: message.author.username,
+                        userId: message.author.id,
+                        lb: "all",
+                        money: reward,
+                        daily: Date.now(),
+                    })
+                    newData.save().catch(err => console.log(err));
+                    message.channel.send(`${message.author.username} has ${reward} cash.`)
+                } else {
+                    if(timeout - (Date.now() - data.daily) > 0){
+                        let time = ms(timeout - (Date.now() - data.daily));
 
+                        dailyEmbed.setColor("#e63127");
+                        dailyEmbed.setDescription(`**You already collected your daily reward. Come back later!**`);
+                        dailyEmbed.addField(`Collect again in`, `**${time.hours}h ${time.minutes}m ${time.seconds}s**`);
+                        return message.reply(dailyEmbed);
+
+                    } else{
+                        data.money += reward;
+                        data.daily = Date.now();
+                        data.save().catch(err => console.log(err));
+
+                        dailyEmbed.setDescription(`You collected your daily reward of ${reward} cash! Current balance is ${data.money} cash.`);
+                        dailyEmbed.setColor("#27e65a");
+                        return message.reply(dailyEmbed);
+
+                    }
+                }
+            })
+
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+
+    
 }
 
 module.exports.help = {
-    name: "gamble",
+    name: "daily",
     aliases: []
 }
