@@ -13,7 +13,7 @@ module.exports.run = async (Client, message, args) => {
 
     await mongo().then(async (mongoose) => {
         try {
-            Data.findOne({
+            await Data.findOne({
                 userId: message.author.id
             }, (err, authorData) => {
                 if(err) console.log(err);
