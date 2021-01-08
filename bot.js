@@ -27,6 +27,7 @@ const { Random } = require("something-random-on-discord");
 const random = new Random();
 const mongo = require('./commands/mongo')
 const imjokeSchema = require("./schemas/imjoke-schema");
+const Data = require("./schemas/data")
 
 const inviteNotifications = require('./commands/invite-notifications');
 
