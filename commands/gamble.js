@@ -82,7 +82,7 @@ module.exports.run = async (Client, message, args) => {
 
         } finally {
             console.log("Closing connecttion")
-            mongoose.connection.close()
+            //mongoose.connection.close()
         }
     })
 
