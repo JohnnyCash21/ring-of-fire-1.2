@@ -2669,30 +2669,7 @@ Client.on('message', async (message)=>{
     }
     
     
-    await mongo().then(async (mongoose) => {
-        try {
-            await Data.findOne({
-                userId: message.author.id
-            }, (err, data) => {
-                if(err) console.log(err);
-                if(!data){
-                    const newData = new Data({
-                        name: message.author.username,
-                        userId: message.author.id,
-                        lb: "all",
-                        money: 0,
-                        daily: 0,
-                    })
-                    newData.save().catch(err => console.log(err));
-                    
-                }
-
-            })
-            } finally{
-                mongoose.connection.close()
-
-            }
-    })
+    
     
     if(message.content.toLowerCase().startsWith(prefix + "kick")) {
             if(!message.member.permissions.has("KICK_MEMBERS")) return message.channel.send("You do not have permission to run this command");
