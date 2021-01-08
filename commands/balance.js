@@ -33,7 +33,7 @@ module.exports.run = async (Client, message, args) => {
             })
 
         } finally {
-            mongoose.connection.close()
+            //mongoose.connection.close()
         }
     })
     
