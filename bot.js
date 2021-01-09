@@ -3448,7 +3448,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         message.channel.reply("This command no longer exists! Use the `!play` command as well as your search query: `!play (query)`")
     }
     
-    if(bookwormAnswered == false){
+    if(bookwormAnswered == false && channelbookId == message.channel.id){
         console.log("PASSED")
         bookwormAnswer = message.content.toUpperCase()
         if(bookwormAnswer === "") return;
@@ -3532,11 +3532,8 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
                 
             }
         }
-        bookwormCounter = 0;
+        bookwormCounter = 0; bookwormAnswer = ""; bookwormAnswered = true; channelbookId = ""
     }
-
-    bookwormAnswer = ""
-    bookwormAnswered = true
 
     if(message.content.toLowerCase() === prefix + "bookcash"){
         if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
@@ -3654,13 +3651,13 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         bookwormAnswered = false
         
         message.channel.send(bookCashEmbed)
+        bookwormer = message.author
+        channelbookId = message.channel.id
         
     }
-    bookwormer = message.author
-
     
     
-    if (answered == false && message.author == quizUser && !message.author.bot){
+    if (answered == false && message.author == quizUser && !message.author.bot && message.channel.id == channelId){
         //userAnswerMan = message.guild
         //userAnswerMan = message.guild
         userAnswer = message.content.toUpperCase()
@@ -3672,7 +3669,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
             message.reply("Got it WRONG! :-1: ")
             
         }
-        answered = true; cAnswer = ""; userAnswer = "";
+        answered = true; cAnswer = ""; userAnswer = ""; channelId = "";
 
     }
 
@@ -3759,6 +3756,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         }
         answered = false
         quizUser = message.author
+        channelId = message.channel.id
     
         
     }
