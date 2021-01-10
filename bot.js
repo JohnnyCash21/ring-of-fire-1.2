@@ -2666,7 +2666,40 @@ Client.on('message', async (message)=>{
     
     const prefix = guild_prefixes[message.guild.id] || global_prefix
     
-    if(message.content.startsWith(prefix + "prefix")){
+    
+    
+    if(message.content.startsWith(global_prefix) && global_prefix !== prefix){
+        message.channel.send(`The prefix for this server is: ${prefix}`).then(m => m.delete({ timeout: 5000 }));
+    }
+
+    let args = message.content.slice(prefix.length).trim().split(/ +/g);
+    let cmd;
+    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman")){
+        cmd = args.shift().toLowerCase();
+    }
+    let command;
+    //let commandfile = Client.commands.get(cmd.slice(prefix.length));
+    //if(commandfile){
+        //commandfile.run(Client, message, args);
+    //}else{
+        //console.log(commandfile)
+        
+    //}
+
+    if(Client.commands.has(cmd)) {
+        command = Client.commands.get(cmd);
+    } else if(Client.aliases.has(cmd)) {
+        command = Client.commands.get(Client.aliases.get(cmd));
+    }
+    try {
+        command.run(Client, message, args);
+    } catch (e) {
+        //return;
+    }
+    
+    
+    if(message.content.toLowerCase().startsWith(prefix + "prefix")){
+        console.log("here")
         if(!message.member.permissions.has(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to use this command! Only an `ADMINISTRATOR` is able to use this command.");
         let guild_prefix = args[1]
         if(!guild_prefix) return message.channel.send("Please specify an arguement for the new server prefix.");
@@ -2694,36 +2727,6 @@ Client.on('message', async (message)=>{
             }
         })
     }
-    
-    if(message.content.startsWith(global_prefix) && global_prefix !== prefix){
-        message.channel.send(`The prefix for this server is: ${prefix}`).then(m => m.delete({ timeout: 5000 }));
-    }
-
-    let args = message.content.slice(prefix.length).trim().split(/ +/g);
-    let cmd;
-    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman") || message.content.startsWith(prefix + "prefix")){
-        cmd = args.shift().toLowerCase();
-    }
-    let command;
-    //let commandfile = Client.commands.get(cmd.slice(prefix.length));
-    //if(commandfile){
-        //commandfile.run(Client, message, args);
-    //}else{
-        //console.log(commandfile)
-        
-    //}
-
-    if(Client.commands.has(cmd)) {
-        command = Client.commands.get(cmd);
-    } else if(Client.aliases.has(cmd)) {
-        command = Client.commands.get(Client.aliases.get(cmd));
-    }
-    try {
-        command.run(Client, message, args);
-    } catch (e) {
-        //return;
-    }
-    
     
     
     
