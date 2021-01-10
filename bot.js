@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const prefix = "!";
+const global_prefix = "!";
 const ytdl = require("ytdl-core");
 const YOUTUBE_API = (process.env.YOUTUBE_API)
 const search = require('youtube-search');
@@ -9,6 +9,7 @@ const opts = {
     type: 'video'
 };
 
+const guild_prefixes = {}
 const YouTube = require("simple-youtube-api");
 const streamOptions = { seek: 0, volume: 1 };
 const { getInfo } = require('ytdl-getinfo');
@@ -68,6 +69,24 @@ Client.on('ready', async ()=>{
     Client.user.setActivity('with my guitar | use "!help"');
     
     inviteNotifications(Client)
+    
+    await mongo().then(async mongoose => {
+        try {
+            for (const guild of Client.guilds.cache){
+                const guildId = guild[1].id
+                const result = await commandPrefixSchema.findOne({_id: guildId})
+                if(result){
+                    guild_prefixes[guildId] = result.prefix
+                }
+            }
+
+            console.log(guild_prefixes)
+
+        } finally{
+            mongoose.connection.close()
+        }
+
+    })
     
     answered = true;
     cAnswer = "";
@@ -2644,10 +2663,15 @@ Client.on('message', async (message)=>{
     
     if(message.channel.type === "dm") return;
     
+    const prefix = guild_prefixes[message.guild.id] || global_prefix
+    
+    if(message.content.startsWith(global_prefix) && global_prefix !== prefix){
+        message.channel.send(`The prefix for this server is: ${prefix}`).then(m => m.delete({ timeout: 5000 }));
+    }
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith("!bal") || message.content.startsWith("!balance") || message.content.startsWith("!gamble") || message.content.startsWith("!pay") || message.content.startsWith("!daily") || message.content.startsWith("!report") || message.content.startsWith("!rob") || message.content.startsWith("!lyrics") || message.content.startsWith("!snake") || message.content.startsWith("!connect4") || message.content.startsWith("!hangman")){
+    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman") || message.content.startsWith(prefix + "prefix")){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3965,6 +3989,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         const configEmbed = new Discord.MessageEmbed()
         .setTitle('Configuration Commands')
         .addField("`!set_im_joke ('true' or 'false')`", "Toggle if I should reply with the classic dad joke whenever a message starts with 'I'm'")
+        .addField("`!prefix <PREFIX>`", "Set a custom server prefix")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(configEmbed)
