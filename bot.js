@@ -2666,6 +2666,35 @@ Client.on('message', async (message)=>{
     
     const prefix = guild_prefixes[message.guild.id] || global_prefix
     
+    if(message.content.startsWith(prefix + "prefix")){
+        if(!message.member.permissions.has(["ADMINISTRATOR"])) return message.channel.send("You do not have permission to use this command! Only an `ADMINISTRATOR` is able to use this command.");
+        let guild_prefix = args[1]
+        if(!guild_prefix) return message.channel.send("Please specify an arguement for the new server prefix.");
+        if(guild_prefix.length >= 10) return message.channel.send("Your prefix must be less than 10 characters");
+        
+        await mongo().then(async mongoose => {
+            try {
+                const guildId = message.guild.id
+
+                await commandPrefixSchema.findOneAndUpdate({
+                    _id: guildId
+                }, {
+                    _id: guildId,
+                    prefix: guild_prefix
+                }, {
+                    upsert: true
+                })
+
+                guild_prefixes[guildId] = guild_prefix
+
+                message.reply(`:ok_hand: The prefix for this server is now: '${guild_prefix}'`);
+
+            } finally{
+                mongoose.connection.close()
+            }
+        })
+    }
+    
     if(message.content.startsWith(global_prefix) && global_prefix !== prefix){
         message.channel.send(`The prefix for this server is: ${prefix}`).then(m => m.delete({ timeout: 5000 }));
     }
