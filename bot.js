@@ -3988,8 +3988,8 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const configEmbed = new Discord.MessageEmbed()
         .setTitle('Configuration Commands')
-        .addField("`" + prefix + 'set_im_joke ('true' or 'false')`', "Toggle if I should reply with the classic dad joke whenever a message starts with 'I'm'")
-        .addField("`" + prefix + 'prefix <PREFIX>`', "Set a custom server prefix")
+        .addField("`" + prefix + "set_im_joke ('true' or 'false')`", "Toggle if I should reply with the classic dad joke whenever a message starts with 'I'm'")
+        .addField("`" + prefix + "prefix <PREFIX>`", "Set a custom server prefix")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(configEmbed)
