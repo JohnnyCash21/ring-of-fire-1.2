@@ -2642,6 +2642,8 @@ Client.on('message', async (message)=>{
         console.log(`${message.author.username}: ${message.content}`)
     }
     
+    if(message.channel.type === "dm") return;
+    
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
