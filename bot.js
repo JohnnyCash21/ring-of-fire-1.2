@@ -2674,7 +2674,7 @@ Client.on('message', async (message)=>{
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman") || message.content.startsWith(prefix + "mute")){
+    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman")){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3982,7 +3982,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField("`" + prefix + 'kick (user) (reason)`', "Kick a user for their bad behaviour.")
         .addField("`" + prefix + 'ban (user) (reason)`', "Ban a user for their bad behaviour.")
         .addField("`" + prefix + 'clear (amount)`', "Clear the amount of messages specified.")
-        .addField("`" + prefix + 'mute (user) (time frame)`', "Mute a user. The time frame can be used as `30s`, `5m`, `2h`, `1d`, etc.")
         .addField("`" + prefix + 'report (user) (reason)`', "See any foolish behaviour? Help the admins out and report that vile user.")
         .addField("`" + prefix + 'peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .addField("`" + prefix + 'fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
