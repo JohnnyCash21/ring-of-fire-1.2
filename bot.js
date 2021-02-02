@@ -3429,7 +3429,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
                     const result = await imjokeSchema.findOne({_id: message.guild.id})
 
                     cache[message.guild.id] = data = [result.channelId, result.text]
-                } except {
+                } catch(err) {
                     console.log("No such thing as data in this server")
 
                 } finally {
