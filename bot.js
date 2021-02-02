@@ -3437,28 +3437,31 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
                 }
             })
         }
+        
+        if(data){
 
-        const _channelid = data[0]
-        const text = data[1]
+            const _channelid = data[0]
+            const text = data[1]
 
-        const _channel = message.guild.channels.cache.get(_channelid)
+            const _channel = message.guild.channels.cache.get(_channelid)
 
-        console.log(text)
+            console.log(text)
 
-        if(text == "false"){
-            return
-        }
-        var exactIm = args[0]
-        if(exactIm == "'m" || exactIm == "m" || exactIm == "’m"){
-            var nameObject = args.slice(1).join(" ");
-            if (nameObject){
-                let randomNum1 = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
-                if(randomNum1 == 5){
-                    message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash. \n\nIf you do not want these types of messages, type the following command: '!set_im_joke false'`)
-                }else{
-                    message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
+            if(text == "false"){
+                return
+            }
+            var exactIm = args[0]
+            if(exactIm == "'m" || exactIm == "m" || exactIm == "’m"){
+                var nameObject = args.slice(1).join(" ");
+                if (nameObject){
+                    let randomNum1 = Math.floor(Math.random() * (20 - 1 + 1)) + 1;
+                    if(randomNum1 == 5){
+                        message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash. \n\nIf you do not want these types of messages, type the following command: '!set_im_joke false'`)
+                    }else{
+                        message.channel.send(`Hi, ${nameObject}! I'm Johnny Cash.`);
+                    }
+
                 }
-                
             }
         }
         
