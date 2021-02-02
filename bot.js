@@ -2674,7 +2674,7 @@ Client.on('message', async (message)=>{
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
-    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman")){
+    if(message.content.startsWith(prefix + "bal") || message.content.startsWith(prefix + "balance") || message.content.startsWith(prefix + "gamble") || message.content.startsWith(prefix + "pay") || message.content.startsWith(prefix + "daily") || message.content.startsWith(prefix + "report") || message.content.startsWith(prefix + "rob") || message.content.startsWith(prefix + "lyrics") || message.content.startsWith(prefix + "snake") || message.content.startsWith(prefix + "connect4") || message.content.startsWith(prefix + "hangman") || message.content.startsWith(prefix + "mute")){
         cmd = args.shift().toLowerCase();
     }
     let command;
@@ -3983,7 +3983,8 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
         const adminEmbed = new Discord.MessageEmbed()
         .setTitle('Administration Commands')
-        .addField("`" + prefix + 'warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason. **(ADMIN ONLY)**")
+        .addField("`" + prefix + 'warn (user) (reason)`', "Warn a user for their bad behaviour. This will send a private message to them regarding their warning plus the reason.")
+        .addField("`" + prefix + 'mute (user)`', "Mute a user.")
         .addField("`" + prefix + 'kick (user) (reason)`', "Kick a user for their bad behaviour.")
         .addField("`" + prefix + 'ban (user) (reason)`', "Ban a user for their bad behaviour.")
         .addField("`" + prefix + 'clear (amount)`', "Clear the amount of messages specified.")
