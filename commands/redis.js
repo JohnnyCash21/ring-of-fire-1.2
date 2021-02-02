@@ -1,5 +1,5 @@
 const redis = require('redis');
-const redisPath = process.env("REDIS_PATH")
+const redisPath = (process.env.REDIS_PATH)
 
 module.exports = async () => {
     return await new Promise((resolve, reject) => {
