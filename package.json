@@ -8,6 +8,9 @@
     "start": "node bot.js"
 
   },
+  "engines": {
+    "node": "14.x"
+  },
   "author": "Wallace",
   "license": "ISC",
   "dependencies": {
