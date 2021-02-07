@@ -2623,16 +2623,6 @@ Client.on('guildMemberAdd', (member) =>{
 
     const channel = member.guild.channels.cache.find(channel => channel.name === "general");
     if(!channel) return;
-    
-    let unverifiedRole = member.guild.roles.cache.find(unverify => unverify.name == "Unverified");
-    if(!unverifiedRole) return;
-    member.roles.add(unverifiedRole);
-    
-    const verifyChannel = member.guild.channels.cache.find(verifyChannel => verifyChannel.name === "verify");
-    if (!verifyChannel) return;
-    
-    verifyChannel.send(`Hello ${member}! Here you must verify yourself stating the following: \n **- Name** \n **- Age** \n **- What continent you are from, (e.g. Europe, Africa, Asia, etc.)** \n **- Have you read the rules channel yet? If not, do so now** \n **- Are you capable of following all, if not, most of the rules listed?** \n \n Please answer all questions above by sending one full message in this channel, and wait to be manually accepted by an Admin. \n \n Thank You.`);
-
 
 });
 
@@ -2819,7 +2809,7 @@ Client.on('message', async (message)=>{
                 if(member){
                     var reason = args.slice(2).join(" ");
                     if(!reason) return message.reply("Please give a reason to warn this user.");
-                    member.send(`You were warned. Reason: **${reason}** \nDo not let this happen again.`).then(() =>{
+                    member.send(`You were warned in **${message.guild.name}**. Reason: **${reason}** \nDo not let this happen again.`).then(() =>{
                         message.reply(`Sucessfully warned ${user.tag}`);
                     }).catch(err =>{
                         message.reply('I was unable to give this member a warning');
@@ -2858,7 +2848,7 @@ Client.on('message', async (message)=>{
     
     if(message.content.toLowerCase().startsWith(prefix + "fanny")) {
         if(message.guild.id !== "737268386861678675") return message.channel.send("This command is not available on this server!");
-        if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
+        if(!message.member.roles.cache.some(role => role.name === 'G R O M I T')) return message.channel.send("You do not have permission to run this command");
          
         
         const user = message.mentions.users.first();
@@ -2905,35 +2895,6 @@ Client.on('message', async (message)=>{
         }
     }
     
-    if(message.content.toLowerCase().startsWith(prefix + "peasant")) {
-        if(message.guild.id !== "737268386861678675") return message.channel.send("This command is not available on this server!");
-        if(!message.member.roles.cache.some(role => role.name === 'Moderator')) return message.channel.send("You do not have permission to run this command");
-             
-            
-        const user = message.mentions.users.first();
-    
-        if(user){
-            const member = message.guild.member(user);
-            if(member){
-                let peasantRole = member.guild.roles.cache.find(r => r.name === "Peasant");
-                let cheeseRole = member.guild.roles.cache.find(a => a.name === "C H E E S E");
-                member.roles.add(peasantRole).then(() =>{
-                    member.roles.remove(cheeseRole);
-                    message.reply(`Sucessfully given Peasant to ${user.tag}`);
-                }).catch(err =>{
-                    message.reply('I was unable to peasant this user');
-                    console.log(err);
-                });
-          
-            }else{
-                message.reply("That user is not in this server");
-            }
-    
-                
-        }else{
-            message.reply("You need to specify a person");
-        }
-    }
     
     switch(args[0]){
 
@@ -3989,7 +3950,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField("`" + prefix + 'ban (user) (reason)`', "Ban a user for their bad behaviour.")
         .addField("`" + prefix + 'clear (amount)`', "Clear the amount of messages specified.")
         .addField("`" + prefix + 'report (user) (reason)`', "See any foolish behaviour? Help the admins out and report that vile user.")
-        .addField("`" + prefix + 'peasant (user)`', "Peasant a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .addField("`" + prefix + 'fanny (user)`', "Fanny a user. **(ONLY WORKS ON CHEESE SERVER)**")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
