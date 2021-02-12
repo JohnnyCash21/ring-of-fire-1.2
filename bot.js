@@ -2662,9 +2662,13 @@ Client.on('message', async (message)=>{
         message.channel.send(`The prefix for this server is: ${prefix}`).then(m => m.delete({ timeout: 5000 }));
     }
     
-    if(message.mentions.users.first().id === "654736732985622541"){
-        message.channel.send(`Prefix for this server is: ${prefix}`);
-    }
+    try{
+        if(message.mentions.users.first().id === "654736732985622541"){
+            message.channel.send(`Prefix for this server is: ${prefix}`);
+        }
+    }catch(err){
+        console.log(err)   
+    }    
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let cmd;
