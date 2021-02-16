@@ -2663,11 +2663,12 @@ Client.on('message', async (message)=>{
     }
     
     try{
-        if(message.mentions.users.first().id === "654736732985622541"){
+        let bot_id = "654736732985622541";
+        if(!bot_id) return;
+        if(message.mentions.users.first().id === bot_id){
             message.channel.send(`Prefix for this server is: ${prefix}`);
         }
-    }catch(err){
-        console.log(err)   
+    }catch(err){   
     }    
 
     let args = message.content.slice(prefix.length).trim().split(/ +/g);
