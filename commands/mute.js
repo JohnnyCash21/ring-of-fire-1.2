@@ -65,7 +65,7 @@ module.exports.run = async (Client, message, args) => {
 
     const syntax = "`!mute <member> <time-frame>` The time frame can be used as `30s`, `5m`, `2h`, `1d`, etc."
 
-    if(!member.permissions.has(["MANAGE_ROLES"])) return message.channel.send("You do not have permission to run this command!");
+    if(!member.permissions.has(["KICK_MEMBERS"])) return message.channel.send("You do not have permission to run this command!");
     if(!message.guild.me.permissions.has("MANAGE_ROLES")) return message.channel.send("I do not have permissions to manage roles. Please enable the `MANAGE_ROLES` option on me.");
 
     const split = content.trim().split(' ');
