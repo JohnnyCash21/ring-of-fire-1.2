@@ -3870,7 +3870,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField("`" + prefix + 'confighelp`', "A list of configuration commands that only the Administrator can toggle.",true)
         .addField('**Want me on your server?**', '[Click here](https://discord.com/api/oauth2/authorize?client_id=654736732985622541&permissions=821165686&scope=bot) to invite me to your server', true)
         .addField('**Join the CHEESE server**', '[Click here](https://discord.gg/Esuapxj) to join the CHEESE server today!', true)
-        .setFooter('Bot Made By: Quaternion#7377')
+        .setFooter('Bot Made By: Quaternion#9999')
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(commandsEmbed)
