@@ -3739,8 +3739,8 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
             case 26: message.channel.send("What is the 7th letter in the Greek alphabet? \n A. Zeta \n B. Epsilon \n C. Eta \n D. Theta"); cAnswer = "C"; break;
             case 27: message.channel.send("Should Johnny Cash Bot take over all of Discord? \n A. Yes \n B. No \n C. Maybe \n D. Don't know"); cAnswer = "A"; break;
             case 28: message.channel.send("How do birds fly? \n A. With their wings \n B. They jump \n C. AAaaaaaa \n D. They kill themselves"); cAnswer = "A"; break;
-            case 29: message.channel.send("Who was Geoffrey of Monmouth? \n A. A Historian \n B. A pseudo-historical writer who fucked up the course of history for centuries to come \n C. A History teacher \n D. A normal person"); cAnswer = "B"; break;
-            case 30: message.channel.send("YOU HAVE ENCOUNTERED THE £1,000,000 QUESTION: Solve for x, √−1x - iy * eπx^2 / dy/dx = 0 \n \n A. 31.4 \n \n B. sin(31) \n \n C. tanh(eπ) \n \n D. eπ^eπ"); cAnswer = "D"; break;
+            case 29: message.channel.send("Who was Geoffrey of Monmouth? \n A. A Historian \n B. A pseudo-historical writer who messed up the course of history for centuries to come \n C. A History teacher \n D. A normal person"); cAnswer = "B"; break;
+            case 30: message.channel.send("These questions are really stupid \n \n A. No \n \n B. Maybe \n \n C. I don't know \n \n D. Yes"); cAnswer = "D"; break;
             case 31: message.channel.send("How many months have 28 days? \n A. 1 \n B. 5 \n C. 12 \n D. 0"); cAnswer = "C"; break;
             case 32: message.channel.send("Are you stupid? \n A. Yes \n B. No \n C. Yes \n D. Yes"); cAnswer = "A"; break;
             case 33: message.channel.send("When was the last time England had a civil war? \n A. 57 years \n B. 300 years \n C. 532 years \n D. 369 years"); cAnswer = "D"; break;
