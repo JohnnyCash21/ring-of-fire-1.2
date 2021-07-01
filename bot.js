@@ -30,13 +30,6 @@ const mongo = require('./commands/mongo')
 const imjokeSchema = require("./schemas/imjoke-schema");
 const commandPrefixSchema = require("./schemas/prefix-schema")
 const Data = require("./schemas/data")
-var Scraper = require('images-scraper');
-
-const google = new Scraper({
-    puppeteer: {
-        headless: true
-    }
-})
 
 const inviteNotifications = require('./commands/invite-notifications');
 
