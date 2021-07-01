@@ -30,6 +30,13 @@ const mongo = require('./commands/mongo')
 const imjokeSchema = require("./schemas/imjoke-schema");
 const commandPrefixSchema = require("./schemas/prefix-schema")
 const Data = require("./schemas/data")
+var Scraper = require('images-scraper');
+
+const google = new Scraper({
+    puppeteer: {
+        headless: true
+    }
+})
 
 const inviteNotifications = require('./commands/invite-notifications');
 
@@ -4295,38 +4302,11 @@ function cursed(message){
 };
 
 function any(message, search){
+    
+    const image_results = google.scrape(search, 1);
+    message.channel.send(image_results[0]);
 
-    var options = {
-        url: "http://results.dogpile.com/serp?qc=images&q=" + search,
-        method: "GET",
-        headers: {
-            "Accept": "text/html",
-            "User-Agent": "Chrome"
-        }
-    }
 
-    request(options, function(error, response, responseBody) {
-        if (error) {
-            console.log(error)
-            return message.channel.send("An error occurred, please try again")
-        }
- 
- 
-        $ = cheerio.load(responseBody);
- 
- 
-        var links = $(".image a.link");
- 
-        var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
- 
-        if (!urls.length) {
-           
-            return message.channel.send("No images available for this search query!")
-        }
- 
-        // Send result
-        message.channel.send( urls[Math.floor(Math.random() * urls.length)]);
-    });
 };
 
     
