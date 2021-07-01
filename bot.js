@@ -3921,9 +3921,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField("`" + prefix + 'mrtubb`', "Get an image of the man himself.")
         .addField("`" + prefix + 'hdtubb`', "Get a HD image of Mr Tubb!")
         .addField("`" + prefix + 'tubb2`', "Get an image of a new Mr Tubb photo!")
-        .addField("`" + prefix + 'meme`', "Get a random meme!")
-        .addField("`" + prefix + 'cursed`', "Get a random cursed image!")
-        .addField("`" + prefix + 'image (search query)`', "Get an image of your search query!")
         .setThumbnail(image2)
         .setColor(0xF1C40F)
         message.channel.send(imageEmbed)
@@ -3945,7 +3942,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         .addField("`" + prefix + 'poll (question)`', "Set up a simple poll for everyone to vote on!")
         .addField("`" + prefix + 'NNN`', "See who has failed No Nut November!")
         .addField("`" + prefix + 'simprate (user)`', "See how much simp your friends are")
-        .addField("`" + prefix + 'joke`', "Get a random joke")
         .addField("`" + prefix + 'dadjoke`', "Get a random dad joke")
         .addField("`" + prefix + 'snake`', "Play the classic game, Snake!")
         .addField("`" + prefix + 'connect4`', "Play Connect 4 with a friend!")
@@ -4018,12 +4014,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         })
 
     }
-    
-    if(message.content.toLowerCase().startsWith(prefix + "meme")){
-        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
-        let data = await random.getMeme();
-        message.channel.send(data);
-    }
 
     if(message.content.toLowerCase().startsWith(prefix + "getadvice")){
         if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
@@ -4031,26 +4021,7 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
         message.channel.send(data);
     }
 
-    if(message.content.toLowerCase().startsWith(prefix + "joke")){
-        if(!message.guild.me.permissions.has("EMBED_LINKS")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `EMBED_LINKS` option on me.");
-        let data = await random.getJoke();
-        message.channel.send(data);
-    }
    
-    
-    
-
-    if(message.content.toLowerCase().startsWith(prefix + "cursed")){
-        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `ATTACH_FILES` option on me.");
-
-        cursed(message);
-    }
-    
-    if(message.content.toLowerCase().startsWith(prefix + "image")){
-        if(!message.guild.me.permissions.has("ATTACH_FILES")) return message.channel.send("I do not have permissions to embedded messages. Please enable the `ATTACH_FILES` option on me.");
-        let searchQuery = args.slice(1).join(" ")
-        any(message, searchQuery)
-    }
     
     if(message.content.toLowerCase().startsWith(prefix + "ringoffire")){
         if(ringoffirecooldown == true){
@@ -4263,55 +4234,6 @@ if(message.content.toLowerCase() === prefix + "photoshop"){
     
 
 });
-
-
-
-function cursed(message){
-
-    var options = {
-        url: "http://results.dogpile.com/serp?qc=images&q=" + "cursed image",
-        method: "GET",
-        headers: {
-            "Accept": "text/html",
-            "User-Agent": "Chrome"
-        }
-    }
-
-    request(options, function(error, response, responseBody) {
-        if (error) {
-            console.log(error)
-            return message.channel.send("An error occurred, please try again")
-        }
- 
- 
-        $ = cheerio.load(responseBody);
- 
- 
-        var links = $(".image a.link");
- 
-        var urls = new Array(links.length).fill(0).map((v, i) => links.eq(i).attr("href"));
- 
-        if (!urls.length) {
-           
-            return;
-        }
- 
-        // Send result
-        message.channel.send( urls[Math.floor(Math.random() * urls.length)]);
-    });
-};
-
-function any(message, search){
-    
-    const image_results = google.scrape(search, 1);
-    message.channel.send(image_results[0]);
-
-
-};
-
-    
-
-
 
 
 Client.login(process.env.BOT_TOKEN);
