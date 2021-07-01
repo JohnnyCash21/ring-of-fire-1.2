@@ -19,6 +19,7 @@
     "@discordjs/opus": "^0.3.3",
     "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
+    "images-scraper": "6.3.0",
     "parse-ms": "^2.1.0",
     "opusscript": "0.0.7",
     "redis": "^3.0.2",
